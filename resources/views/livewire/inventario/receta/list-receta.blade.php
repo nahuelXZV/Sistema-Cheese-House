@@ -12,12 +12,12 @@
             <li aria-current="page">
                 <div class="flex items-center">
                     <x-iconos.flecha />
-                    <span class="ml-1 text-sm font-medium text-gray-500 md:ml-2 dark:text-gray-400">Usuarios</span>
+                    <span class="ml-1 text-sm font-medium text-gray-500 md:ml-2 dark:text-gray-400">Recetas</span>
                 </div>
             </li>
         </ol>
         <div>
-            <a href="{{ route('usuario.new') }}"
+            <a href="{{ route('recetas.new') }}"
                 class="inline-flex items-center justify-center h-9 px-4 ml-5 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-500 focus:ring-opacity-50">
                 Nuevo
             </a>
@@ -44,42 +44,55 @@
                         Nombre
                     </th>
                     <th scope="col" class="px-6 py-3">
-                        Correo
+                        Costo
                     </th>
                     <th scope="col" class="px-6 py-3">
-                        Rol
+                        Descripcion
                     </th>
                     <th scope="col" class="px-6 py-3">
                     </th>
                 </tr>
             </thead>
             <tbody>
-                @foreach ($users as $user)
+                @foreach ($recetas as $receta)
                     <tr
                         class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                         <td class="px-6 py-4">
-                            {{ $user->name }}
+                            {{ $receta->nombre }}
                         </td>
                         <td class="px-6 py-4">
-                            {{ $user->email }}
+                            {{ $receta->costo_total }} Bs
                         </td>
                         <td class="px-6 py-4">
-                            {{ $user->getRoleNames()->implode(' ') ? $user->getRoleNames()->implode(' ') : 'Sin rol' }}
+                            {{ Str::limit($receta->descripcion, 40, '...') }}
                         </td>
                         <td class="px-6 py-4 text-right">
-
                             <div class="inline-flex rounded-md shadow-sm" role="group">
-                                <button type="button" wire:click="delete({{ $user->id }})"
-                                    onclick="confirm('¿Está seguro?') || event.stopImmediatePropagation()"
-                                    class="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-r hover:bg-gray-100 hover:text-red-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 ">
-                                    <x-iconos.delete />
-                                </button>
+                                <div class="inline-flex rounded-md shadow-sm" role="group">
+                                    <a type="button" href="{{ route('recetas.edit', $receta->id) }}"
+                                        class="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-l-lg hover:bg-gray-100 hover:text-blue-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 ">
+                                        <x-iconos.edit />
+                                    </a>
+                                    <a type="button" href="{{ route('recetas.show', $receta->id) }}"
+                                        class="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-900 bg-white border-t border-b border-gray-200 hover:bg-gray-100 hover:text-green-700  dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 ">
+                                        <x-iconos.view />
+                                    </a>
+                                    <button type="button" wire:click="delete({{ $receta->id }})"
+                                        onclick="confirm('¿Está seguro?') || event.stopImmediatePropagation()"
+                                        class="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-r-md hover:bg-gray-100 hover:text-red-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 ">
+                                        <x-iconos.delete />
+                                    </button>
+                                </div>
                             </div>
                         </td>
                     </tr>
                 @endforeach
             </tbody>
-            <x-shared.pagination :modelo='$users' />
+            <x-shared.pagination :modelo='$recetas' />
         </table>
+
+        @if ($showMessage)
+            <x-shared.notificacion :message='$message' />
+        @endif
     </div>
 </div>

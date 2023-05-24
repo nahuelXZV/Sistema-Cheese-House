@@ -20,22 +20,13 @@ class User extends Authenticatable
     use TwoFactorAuthenticatable;
     use HasRoles;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<int, string>
-     */
+
     protected $fillable = [
         'name',
         'email',
         'password',
     ];
 
-    /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var array<int, string>
-     */
     protected $hidden = [
         'password',
         'remember_token',
@@ -43,24 +34,35 @@ class User extends Authenticatable
         'two_factor_secret',
     ];
 
-    /**
-     * The attributes that should be cast.
-     *
-     * @var array<string, string>
-     */
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
 
-    /**
-     * The accessors to append to the model's array form.
-     *
-     * @var array<int, string>
-     */
     protected $appends = [
         'profile_photo_url',
     ];
 
+
+    // TODO VALIDATIONS
+    static public $validate = [
+        'userArray.name' => 'required',
+        'userArray.email' => 'required|email|unique:users,email',
+        'userArray.password' => 'required',
+        'userArray.rol' => 'required'
+    ];
+    static public $messages = [
+        'userArray.name.required' => 'El nombre es requerido',
+        'userArray.email.required' => 'El correo es requerido',
+        'userArray.email.email' => 'El correo no es valido',
+        'userArray.password.required' => 'La contraseña es requerida',
+        'userArray.rol.required' => 'El rol es requerido',
+        'userArray.email.unique' => 'El correo ya existe'
+    ];
+    // TODO RELATIONS
+
+
+
+    // TODO FUNCTIONS
     static public function CreateUsuario(array $array)
     {
         $new = new User();

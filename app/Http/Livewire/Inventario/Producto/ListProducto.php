@@ -1,19 +1,18 @@
 <?php
 
-namespace App\Http\Livewire\Sistema\Usuario;
+namespace App\Http\Livewire\Inventario\Producto;
 
-use App\Models\User;
+use App\Models\Producto;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-class ListUsuario extends Component
+class ListProducto extends Component
 {
     use WithPagination;
     public $attribute = '';
     public $message = '';
     public $showMessage = false;
 
-    //Metodo de reinicio de buscador
     public function updatingAttribute()
     {
         $this->resetPage();
@@ -21,8 +20,8 @@ class ListUsuario extends Component
 
     public function delete($id)
     {
-        $user = User::DeleteUsuario($id);
-        if ($user) {
+        $producto = Producto::DeleteProducto($id);
+        if ($producto) {
             $this->message = 'Eliminado correctamente';
         } else {
             $this->message = 'Error al eliminar';
@@ -32,7 +31,7 @@ class ListUsuario extends Component
 
     public function render()
     {
-        $users = User::GetUsuarios($this->attribute, 'ASC', 20);
-        return view('livewire.sistema.usuario.list-usuario', compact('users'));
+        $productos = Producto::GetProductos($this->attribute, 'ASC', 20);
+        return view('livewire.inventario.producto.list-producto', compact('productos'));
     }
 }
