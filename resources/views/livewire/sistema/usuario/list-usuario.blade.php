@@ -23,7 +23,7 @@
             </a>
         </div>
     </nav>
-
+    <x-shared.notificacion :message='$message' :showMessage='$showMessage' />
     <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
         <div>
             <label for="search" class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
@@ -81,9 +81,5 @@
             </tbody>
             <x-shared.pagination :modelo='$users' />
         </table>
-
-        @if ($showMessage)
-            <x-shared.notificacion :message='$message' />
-        @endif
     </div>
 </div>

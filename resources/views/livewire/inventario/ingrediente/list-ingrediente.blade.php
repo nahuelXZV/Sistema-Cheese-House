@@ -23,7 +23,7 @@
             </a>
         </div>
     </nav>
-
+    <x-shared.notificacion :message='$message' :showMessage='$showMessage' />
     <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
         <div>
             <label for="search" class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
@@ -73,7 +73,7 @@
                             {{ $ingrediente->stock }}
                         </td>
                         <td class="px-6 py-4">
-                            {{ $ingrediente->precio_unidad }}
+                            {{ $ingrediente->precio_unidad }} Bs
                         </td>
                         <td class="px-6 py-4">
                             {{ Str::limit($ingrediente->descripcion, 40, '...') }}
@@ -102,9 +102,5 @@
             </tbody>
             <x-shared.pagination :modelo='$ingredientes' />
         </table>
-
-        @if ($showMessage)
-            <x-shared.notificacion :message='$message' />
-        @endif
     </div>
 </div>

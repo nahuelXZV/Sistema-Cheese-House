@@ -31,4 +31,9 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
+    'app' => [
+        'name' => env('APP_NAME'),
+        'url' => env('APP_URL')
+    ]
+
 ];

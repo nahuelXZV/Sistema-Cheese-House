@@ -31,7 +31,7 @@
         </div>
     </nav>
 
-    <form class="grid grid-cols-2 gap-3">
+    <div class="grid grid-cols-2 gap-3">
         <div class="mb-6">
             <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nombre</label>
             <input type="text" wire:model.lazy="recetaArray.nombre""
@@ -40,11 +40,11 @@
             <x-input-error for="recetaArray.nombre" />
         </div>
         <div class="mb-6">
-            <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Costo</label>
-            <input type="text" wire:model.lazy="recetaArray.costo""
+            <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Costo Total</label>
+            <input type="text" wire:model.lazy="recetaArray.costo_total""
                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 placeholder="0.00" readonly>
-            <x-input-error for="recetaArray.costo" />
+            <x-input-error for="recetaArray.costo_total" />
         </div>
 
         <div class="mb-6 col-span-2">
@@ -61,27 +61,28 @@
         <div class="mb-6 col-span-2 grid grid-cols-2 gap-3">
             <div class="">
                 <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Ingredientes</label>
-                <select
+                <select wire:model="ingredienteArray.ingrediente_id" required
                     class="w-full px-2 py-2 text-sm text-gray-900 bg-gray-50 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                     <option value="">Selecciona los ingredientes</option>
                     @foreach ($ingredientes as $ingrediente)
-                        <option value="{{ $ingrediente }}">{{ $ingrediente->nombre . ' - ' . $ingrediente->unidad }}
+                        <option value="{{ $ingrediente['id'] }}">
+                            {{ $ingrediente['nombre'] . ' - ' . $ingrediente['unidad'] }}
                         </option>
                     @endforeach
                 </select>
-                <x-input-error for="ingrediente_id" />
+                <x-input-error for="ingredienteArray.ingrediente_id" />
             </div>
             <div class="grid grid-cols-2">
                 <div>
                     <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Cantidad</label>
-                    <input type="text"
+                    <input type="text" wire:model="ingredienteArray.cantidad"
                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                        placeholder="0.00" readonly>
-                    <x-input-error for="recetaArray.costo" />
+                        placeholder="0.00" required>
+                    <x-input-error for="ingredienteArray.cantidad" />
                 </div>
                 <div class="grid grid-row-2">
                     <label class="invisible mb-2 text-sm font-medium text-gray-900 dark:text-white">Cantidad</label>
-                    <button
+                    <button wire:click="addIngrediente"
                         class="inline-flex items-center justify-center h-9 px-4 ml-5 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-500 focus:ring-opacity-50">
                         Añadir
                     </button>
@@ -94,21 +95,22 @@
                 <thead class="bg-gray-200">
                     <tr>
                         <th class="px-2 py-2">Nombre</th>
-                        <th class="px-2 py-2">Cantidad</th>
                         <th class="px-2 py-2">Unidad</th>
+                        <th class="px-2 py-2">Cantidad</th>
                         <th class="px-2 py-2">Precio</th>
                         <th class="px-2 py-2">Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach ($recetaArray['ingredientes'] as $ingrediente)
-                        <tr>
+                        <tr class="justify-center items-center text-center">
                             <td class="px-2 py-2">{{ $ingrediente['nombre'] }}</td>
-                            <td class="px-2 py-2">{{ $ingrediente['cantidad'] }}</td>
                             <td class="px-2 py-2">{{ $ingrediente['unidad'] }}</td>
-                            <td class="px-2 py-2">{{ $ingrediente['precio'] }}</td>
+                            <td class="px-2 py-2">{{ $ingrediente['cantidad'] }}</td>
+                            <td class="px-2 py-2">{{ $ingrediente['precio_unidad'] }}</td>
                             <td class="px-2 py-2">
-                                <button wire:click="removeIngrediente({{ $loop->index }})"
+                                <button
+                                    wire:click="deleteIngrediente({{ $ingrediente['ingrediente_id'] }}, {{ $ingrediente['cantidad'] }})"
                                     class="inline-flex items-center justify-center h-9 px-4 text-sm font-medium text-white bg-red-600 rounded-lg hover:bg-red-700 focus:outline-none focus:ring-4 focus:ring-red-500 focus:ring-opacity-50">
                                     Eliminar
                                 </button>
@@ -118,6 +120,6 @@
                 </tbody>
             </table>
         </div>
+    </div>
 
-    </form>
 </div>

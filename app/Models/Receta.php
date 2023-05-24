@@ -15,9 +15,18 @@ class Receta extends Model
     ];
 
     // TODO VALIDATIONS
-    static public $validate = [];
-    static public $messages = [];
-
+    static public $validate = [
+        'recetaArray.nombre' => 'required|min:3|max:100',
+        'recetaArray.descripcion' => 'required|min:3|max:255',
+    ];
+    static public $messages = [
+        'recetaArray.nombre.required' => 'El nombre es requerido',
+        'recetaArray.nombre.min' => 'El nombre debe tener al menos 3 caracteres',
+        'recetaArray.nombre.max' => 'El nombre debe tener maximo 100 caracteres',
+        'recetaArray.descripcion.required' => 'La descripcion es requerida',
+        'recetaArray.descripcion.min' => 'La descripcion debe tener al menos 3 caracteres',
+        'recetaArray.descripcion.max' => 'La descripcion debe tener maximo 255 caracteres',
+    ];
 
     // TODO RELATIONS
     public function ingredientes()
@@ -29,16 +38,32 @@ class Receta extends Model
     // TODO FUNCTIONS
     static public function CreateReceta(array $array)
     {
+        $ingredientes = $array['ingredientes'];
+        unset($array['ingredientes']);
         $new = new Receta($array);
         $new->save();
+        foreach ($ingredientes as $ingrediente) {
+            $new->ingredientes()->attach($ingrediente['ingrediente_id'], [
+                'cantidad' => $ingrediente['cantidad'],
+                'costo' => $ingrediente['cantidad'] * $ingrediente['precio_unidad']
+            ]);
+        }
         return $new;
     }
 
     static public function UpdateReceta($id, array $array)
     {
         $receta = Receta::find($id);
+        $ingredientes = $array['ingredientes'];
+        unset($array['ingredientes']);
         $receta->fill($array);
         $receta->save();
+        foreach ($ingredientes as $ingrediente) {
+            $receta->ingredientes()->syncWithoutDetaching([$ingrediente['ingrediente_id'] => [
+                'cantidad' => $ingrediente['cantidad'],
+                'costo' => $ingrediente['cantidad'] * $ingrediente['precio_unidad']
+            ]]);
+        }
         return $receta;
     }
 
@@ -62,5 +87,11 @@ class Receta extends Model
     {
         $receta = Receta::find($id);
         return $receta;
+    }
+
+    static public function GetRecetasAll()
+    {
+        $recetas = Receta::all();
+        return $recetas;
     }
 }

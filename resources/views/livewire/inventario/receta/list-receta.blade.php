@@ -23,7 +23,7 @@
             </a>
         </div>
     </nav>
-
+    <x-shared.notificacion :message='$message' :showMessage='$showMessage' />
     <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
         <div>
             <label for="search" class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
@@ -61,7 +61,7 @@
                             {{ $receta->nombre }}
                         </td>
                         <td class="px-6 py-4">
-                            {{ $receta->costo }}
+                            {{ $receta->costo_total }} Bs
                         </td>
                         <td class="px-6 py-4">
                             {{ Str::limit($receta->descripcion, 40, '...') }}
