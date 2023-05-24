@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Livewire\Sistema\Usuario;
+namespace App\Http\Livewire\Inventario\Ingrediente;
 
-use App\Models\User;
+use App\Models\Ingrediente;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-class ListUsuario extends Component
+class ListIngrediente extends Component
 {
     use WithPagination;
     public $attribute = '';
@@ -21,7 +21,7 @@ class ListUsuario extends Component
 
     public function delete($id)
     {
-        $user = User::DeleteUsuario($id);
+        $user = Ingrediente::DeleteIngrediente($id);
         if ($user) {
             $this->message = 'Eliminado correctamente';
         } else {
@@ -32,7 +32,7 @@ class ListUsuario extends Component
 
     public function render()
     {
-        $users = User::GetUsuarios($this->attribute, 'ASC', 20);
-        return view('livewire.sistema.usuario.list-usuario', compact('users'));
+        $ingredientes = Ingrediente::GetIngredientes($this->attribute, 'ASC', 20);
+        return view('livewire.inventario.ingrediente.list-ingrediente', compact('ingredientes'));
     }
 }

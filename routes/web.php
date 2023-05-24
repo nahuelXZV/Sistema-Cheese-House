@@ -1,6 +1,17 @@
 <?php
 
 use App\Http\Livewire\Example;
+use App\Http\Livewire\Inventario\Ingrediente\EditIngrediente;
+use App\Http\Livewire\Inventario\Ingrediente\ListIngrediente;
+use App\Http\Livewire\Inventario\Ingrediente\NewIngrediente;
+use App\Http\Livewire\Inventario\Ingrediente\ShowIngrediente;
+use App\Http\Livewire\Inventario\Producto\EditProducto;
+use App\Http\Livewire\Inventario\Producto\ListProducto;
+use App\Http\Livewire\Inventario\Producto\NewProducto;
+use App\Http\Livewire\Inventario\Receta\EditReceta;
+use App\Http\Livewire\Inventario\Receta\ListReceta;
+use App\Http\Livewire\Inventario\Receta\NewReceta;
+use App\Http\Livewire\Inventario\Receta\ShowReceta;
 use App\Http\Livewire\Sistema\Rol\EditRol;
 use App\Http\Livewire\Sistema\Rol\ListRol;
 use App\Http\Livewire\Sistema\Rol\NewRol;
@@ -34,12 +45,32 @@ Route::middleware([
     Route::group(['prefix' => 'usuario'], function () {
         Route::get('/list', ListUsuario::class)->name('usuario.list');
         Route::get('/new', NewUsuario::class)->name('usuario.new');
-        Route::post('/edit/{usuario}', EditUsuario::class)->name('usuario.edit');
+        Route::get('/edit/{usuario}', EditUsuario::class)->name('usuario.edit');
     });
 
     Route::group(['prefix' => 'roles'], function () {
         Route::get('/list', ListRol::class)->name('roles.list');
         Route::get('/new', NewRol::class)->name('roles.new');
-        Route::post('/edit/{usuario}', EditRol::class)->name('roles.edit');
+        Route::get('/edit/{rol}', EditRol::class)->name('roles.edit');
+    });
+
+    Route::group(['prefix' => 'ingredientes'], function () {
+        Route::get('/list', ListIngrediente::class)->name('ingredientes.list');
+        Route::get('/new', NewIngrediente::class)->name('ingredientes.new');
+        Route::get('/edit/{ingrediente}', EditIngrediente::class)->name('ingredientes.edit');
+        Route::get('/show/{ingrediente}', ShowIngrediente::class)->name('ingredientes.show');
+    });
+
+    Route::group(['prefix' => 'recetas'], function () {
+        Route::get('/list', ListReceta::class)->name('recetas.list');
+        Route::get('/new', NewReceta::class)->name('recetas.new');
+        Route::get('/edit/{receta}', EditReceta::class)->name('recetas.edit');
+        Route::get('/show/{receta}', ShowReceta::class)->name('recetas.show');
+    });
+
+    Route::group(['prefix' => 'productos'], function () {
+        Route::get('/list', ListProducto::class)->name('productos.list');
+        Route::get('/new', NewProducto::class)->name('productos.new');
+        Route::get('/edit/{producto}', EditProducto::class)->name('productos.edit');
     });
 });
