@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('productos', function (Blueprint $table) {
             $table->id();
             $table->string('nombre', 150)->unique();
-            $table->string('descripcion', 255)->nullable();
+            $table->text('descripcion')->nullable();
             $table->decimal('precio', 10, 2)->default(0.00);
             $table->string('tamaño')->default('familiar');
             $table->string('url_imagen');
