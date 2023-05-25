@@ -79,7 +79,7 @@
                     </tr>
                 @endforeach
             </tbody>
-            <x-shared.pagination :modelo='$users' />
         </table>
+        <x-shared.pagination :modelo='$users' />
     </div>
 </div>

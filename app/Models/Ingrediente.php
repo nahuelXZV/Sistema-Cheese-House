@@ -103,4 +103,12 @@ class Ingrediente extends Model
         $ingrediente = Ingrediente::find($id);
         return $ingrediente;
     }
+
+    static public function UpdateStock($id, $stock)
+    {
+        $ingrediente = Ingrediente::find($id);
+        $ingrediente->stock = $ingrediente->stock + $stock;
+        $ingrediente->save();
+        return $ingrediente;
+    }
 }

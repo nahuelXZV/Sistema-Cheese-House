@@ -70,7 +70,7 @@
                     </tr>
                 @endforeach
             </tbody>
-            <x-shared.pagination :modelo='$roles' />
         </table>
+        <x-shared.pagination :modelo='$roles' />
     </div>
 </div>

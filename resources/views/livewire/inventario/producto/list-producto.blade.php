@@ -143,8 +143,8 @@
                     </tr>
                 @endforeach
             </tbody>
-            <x-shared.pagination :modelo='$productos' />
         </table>
+        <x-shared.pagination :modelo='$productos' />
 
     </div>
 </div>

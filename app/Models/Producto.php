@@ -152,4 +152,18 @@ class Producto extends Model
         $producto = Producto::find($id);
         return $producto;
     }
+
+    static public function GetProductosAll()
+    {
+        $productos = Producto::where('is_active', true)->get();
+        return $productos;
+    }
+
+    static public function UpdateStock($id, $stock)
+    {
+        $producto = Producto::find($id);
+        $producto->stock = $producto->stock + $stock;
+        $producto->save();
+        return $producto;
+    }
 }

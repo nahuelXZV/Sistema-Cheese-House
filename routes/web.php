@@ -3,9 +3,11 @@
 use App\Http\Livewire\Compra\Compra\EditCompra;
 use App\Http\Livewire\Compra\Compra\ListCompra;
 use App\Http\Livewire\Compra\Compra\NewCompra;
+use App\Http\Livewire\Compra\Compra\ShowCompra;
 use App\Http\Livewire\Compra\Proveedor\EditProveedor;
 use App\Http\Livewire\Compra\Proveedor\ListProveedor;
 use App\Http\Livewire\Compra\Proveedor\NewProveedor;
+use App\Http\Livewire\Compra\Proveedor\ShowProveedor;
 use App\Http\Livewire\Example;
 use App\Http\Livewire\Inventario\Ingrediente\EditIngrediente;
 use App\Http\Livewire\Inventario\Ingrediente\ListIngrediente;
@@ -88,11 +90,13 @@ Route::middleware([
         Route::get('/list', ListProveedor::class)->name('proveedores.list');
         Route::get('/new', NewProveedor::class)->name('proveedores.new');
         Route::get('/edit/{proveedor}', EditProveedor::class)->name('proveedores.edit');
+        Route::get('/show/{proveedor}', ShowProveedor::class)->name('proveedores.show');
     });
 
     Route::group(['prefix' => 'compras'], function () {
         Route::get('/list', ListCompra::class)->name('compras.list');
         Route::get('/new', NewCompra::class)->name('compras.new');
         Route::get('/edit/{compra}', EditCompra::class)->name('compras.edit');
+        Route::get('/show/{compra}', ShowCompra::class)->name('compras.show');
     });
 });

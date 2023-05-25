@@ -42,6 +42,10 @@ class Proveedor extends Model
     ];
 
     // TODO RELATIONS
+    public function compras()
+    {
+        return $this->hasMany(NotaCompra::class);
+    }
 
 
     // TODO FUNCTIONS
