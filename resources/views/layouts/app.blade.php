@@ -141,6 +141,22 @@
                         <span class="flex-1 ml-3 whitespace-nowrap">Productos</span>
                     </a>
                 </li>
+
+                <li>
+                    <a href="{{ route('proveedores.list') }}"
+                        class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
+                        <x-iconos.proveedor />
+                        <span class="flex-1 ml-3 whitespace-nowrap">Proveedores</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{{ route('compras.list') }}"
+                        class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
+                        <x-iconos.compra />
+                        <span class="flex-1 ml-3 whitespace-nowrap">Compras</span>
+                    </a>
+                </li>
             </ul>
         </div>
     </aside>

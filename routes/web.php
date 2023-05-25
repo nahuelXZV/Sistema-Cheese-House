@@ -1,5 +1,11 @@
 <?php
 
+use App\Http\Livewire\Compra\Compra\EditCompra;
+use App\Http\Livewire\Compra\Compra\ListCompra;
+use App\Http\Livewire\Compra\Compra\NewCompra;
+use App\Http\Livewire\Compra\Proveedor\EditProveedor;
+use App\Http\Livewire\Compra\Proveedor\ListProveedor;
+use App\Http\Livewire\Compra\Proveedor\NewProveedor;
 use App\Http\Livewire\Example;
 use App\Http\Livewire\Inventario\Ingrediente\EditIngrediente;
 use App\Http\Livewire\Inventario\Ingrediente\ListIngrediente;
@@ -42,6 +48,7 @@ Route::middleware([
 
     Route::get('/example', Example::class)->name('example');
 
+    // MODULO SISTEMA
     Route::group(['prefix' => 'usuario'], function () {
         Route::get('/list', ListUsuario::class)->name('usuario.list');
         Route::get('/new', NewUsuario::class)->name('usuario.new');
@@ -54,6 +61,8 @@ Route::middleware([
         Route::get('/edit/{rol}', EditRol::class)->name('roles.edit');
     });
 
+
+    // MODULO INVENTARIO
     Route::group(['prefix' => 'ingredientes'], function () {
         Route::get('/list', ListIngrediente::class)->name('ingredientes.list');
         Route::get('/new', NewIngrediente::class)->name('ingredientes.new');
@@ -72,5 +81,18 @@ Route::middleware([
         Route::get('/list', ListProducto::class)->name('productos.list');
         Route::get('/new', NewProducto::class)->name('productos.new');
         Route::get('/edit/{producto}', EditProducto::class)->name('productos.edit');
+    });
+
+    // MODULO COMPRAS
+    Route::group(['prefix' => 'proveedores'], function () {
+        Route::get('/list', ListProveedor::class)->name('proveedores.list');
+        Route::get('/new', NewProveedor::class)->name('proveedores.new');
+        Route::get('/edit/{proveedor}', EditProveedor::class)->name('proveedores.edit');
+    });
+
+    Route::group(['prefix' => 'compras'], function () {
+        Route::get('/list', ListCompra::class)->name('compras.list');
+        Route::get('/new', NewCompra::class)->name('compras.new');
+        Route::get('/edit/{compra}', EditCompra::class)->name('compras.edit');
     });
 });

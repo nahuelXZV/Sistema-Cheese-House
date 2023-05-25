@@ -19,7 +19,7 @@ return new class extends Migration
             $table->decimal('precio_unidad', 10, 2)->default(0.00);
             $table->integer('stock_minimo')->default(0);
             $table->integer('stock_maximo')->default(0);
-            $table->string('descripcion', 255)->nullable();
+            $table->text('descripcion')->nullable();
             $table->timestamps();
         });
     }

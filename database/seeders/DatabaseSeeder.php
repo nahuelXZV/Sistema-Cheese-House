@@ -34,5 +34,18 @@ class DatabaseSeeder extends Seeder
             'email' => 'admin@gmail.com',
             'password' => bcrypt('12345678'),
         ])->assignRole('Administrador');
+
+        // crear 50 ingredientes con datos random de forma manual sin un factory
+        for ($i = 0; $i < 50; $i++) {
+            $ingrediente = new \App\Models\Ingrediente();
+            $ingrediente->nombre = 'Ingrediente ' . $i;
+            $ingrediente->unidad = 'Unidad ' . $i;
+            $ingrediente->stock = rand(1, 100);
+            $ingrediente->precio_unidad = rand(1, 100);
+            $ingrediente->stock_minimo = rand(1, 100);
+            $ingrediente->stock_maximo = rand(1, 100);
+            $ingrediente->descripcion = 'Descripcion ' . $i;
+            $ingrediente->save();
+        }
     }
 }
