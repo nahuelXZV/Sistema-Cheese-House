@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\dashboard as ControllersDashboard;
 use App\Http\Livewire\Compra\Compra\EditCompra;
 use App\Http\Livewire\Compra\Compra\ListCompra;
 use App\Http\Livewire\Compra\Compra\NewCompra;
@@ -26,7 +27,12 @@ use App\Http\Livewire\Sistema\Rol\NewRol;
 use App\Http\Livewire\Sistema\Usuario\EditUsuario;
 use App\Http\Livewire\Sistema\Usuario\ListUsuario;
 use App\Http\Livewire\Sistema\Usuario\NewUsuario;
+use App\Http\Livewire\Ventas\Pedido\EditPedido;
+use App\Http\Livewire\Ventas\Pedido\ListPedido;
+use App\Http\Livewire\Ventas\Pedido\NewPedido;
+use App\Http\Livewire\Ventas\Pedido\ShowPedido;
 use Illuminate\Support\Facades\Route;
+use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
 /*
 |--------------------------------------------------------------------------
@@ -44,9 +50,7 @@ Route::middleware([
     config('jetstream.auth_session'),
     'verified'
 ])->group(function () {
-    Route::get('/', function () {
-        return view('dashboard');
-    })->name('dashboard');
+    Route::get('/', [ControllersDashboard::class, 'index'])->name('dashboard');
 
     Route::get('/example', Example::class)->name('example');
 
@@ -98,5 +102,12 @@ Route::middleware([
         Route::get('/new', NewCompra::class)->name('compras.new');
         Route::get('/edit/{compra}', EditCompra::class)->name('compras.edit');
         Route::get('/show/{compra}', ShowCompra::class)->name('compras.show');
+    });
+
+    Route::group(['prefix' => 'pedidos'], function () {
+        Route::get('/list', ListPedido::class)->name('pedidos.list');
+        Route::get('/new', NewPedido::class)->name('pedidos.new');
+        Route::get('/edit/{pedido}', EditPedido::class)->name('pedidos.edit');
+        Route::get('/show/{pedido}', ShowPedido::class)->name('pedidos.show');
     });
 });
