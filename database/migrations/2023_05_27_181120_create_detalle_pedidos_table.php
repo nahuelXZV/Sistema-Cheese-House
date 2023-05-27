@@ -13,6 +13,17 @@ return new class extends Migration
     {
         Schema::create('detalle_pedidos', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('pedido_id');
+            $table->foreign('pedido_id')->references('id')->on('pedidos')->onDelete('cascade');;
+            $table->unsignedBigInteger('producto_id');
+            $table->foreign('producto_id')->references('id')->on('productos')->onDelete('cascade');;
+            $table->integer('cantidad');
+            $table->decimal('precio', 10, 2)->default(0.00);
+            $table->decimal('monto_total', 10, 2)->default(0.00);
+            $table->text('detalles')->nullable();
+
+            $table->unsignedBigInteger('mitad_uno')->nullable();
+            $table->unsignedBigInteger('mitad_dos')->nullable();
             $table->timestamps();
         });
     }
