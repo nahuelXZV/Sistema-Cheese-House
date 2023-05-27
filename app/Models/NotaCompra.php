@@ -138,6 +138,9 @@ class NotaCompra extends Model
     static public function DeleteNotaCompra($id)
     {
         $notaCompra = NotaCompra::find($id);
+        foreach ($notaCompra->detalle_compras as $detalleCompra) {
+            DetalleCompra::DeleteDetalleCompra($detalleCompra->id);
+        }
         $notaCompra->delete();
         return $notaCompra;
     }

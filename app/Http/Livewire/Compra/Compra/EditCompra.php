@@ -95,7 +95,7 @@ class EditCompra extends Component
             $this->productosArray['monto_total'] += $this->productosArray['cantidad'] * $this->productosArray['precio_unidad'];
             $this->compraArray['monto_total'] += $this->productosArray['monto_total'];
             array_push($this->compraArray['productos'], $this->productosArray);
-            $this->ingredientes = array_filter($this->ingredientes, function ($item) {
+            $this->productos = array_filter($this->productos, function ($item) {
                 return $item['id'] != $this->productosArray['producto_id'];
             });
         }
