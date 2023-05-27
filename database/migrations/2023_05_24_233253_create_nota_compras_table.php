@@ -13,7 +13,6 @@ return new class extends Migration
     {
         Schema::create('nota_compras', function (Blueprint $table) {
             $table->id();
-            $table->string('numero_nota');
             $table->text('descripcion')->nullable();
             $table->decimal('monto_total', 10, 2)->default(0.00);
             $table->string('estado')->default('Pendiente');

@@ -73,10 +73,7 @@
                                         class="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-l-lg hover:bg-gray-100 hover:text-blue-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 ">
                                         <x-iconos.edit />
                                     </a>
-                                    <a type="button" href="{{ route('recetas.show', $receta->id) }}"
-                                        class="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-900 bg-white border-t border-b border-gray-200 hover:bg-gray-100 hover:text-green-700  dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 ">
-                                        <x-iconos.view />
-                                    </a>
+
                                     <button type="button" wire:click="delete({{ $receta->id }})"
                                         onclick="confirm('¿Está seguro?') || event.stopImmediatePropagation()"
                                         class="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-r-md hover:bg-gray-100 hover:text-red-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 ">
@@ -88,11 +85,7 @@
                     </tr>
                 @endforeach
             </tbody>
-            <x-shared.pagination :modelo='$recetas' />
         </table>
-
-        @if ($showMessage)
-            <x-shared.notificacion :message='$message' />
-        @endif
+        <x-shared.pagination :modelo='$recetas' />
     </div>
 </div>

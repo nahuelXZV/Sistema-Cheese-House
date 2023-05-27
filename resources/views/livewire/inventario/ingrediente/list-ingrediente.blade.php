@@ -100,7 +100,7 @@
                     </tr>
                 @endforeach
             </tbody>
-            <x-shared.pagination :modelo='$ingredientes' />
         </table>
+        <x-shared.pagination :modelo='$ingredientes' />
     </div>
 </div>
