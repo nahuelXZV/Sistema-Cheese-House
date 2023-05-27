@@ -28,6 +28,10 @@ class DatabaseSeeder extends Seeder
         Permission::create(['name' => 'ingredientes', 'description' => 'Gestionar Ingredientes'])->syncRoles($admin);
         Permission::create(['name' => 'productos', 'description' => 'Gestionar Productos'])->syncRoles($admin);
         Permission::create(['name' => 'recetas', 'description' => 'Gestionar Recetas'])->syncRoles($admin);
+        Permission::create(['name' => 'productos', 'description' => 'Gestionar Productos'])->syncRoles($admin);
+        Permission::create(['name' => 'proveedores', 'description' => 'Gestionar Proveedores'])->syncRoles($admin);
+        Permission::create(['name' => 'compras', 'description' => 'Gestionar Compras'])->syncRoles($admin);
+        Permission::create(['name' => 'pedidos', 'description' => 'Gestionar Pedidos'])->syncRoles($admin);
 
         User::create([
             'name' => 'Administrador',
