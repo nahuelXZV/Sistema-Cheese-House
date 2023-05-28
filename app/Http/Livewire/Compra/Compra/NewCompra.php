@@ -34,6 +34,7 @@ class NewCompra extends Component
             'proveedor_id' => '',
             'productos' => [],
             'estado' => 'finalizado',
+            'proveniente' => ''
         ];
         $this->resetProductoArray();
     }

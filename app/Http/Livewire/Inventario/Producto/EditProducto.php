@@ -17,6 +17,8 @@ class EditProducto extends Component
     public $showMessage = false;
     public $foto;
     public $producto;
+    private $validateFoto = ['foto' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg'];
+    private $messagesFoto = ['foto.image' => 'La foto debe ser una imagen', 'foto.mimes' => 'La foto debe ser de tipo jpeg,png,jpg,gif,svg'];
 
     public function mount($producto)
     {
@@ -39,13 +41,18 @@ class EditProducto extends Component
 
     public function save()
     {
-        if ($this->productoArray['categoria'] == 'Pizza' || $this->productoArray['categoria'] == 'Bebida')
+        $this->productoArray['is_active'] = $this->productoArray['is_active'] == 1 ? true : false;
+        if ($this->productoArray['categoria'] == 'Pizza' || $this->productoArray['categoria'] == 'Postre') {
+            $this->validate($this->validateFoto, $this->messagesFoto);
             $this->validate(Producto::$validatePizzaPostre, Producto::$messagesPizzaPostre);
-        else
+        } else {
+            $this->validate($this->validateFoto, $this->messagesFoto);
             $this->validate(Producto::$validateBebidaOtro, Producto::$messagesBebidaOtro);
-
-        $url = Request::getScheme() . '://' . Request::getHost();
-        $this->productoArray['url_imagen'] =  $url . '/storage/' . $this->foto->store('public/productos', 'public');
+        }
+        if ($this->foto) {
+            $url = Request::getScheme() . '://' . Request::getHost();
+            $this->productoArray['url_imagen'] =  $url . '/storage/' . $this->foto->store('public/productos', 'public');
+        }
         $new = Producto::UpdateProducto($this->producto->id, $this->productoArray);
         if (!$new) {
             $this->message = 'Error al crear el ingrediente';

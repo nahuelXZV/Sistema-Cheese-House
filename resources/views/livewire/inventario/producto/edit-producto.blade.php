@@ -94,7 +94,27 @@
                 <option value="Otro">Otro</option>
             </select>
             <x-input-error for="productoArray.categoria" />
+        </div>
 
+        <div class="mb-6">
+            <label for="categoria" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Estado</label>
+            <div class="grid grid-cols-2">
+                <div class="flex items-center pl-4 border border-gray-200 rounded dark:border-gray-700">
+                    <input id="bordered-radio-1" type="radio" value="{{ true }}" name="bordered-radio"
+                        wire:model="productoArray.is_active"
+                        class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                    <label for="bordered-radio-1"
+                        class="w-full py-3 ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Activo</label>
+                </div>
+                <div class="flex items-center pl-4 border border-gray-200 rounded dark:border-gray-700">
+                    <input id="bordered-radio-2" type="radio" value="{{ false }}" name="bordered-radio"
+                        wire:model="productoArray.is_active"
+                        class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                    <label for="bordered-radio-2"
+                        class="w-full py-3 ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Inactivo</label>
+                </div>
+            </div>
+            <x-input-error for="productoArray.is_active" />
         </div>
 
         @if ($productoArray['categoria'] == 'Pizza' || $productoArray['categoria'] == 'Postre')
@@ -133,7 +153,8 @@
 
             <div class="mb-6">
                 <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Stock*</label>
-                <input type="number" wire:model.lazy="productoArray.stock" min=" 0" max="1000000" step="1"
+                <input type="number" wire:model.lazy="productoArray.stock" min=" 0" max="1000000"
+                    step="1"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     placeholder="0" required>
                 <x-input-error for="productoArray.stock" />

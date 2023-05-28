@@ -31,17 +31,19 @@ class NewProducto extends Component
             'stock' => 0,
             'stock_minimo' => 0,
             'stock_maximo' => 0,
-            'receta_id' => '',
+            'receta_id' => null,
         ];
     }
 
     public function save()
     {
-        if ($this->productoArray['categoria'] == 'Pizza' || $this->productoArray['categoria'] == 'Bebida')
+        if ($this->productoArray['categoria'] == 'Pizza' || $this->productoArray['categoria'] == 'Postre') {
+            $this->validate(['foto' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048'], ['foto.required' => 'La foto es requerida', 'foto.image' => 'La foto debe ser una imagen', 'foto.mimes' => 'La foto debe ser de tipo jpeg,png,jpg,gif,svg', 'foto.max' => 'La foto debe pesar menos de 2MB']);
             $this->validate(Producto::$validatePizzaPostre, Producto::$messagesPizzaPostre);
-        else
+        } else {
+            $this->validate(['foto' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048'], ['foto.required' => 'La foto es requerida', 'foto.image' => 'La foto debe ser una imagen', 'foto.mimes' => 'La foto debe ser de tipo jpeg,png,jpg,gif,svg', 'foto.max' => 'La foto debe pesar menos de 2MB']);
             $this->validate(Producto::$validateBebidaOtro, Producto::$messagesBebidaOtro);
-
+        }
         $url = Request::getScheme() . '://' . Request::getHost();
         $this->productoArray['url_imagen'] =  $url . '/storage/' . $this->foto->store('public/productos', 'public');
         $new = Producto::CreateProducto($this->productoArray);
