@@ -24,9 +24,8 @@ return new class extends Migration
             $table->integer('stock')->default(0);
             $table->integer('stock_minimo')->default(0);
             $table->integer('stock_maximo')->default(0);
-
-            $table->foreignId('receta_id')->constrained('recetas')->nullable()->onDelete('cascade');
-
+            $table->unsignedBigInteger('receta_id')->nullable();
+            $table->foreign('receta_id')->references('id')->on('recetas')->onDelete('cascade');
             $table->timestamps();
         });
     }

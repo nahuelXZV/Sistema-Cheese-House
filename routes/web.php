@@ -55,35 +55,34 @@ Route::middleware([
     Route::get('/example', Example::class)->name('example');
 
     // MODULO SISTEMA
-    Route::group(['prefix' => 'usuario'], function () {
+    Route::group(['prefix' => 'usuario', 'middleware' => ['can:usuarios', 'auth']], function () {
         Route::get('/list', ListUsuario::class)->name('usuario.list');
         Route::get('/new', NewUsuario::class)->name('usuario.new');
         Route::get('/edit/{usuario}', EditUsuario::class)->name('usuario.edit');
     });
 
-    Route::group(['prefix' => 'roles'], function () {
+    Route::group(['prefix' => 'roles', 'middleware' => ['can:roles', 'auth']], function () {
         Route::get('/list', ListRol::class)->name('roles.list');
         Route::get('/new', NewRol::class)->name('roles.new');
         Route::get('/edit/{rol}', EditRol::class)->name('roles.edit');
     });
 
-
     // MODULO INVENTARIO
-    Route::group(['prefix' => 'ingredientes'], function () {
+    Route::group(['prefix' => 'ingredientes', 'middleware' => ['can:ingredientes', 'auth']], function () {
         Route::get('/list', ListIngrediente::class)->name('ingredientes.list');
         Route::get('/new', NewIngrediente::class)->name('ingredientes.new');
         Route::get('/edit/{ingrediente}', EditIngrediente::class)->name('ingredientes.edit');
         Route::get('/show/{ingrediente}', ShowIngrediente::class)->name('ingredientes.show');
     });
 
-    Route::group(['prefix' => 'recetas'], function () {
+    Route::group(['prefix' => 'recetas', 'middleware' => ['can:recetas', 'auth']], function () {
         Route::get('/list', ListReceta::class)->name('recetas.list');
         Route::get('/new', NewReceta::class)->name('recetas.new');
         Route::get('/edit/{receta}', EditReceta::class)->name('recetas.edit');
         Route::get('/show/{receta}', ShowReceta::class)->name('recetas.show');
     });
 
-    Route::group(['prefix' => 'productos'], function () {
+    Route::group(['prefix' => 'productos', 'middleware' => ['can:productos', 'auth']], function () {
         Route::get('/list', ListProducto::class)->name('productos.list');
         Route::get('/new', NewProducto::class)->name('productos.new');
         Route::get('/edit/{producto}', EditProducto::class)->name('productos.edit');
@@ -97,14 +96,14 @@ Route::middleware([
         Route::get('/show/{proveedor}', ShowProveedor::class)->name('proveedores.show');
     });
 
-    Route::group(['prefix' => 'compras'], function () {
+    Route::group(['prefix' => 'compras', 'middleware' => ['can:compras', 'auth']], function () {
         Route::get('/list', ListCompra::class)->name('compras.list');
         Route::get('/new', NewCompra::class)->name('compras.new');
         Route::get('/edit/{compra}', EditCompra::class)->name('compras.edit');
         Route::get('/show/{compra}', ShowCompra::class)->name('compras.show');
     });
 
-    Route::group(['prefix' => 'pedidos'], function () {
+    Route::group(['prefix' => 'pedidos', 'middleware' => ['can:pedidos', 'auth']], function () {
         Route::get('/list', ListPedido::class)->name('pedidos.list');
         Route::get('/new', NewPedido::class)->name('pedidos.new');
         Route::get('/edit/{pedido}', EditPedido::class)->name('pedidos.edit');

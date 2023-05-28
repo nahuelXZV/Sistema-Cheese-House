@@ -78,7 +78,7 @@
                             {{ $producto->nombre }}
                         </td>
                         <td class="px-6 py-4">
-                            {{ $producto->receta->nombre }}
+                            {{ $producto->receta->nombre ?? 'Sin Receta' }}
                         </td>
                         <td class="px-6 py-4">
                             {{ $producto->precio }} Bs

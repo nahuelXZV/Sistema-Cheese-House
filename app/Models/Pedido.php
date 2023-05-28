@@ -20,9 +20,28 @@ class Pedido extends Model
     ];
 
     // TODO VALIDATIONS
-    static public $validate = [];
-    static public $messages = [];
-
+    static public $validate = [
+        'pedidoArray.fecha' => 'required|date',
+        'pedidoArray.hora' => 'required|date_format:H:i',
+        'pedidoArray.estado' => 'required',
+        'pedidoArray.monto_total' => 'required|numeric|min:0',
+        'pedidoArray.metodo_pago' => 'required',
+        'pedidoArray.proveniente' => 'required',
+    ];
+    static public $messages = [
+        'pedidoArray.fecha.required' => 'El campo fecha es requerido',
+        'pedidoArray.fecha.date' => 'El campo fecha debe ser una fecha',
+        'pedidoArray.hora.required' => 'El campo hora es requerido',
+        'pedidoArray.hora.date_format' => 'El campo hora debe ser una hora',
+        'pedidoArray.estado.required' => 'El campo estado es requerido',
+        'pedidoArray.monto_total.required' => 'El campo monto total es requerido',
+        'pedidoArray.monto_total.numeric' => 'El campo monto total debe ser un numero',
+        'pedidoArray.monto_total.min' => 'El campo monto total debe ser mayor a 0',
+        'pedidoArray.metodo_pago.required' => 'El campo metodo de pago es requerido',
+        'pedidoArray.proveniente.required' => 'El campo proveniente es requerido',
+    ];
+    static public $validateProductos = [];
+    static public $messageProductos = [];
 
 
     // TODO RELATIONS
@@ -37,7 +56,7 @@ class Pedido extends Model
     }
 
     // TODO FUNCTIONS
-    static public function CreateNotaCompra(array $array)
+    static public function CreatePedido(array $array)
     {
         $productos = $array['productos'];
         unset($array['productos']);
@@ -46,7 +65,7 @@ class Pedido extends Model
         $new->save();
 
         foreach ($productos as $producto) {
-            $detalleCompra = [
+            $detallePedido = [
                 'pedido_id' => $new->id,
                 'producto_id' => intval($producto['producto_id']),
                 'cantidad' => $producto['cantidad'],
@@ -56,25 +75,25 @@ class Pedido extends Model
                 'mitad_uno' => intval($producto['mitad_uno']) == 0 ? null : intval($producto['mitad_uno']),
                 'mitad_dos' => intval($producto['mitad_dos']) == 0 ? null : intval($producto['mitad_dos']),
             ];
-            // DetallePedido::CreateDetalleCompra($detalleCompra);
+            DetallePedido::CreateDetallePedido($detallePedido);
         }
         return $new;
     }
 
-    static public function UpdateNotaCompra($id, array $array)
+    static public function UpdatePedido($id, array $array)
     {
-        $notaCompra = NotaCompra::find($id);
+        $pedido = Pedido::find($id);
 
         $productos = $array['productos'];
         unset($array['productos']);
 
-        $notaCompra->fill($array);
-        $notaCompra->save();
+        $pedido->fill($array);
+        $pedido->save();
 
-        DetalleCompra::DeleteAllByNotaCompra($notaCompra->id);
+        DetallePedido::DeleteAllByPedido($pedido->id);
         foreach ($productos as $producto) {
-            $detalleCompra = [
-                'pedido_id' => $notaCompra->id,
+            $detallePedido = [
+                'pedido_id' => $pedido->id,
                 'producto_id' => intval($producto['producto_id']),
                 'cantidad' => $producto['cantidad'],
                 'precio' => $producto['precio'],
@@ -83,26 +102,25 @@ class Pedido extends Model
                 'mitad_uno' => intval($producto['mitad_uno']) == 0 ? null : intval($producto['mitad_uno']),
                 'mitad_dos' => intval($producto['mitad_dos']) == 0 ? null : intval($producto['mitad_dos']),
             ];
-            // DetalleCompra::CreateDetalleCompra($detalleCompra);
+            DetalleCompra::CreateDetalleCompra($detallePedido);
         }
-        return $notaCompra;
+        return $pedido;
     }
 
-    static public function DeleteNotaCompra($id)
+    static public function DeletePedido($id)
     {
-        $notaCompra = Pedido::find($id);
-        // foreach ($notaCompra->detalle_compras as $detalleCompra) {
-        //     DetalleCompra::DeleteDetalleCompra($detalleCompra->id);
-        // }
-        $notaCompra->delete();
-        return $notaCompra;
+        $pedido = Pedido::find($id);
+        foreach ($pedido->detalle_pedidos as $detalle) {
+            DetallePedido::DeleteDetallePedido($detalle->id);
+        }
+        $pedido->delete();
+        return $pedido;
     }
 
-    static public function GetNotaCompras($attribute, $order, $paginate)
+    static public function GetPedidos($attribute, $order, $paginate)
     {
         $pedidos = Pedido::join('users', 'users.id', '=', 'pedidos.user_id')
             ->select('pedidos.*', 'users.name as user_name')
-            ->orWhere('pedidos.id', 'LIKE', "%$attribute%")
             ->orWhere('pedidos.fecha', 'LIKE', "%$attribute%")
             ->orWhere('pedidos.hora', 'LIKE', "%$attribute%")
             ->orWhere('pedidos.estado', 'LIKE', "%$attribute%")
@@ -116,13 +134,13 @@ class Pedido extends Model
         return $pedidos;
     }
 
-    static public function GetNotaCompra($id)
+    static public function GetPedido($id)
     {
         $pedido = Pedido::find($id);
         return $pedido;
     }
 
-    static public function GetNotaComprasAll()
+    static public function GetPedidoAll()
     {
         $pedidos = Pedido::all();
         return $pedidos;
