@@ -13,12 +13,14 @@ return new class extends Migration
     {
         Schema::create('pedidos', function (Blueprint $table) {
             $table->id();
+            $table->string('cliente');
+            $table->string('codigo_seguimiento')->nullable();
             $table->string('fecha');
             $table->string('hora');
             $table->string('estado')->default('Pendiente');
             $table->decimal('monto_total', 10, 2)->default(0.00);
             $table->string('metodo_pago')->nullable();;
-            $table->text('descripcion')->nullable();
+            $table->text('detalles')->nullable();
             $table->string('proveniente');
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');;

@@ -34,7 +34,7 @@
     <div class="grid grid-cols-2 gap-3">
         <div class="mb-6">
             <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nombre</label>
-            <input type="text" wire:model.lazy="productoArray.nombre"
+            <input type="text" wire:model.defer="productoArray.nombre"
                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 placeholder="Pizza Margarita" required>
             <x-input-error for="productoArray.nombre" />
@@ -42,7 +42,7 @@
 
         <div class="mb-6">
             <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Precio</label>
-            <input type="number" wire:model.lazy="productoArray.precio" min=" 0" max="1000000" step="0.01"
+            <input type="number" wire:model.defer="productoArray.precio" min=" 0" max="1000000" step="0.01"
                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 placeholder="30" required>
             <x-input-error for="productoArray.precio" />
@@ -50,7 +50,7 @@
 
         <div class="mb-6">
             <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Tamaño</label>
-            <input type="text" wire:model.lazy="productoArray.tamaño"
+            <input type="text" wire:model.defer="productoArray.tamaño"
                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 placeholder="Familiar" required>
             <x-input-error for="productoArray.tamaño" />
@@ -69,7 +69,7 @@
         <div class="mb-6">
             <label for="categoria"
                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Categoria</label>
-            <select id="categoria" wire:model.lazy="productoArray.categoria"
+            <select id="categoria" wire:model="productoArray.categoria"
                 class="bg-gray-50 border border-gray-300 text-gray-900 mb-6 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                 <option selected>Selecciona una categoria</option>
                 <option value="Pizza">Pizza</option>
@@ -85,7 +85,7 @@
             <div class="mb-6">
                 <label for="tipo_botella"
                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Receta*</label>
-                <select id="tipo_botella" wire:model.lazy="productoArray.receta_id"
+                <select id="tipo_botella" wire:model.defer="productoArray.receta_id"
                     class="bg-gray-50 border border-gray-300 text-gray-900 mb-6 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                     <option selected>Selecciona una receta</option>
                     @foreach ($recetas as $receta)
@@ -103,7 +103,7 @@
                 <div class="mb-6">
                     <label for="tipo_botella" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Tipo
                         de botella*</label>
-                    <select id="tipo_botella" wire:model.lazy="productoArray.tipo_botella"
+                    <select id="tipo_botella" wire:model.defer="productoArray.tipo_botella"
                         class="bg-gray-50 border border-gray-300 text-gray-900 mb-6 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                         <option selected>Selecciona un tipo</option>
                         <option value="Vidrio">Vidrio</option>
@@ -117,7 +117,7 @@
 
             <div class="mb-6">
                 <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Stock*</label>
-                <input type="number" wire:model.lazy="productoArray.stock" min=" 0" max="1000000" step="1"
+                <input type="number" wire:model.defer="productoArray.stock" min=" 0" max="1000000" step="1"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     placeholder="0" required>
                 <x-input-error for="productoArray.stock" />
@@ -125,7 +125,7 @@
 
             <div class="mb-6">
                 <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Stock Minimo*</label>
-                <input type="number" wire:model.lazy="productoArray.stock_minimo" min=" 0" max="1000000"
+                <input type="number" wire:model.defer="productoArray.stock_minimo" min=" 0" max="1000000"
                     step="1"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     placeholder="0" required>
@@ -134,7 +134,7 @@
 
             <div class="mb-6">
                 <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Stock Maximo*</label>
-                <input type="number" wire:model.lazy="productoArray.stock_maximo" min=" 0" max="1000000"
+                <input type="number" wire:model.defer="productoArray.stock_maximo" min=" 0" max="1000000"
                     step="1"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     placeholder="0" required>
@@ -145,7 +145,7 @@
         <div class="mb-6 col-span-2">
             <label for="message"
                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Descripcion</label>
-            <textarea id="message" rows="4" wire:model.lazy="productoArray.descripcion"
+            <textarea id="message" rows="4" wire:model.defer="productoArray.descripcion"
                 class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 placeholder="......"></textarea>
             <x-input-error for="productoArray.descripcion" />

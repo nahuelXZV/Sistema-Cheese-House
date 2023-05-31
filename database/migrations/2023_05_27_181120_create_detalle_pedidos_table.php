@@ -20,7 +20,6 @@ return new class extends Migration
             $table->integer('cantidad');
             $table->decimal('precio', 10, 2)->default(0.00);
             $table->decimal('monto_total', 10, 2)->default(0.00);
-            $table->text('detalles')->nullable();
 
             $table->unsignedBigInteger('mitad_uno')->nullable();
             $table->unsignedBigInteger('mitad_dos')->nullable();

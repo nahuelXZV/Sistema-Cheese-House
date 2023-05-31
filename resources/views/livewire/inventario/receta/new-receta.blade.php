@@ -34,14 +34,14 @@
     <div class="grid grid-cols-2 gap-3">
         <div class="mb-6">
             <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nombre</label>
-            <input type="text" wire:model.lazy="recetaArray.nombre""
+            <input type="text" wire:model.defer="recetaArray.nombre""
                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 placeholder="Pizza Margarita" required>
             <x-input-error for="recetaArray.nombre" />
         </div>
         <div class="mb-6">
             <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Costo Total</label>
-            <input type="text" wire:model.lazy="recetaArray.costo_total""
+            <input type="text" wire:model.defer="recetaArray.costo_total""
                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 placeholder="0.00" readonly>
             <x-input-error for="recetaArray.costo_total" />
@@ -50,7 +50,7 @@
         <div class="mb-6 col-span-2">
             <label for="message"
                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Descripcion</label>
-            <textarea id="message" rows="4" wire:model.lazy="recetaArray.descripcion"
+            <textarea id="message" rows="4" wire:model.defer="recetaArray.descripcion"
                 class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 placeholder="......"></textarea>
             <x-input-error for="recetaArray.descripcion" />
@@ -75,7 +75,7 @@
             <div class="grid grid-cols-2">
                 <div>
                     <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Cantidad</label>
-                    <input type="text" wire:model="ingredienteArray.cantidad"
+                    <input type="text" wire:model.defer="ingredienteArray.cantidad"
                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                         placeholder="0.00" required>
                     <x-input-error for="ingredienteArray.cantidad" />
@@ -97,7 +97,7 @@
                         <th class="px-2 py-2">Nombre</th>
                         <th class="px-2 py-2">Unidad</th>
                         <th class="px-2 py-2">Cantidad</th>
-                        <th class="px-2 py-2">Precio</th>
+                        <th class="px-2 py-2">Precio/Unidad</th>
                         <th class="px-2 py-2">Acciones</th>
                     </tr>
                 </thead>

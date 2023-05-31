@@ -25,8 +25,8 @@ class Ingrediente extends Model
         'ingredienteArray.stock' => 'required|numeric|min:0',
         'ingredienteArray.precio_unidad' => 'required|numeric|min:0',
         'ingredienteArray.stock_minimo' => 'required|numeric|min:0',
-        'ingredienteArray.stock_maximo' => 'required|numeric|min:0',
-        'ingredienteArray.descripcion' => 'required|string|max:255'
+        'ingredienteArray.stock_maximo' => 'numeric|min:0',
+        'ingredienteArray.descripcion' => 'max:255'
     ];
     static public $messages = [
         'ingredienteArray.nombre.required' => 'El nombre es requerido',
@@ -44,12 +44,12 @@ class Ingrediente extends Model
         'ingredienteArray.stock_minimo.required' => 'El stock mínimo es requerido',
         'ingredienteArray.stock_minimo.numeric' => 'El stock mínimo debe ser un número',
         'ingredienteArray.stock_minimo.min' => 'El stock mínimo debe ser mínimo 0',
-        'ingredienteArray.stock_maximo.required' => 'El stock máximo es requerido',
+        'ingredienteArray.stock_maximo.nulleable' => 'El stock máximo debe ser nulo o un número',
         'ingredienteArray.stock_maximo.numeric' => 'El stock máximo debe ser un número',
         'ingredienteArray.stock_maximo.min' => 'El stock máximo debe ser mínimo 0',
-        'ingredienteArray.descripcion.required' => 'La descripción es requerida',
         'ingredienteArray.descripcion.string' => 'La descripción debe ser una cadena de caracteres',
         'ingredienteArray.descripcion.max' => 'La descripción debe tener máximo 255 caracteres',
+        'ingredienteArray.descripcion.nulleable' => 'La descripción debe ser nula o una cadena de caracteres'
     ];
     // TODO RELATIONS
     public function recetas()

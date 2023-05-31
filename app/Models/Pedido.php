@@ -9,12 +9,14 @@ class Pedido extends Model
 {
     use HasFactory;
     protected $fillable = [
+        'cliente',
+        'codigo_seguimiento',
         'fecha',
         'hora',
         'estado',
         'monto_total',
         'metodo_pago',
-        'descripcion',
+        'detalles',
         'proveniente',
         'user_id',
     ];
@@ -27,6 +29,8 @@ class Pedido extends Model
         'pedidoArray.monto_total' => 'required|numeric|min:0',
         'pedidoArray.metodo_pago' => 'required',
         'pedidoArray.proveniente' => 'required',
+        'pedidoArray.cliente' => 'required',
+        'pedidoArray.codigo_seguimiento' => 'required'
     ];
     static public $messages = [
         'pedidoArray.fecha.required' => 'El campo fecha es requerido',
@@ -39,6 +43,8 @@ class Pedido extends Model
         'pedidoArray.monto_total.min' => 'El campo monto total debe ser mayor a 0',
         'pedidoArray.metodo_pago.required' => 'El campo metodo de pago es requerido',
         'pedidoArray.proveniente.required' => 'El campo proveniente es requerido',
+        'pedidoArray.cliente.required' => 'El campo cliente es requerido',
+        'pedidoArray.codigo_seguimiento.required' => 'El campo codigo de seguimiento es requerido'
     ];
     static public $validateProductos = [];
     static public $messageProductos = [];
@@ -121,14 +127,14 @@ class Pedido extends Model
     {
         $pedidos = Pedido::join('users', 'users.id', '=', 'pedidos.user_id')
             ->select('pedidos.*', 'users.name as user_name')
-            ->orWhere('pedidos.fecha', 'LIKE', "%$attribute%")
-            ->orWhere('pedidos.hora', 'LIKE', "%$attribute%")
-            ->orWhere('pedidos.estado', 'LIKE', "%$attribute%")
-            ->orWhere('pedidos.monto_total', 'LIKE', "%$attribute%")
-            ->orWhere('pedidos.metodo_pago', 'LIKE', "%$attribute%")
-            ->orWhere('pedidos.descripcion', 'LIKE', "%$attribute%")
-            ->orWhere('pedidos.proveniente', 'LIKE', "%$attribute%")
-            ->orWhere('users.name', 'LIKE', "%$attribute%")
+            ->orWhere('pedidos.fecha', 'ILIKE', '%' . strtolower($attribute) . '%')
+            ->orWhere('pedidos.hora', 'ILIKE', '%' . strtolower($attribute) . '%')
+            ->orWhere('pedidos.estado', 'ILIKE', '%' . strtolower($attribute) . '%')
+            ->orWhere('pedidos.monto_total', 'ILIKE', '%' . strtolower($attribute) . '%')
+            ->orWhere('pedidos.metodo_pago', 'ILIKE', '%' . strtolower($attribute) . '%')
+            ->orWhere('pedidos.detalles', 'ILIKE', '%' . strtolower($attribute) . '%')
+            ->orWhere('pedidos.proveniente', 'ILIKE', '%' . strtolower($attribute) . '%')
+            ->orWhere('users.name', 'ILIKE', '%' . strtolower($attribute) . '%')
             ->orderBy('nota_compras.id', 'DESC')
             ->paginate($paginate);
         return $pedidos;
