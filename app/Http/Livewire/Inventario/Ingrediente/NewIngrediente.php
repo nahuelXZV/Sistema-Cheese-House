@@ -19,7 +19,7 @@ class NewIngrediente extends Component
             'stock' => '',
             'precio_unidad' => '',
             'stock_minimo' => '',
-            'stock_maximo' => '',
+            'stock_maximo' => 0,
             'descripcion' => ''
         ];
     }

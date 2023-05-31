@@ -60,7 +60,7 @@ class NewCompra extends Component
             $ingrediente = Ingrediente::GetIngrediente($this->productosArray['ingrediente_id']);
             $this->productosArray['nombre'] = $ingrediente->nombre;
             $this->productosArray['unidad'] = $ingrediente->unidad;
-            $this->productosArray['precio_unidad'] = $ingrediente->precio_unidad;
+            $this->productosArray['precio_unidad'] = $this->productosArray['precio_unidad'];
             $this->productosArray['tipo'] = 'ingrediente';
             $this->productosArray['monto_total'] += $this->productosArray['cantidad'] * $this->productosArray['precio_unidad'];
             $this->compraArray['monto_total'] += $this->productosArray['monto_total'];
@@ -74,7 +74,7 @@ class NewCompra extends Component
             $producto = Producto::GetProducto($this->productosArray['producto_id']);
             $this->productosArray['nombre'] = $producto->nombre;
             $this->productosArray['unidad'] = 'unidad';
-            $this->productosArray['precio_unidad'] = $producto->precio;
+            $this->productosArray['precio_unidad'] = $this->productosArray['precio_unidad'];
             $this->productosArray['tipo'] = 'producto';
             $this->productosArray['monto_total'] += $this->productosArray['cantidad'] * $this->productosArray['precio_unidad'];
             $this->compraArray['monto_total'] += $this->productosArray['monto_total'];

@@ -17,13 +17,12 @@ class Receta extends Model
     // TODO VALIDATIONS
     static public $validate = [
         'recetaArray.nombre' => 'required|min:3|max:100',
-        'recetaArray.descripcion' => 'required|min:3|max:255',
+        'recetaArray.descripcion' => 'min:3|max:255',
     ];
     static public $messages = [
         'recetaArray.nombre.required' => 'El nombre es requerido',
         'recetaArray.nombre.min' => 'El nombre debe tener al menos 3 caracteres',
         'recetaArray.nombre.max' => 'El nombre debe tener maximo 100 caracteres',
-        'recetaArray.descripcion.required' => 'La descripcion es requerida',
         'recetaArray.descripcion.min' => 'La descripcion debe tener al menos 3 caracteres',
         'recetaArray.descripcion.max' => 'La descripcion debe tener maximo 255 caracteres',
     ];

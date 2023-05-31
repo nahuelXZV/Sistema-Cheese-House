@@ -22,9 +22,9 @@ class Proveedor extends Model
         'proveedorArray.nombre_empresa' => 'required|string',
         'proveedorArray.nombre_encargado' => 'required|string',
         'proveedorArray.telefono' => 'required|string',
-        'proveedorArray.direccion' => 'required|string',
-        'proveedorArray.correo' => 'required|email',
-        'proveedorArray.descripcion' => 'required|string',
+        'proveedorArray.direccion' => 'string',
+        'proveedorArray.correo' => 'email',
+        'proveedorArray.descripcion' => 'string',
     ];
     static public $messages = [
         'proveedorArray.nombre_empresa.required' => 'El nombre de la empresa es requerido',
@@ -37,7 +37,6 @@ class Proveedor extends Model
         'proveedorArray.direccion.string' => 'La direccion debe ser un texto',
         'proveedorArray.correo.required' => 'El correo es requerido',
         'proveedorArray.correo.email' => 'El correo debe ser un correo valido',
-        'proveedorArray.descripcion.required' => 'La descripcion es requerida',
         'proveedorArray.descripcion.string' => 'La descripcion debe ser un texto',
     ];
 

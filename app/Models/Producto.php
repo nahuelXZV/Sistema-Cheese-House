@@ -64,7 +64,7 @@ class Producto extends Model
         'productoArray.tipo_botella' => 'min:3|max:100',
         'productoArray.stock' => 'required|numeric|min:0',
         'productoArray.stock_minimo' => 'required|numeric|min:0',
-        'productoArray.stock_maximo' => 'required|numeric|min:0',
+        'productoArray.stock_maximo' => 'numeric|min:0',
     ];
     static public $messagesBebidaOtro = [
         'productoArray.nombre.required' => 'El nombre es requerido',
