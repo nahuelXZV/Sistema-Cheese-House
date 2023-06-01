@@ -51,12 +51,15 @@ class DetallePedido extends Model
         if (!in_array($producto->categoria, $recetas))  return;
 
         if (!$detalle_pedido->mitad_uno && !$detalle_pedido->mitad_dos) {
-            foreach ($producto->ingredientes as $ingrediente) {
+            $receta = Receta::find($producto->receta_id);
+            foreach ($receta->ingredientes as $ingrediente) {
                 $ingrediente->stock = $ingrediente->stock + ($detalle_pedido->cantidad * $ingrediente->pivot->cantidad * $multiplo);
                 $ingrediente->save();
             }
             return;
         }
+
+
         $mitad_uno = Producto::find($detalle_pedido->mitad_uno);
         $mitad_dos = Producto::find($detalle_pedido->mitad_dos);
         foreach ($mitad_uno->ingredientes as $ingrediente) {

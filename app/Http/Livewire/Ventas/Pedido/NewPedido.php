@@ -26,28 +26,39 @@ class NewPedido extends Component
         $this->postres = Producto::GetProductosAll('Postre')->toArray();
         $this->otros = Producto::GetProductosAll('Otro')->toArray();
 
+        $numeroSeguimiento = $this->getNumeroSeguimiento();
         $this->pedidoArray = [
             'fecha' => date('Y-m-d'),
             'hora' => date('H:i'),
-            'estado' => 'finalizado',
+            'estado' => 'Pendiente',
             'monto_total' => 0.00,
             'metodo_pago' => '',
             'descripcion' => '',
+            'cliente' => '',
+            'codigo_seguimiento' => $numeroSeguimiento,
             'proveniente' => '',
+            'detalles' => '',
             'productos' => [],
         ];
         $this->resetProductoArray();
     }
 
+    public function getNumeroSeguimiento()
+    {
+        $ultimoPedido = Producto::GetLastNumeroSeguimiento();
+        $numeroSeguimiento = ($ultimoPedido) ? $ultimoPedido->codigo_seguimiento + 1 : 1;
+        return $numeroSeguimiento;
+    }
+
     public function save()
     {
         $this->validate(Pedido::$validate, Pedido::$messages);
-        $new = Pedido::CreatePedido($this->compraArray);
+        $new = Pedido::CreatePedido($this->pedidoArray);
         if (!$new) {
             $this->message = 'Error al crear el pedido';
             $this->showMessage = true;
         }
-        return redirect()->route('pedido.show', $new->id);
+        return redirect()->route('pedidos.show', $new->id);
     }
 
 
@@ -56,14 +67,11 @@ class NewPedido extends Component
         $this->validate(Pedido::$validateProductos, Pedido::$messageProductos);
         $producto = Producto::GetProducto($this->productosArray['producto_id']);
         $this->productosArray['nombre'] = $producto->nombre;
-        $this->productosArray['precio_unidad'] = $producto->precio;
         $this->productosArray['cantidad'] = $this->productosArray['cantidad'];
-        $this->productosArray['monto_total'] += $this->productosArray['cantidad'] * $this->productosArray['precio_unidad'];
+        $this->productosArray['precio'] = $producto->precio;
+        $this->productosArray['monto_total'] += $this->productosArray['cantidad'] * $producto->precio;
         $this->pedidoArray['monto_total'] += $this->productosArray['monto_total'];
         array_push($this->pedidoArray['productos'], $this->productosArray);
-        // $this->productos = array_filter($this->productos, function ($item) {
-        //     return $item['id'] != $this->productosArray['producto_id'];
-        // });
         $this->resetProductoArray();
     }
 
@@ -72,9 +80,11 @@ class NewPedido extends Component
         $this->productosArray = [
             "producto_id" => '',
             "cantidad" => '',
-            "detalles" => '',
+            'precio' => 0.00,
+            'nombre' => '',
             "monto_total" => 0.00,
-            "precio_unidad" => '',
+            'mitad_uno' => '',
+            'mitad_dos' => '',
         ];
     }
 
@@ -85,12 +95,12 @@ class NewPedido extends Component
         $this->pedidoArray['productos'] = array_filter($this->pedidoArray['productos'], function ($item) use ($producto_id) {
             return $item['producto_id'] != $producto_id;
         });
-        array_push($this->productos, $producto);
     }
 
 
     public function render()
     {
+        $this->pedidoArray['codigo_seguimiento'] = $this->getNumeroSeguimiento();
         return view('livewire.ventas.pedido.new-pedido')->layout('layouts.venta');
     }
 }

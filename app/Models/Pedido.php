@@ -46,8 +46,16 @@ class Pedido extends Model
         'pedidoArray.cliente.required' => 'El campo cliente es requerido',
         'pedidoArray.codigo_seguimiento.required' => 'El campo codigo de seguimiento es requerido'
     ];
-    static public $validateProductos = [];
-    static public $messageProductos = [];
+    static public $validateProductos = [
+        'productosArray.producto_id' => 'required',
+        'productosArray.cantidad' => 'required|numeric|min:1',
+    ];
+    static public $messageProductos = [
+        'productosArray.producto_id.required' => 'El campo producto es requerido',
+        'productosArray.cantidad.required' => 'Requerido',
+        'productosArray.cantidad.numeric' => 'Debe ser un numero',
+        'productosArray.cantidad.min' => 'Debe ser mayor a 0',
+    ];
 
 
     // TODO RELATIONS
@@ -77,7 +85,6 @@ class Pedido extends Model
                 'cantidad' => $producto['cantidad'],
                 'precio' => $producto['precio'],
                 'monto_total' => $producto['monto_total'],
-                'descripcion' => $producto['detalles'],
                 'mitad_uno' => intval($producto['mitad_uno']) == 0 ? null : intval($producto['mitad_uno']),
                 'mitad_dos' => intval($producto['mitad_dos']) == 0 ? null : intval($producto['mitad_dos']),
             ];
@@ -135,7 +142,7 @@ class Pedido extends Model
             ->orWhere('pedidos.detalles', 'ILIKE', '%' . strtolower($attribute) . '%')
             ->orWhere('pedidos.proveniente', 'ILIKE', '%' . strtolower($attribute) . '%')
             ->orWhere('users.name', 'ILIKE', '%' . strtolower($attribute) . '%')
-            ->orderBy('nota_compras.id', 'DESC')
+            ->orderBy('pedidos.id', 'DESC')
             ->paginate($paginate);
         return $pedidos;
     }

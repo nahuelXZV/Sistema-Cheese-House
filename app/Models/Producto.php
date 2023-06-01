@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -96,13 +97,13 @@ class Producto extends Model
     ];
 
     // TODO RELATIONS
-
-
-    // TODO FUNCTIONS
     public function receta()
     {
         return $this->belongsTo(Receta::class);
     }
+
+    // TODO FUNCTIONS
+
 
     static public function CreateProducto(array $array)
     {
@@ -158,5 +159,11 @@ class Producto extends Model
         $producto->stock = $producto->stock + $stock;
         $producto->save();
         return $producto;
+    }
+
+    static public function GetLastNumeroSeguimiento()
+    {
+        $fechaActual = Carbon::now();
+        return Pedido::whereDate('created_at', $fechaActual)->latest()->first();
     }
 }
