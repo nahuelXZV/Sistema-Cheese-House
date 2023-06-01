@@ -68,6 +68,10 @@
                 <option value="Pagina Web">Pagina Web</option>
                 <option value="Pedidos Ya">Pedidos Ya</option>
                 <option value="Uber Eats">Uber Eats</option>
+                <option value="Rappi">Rappi</option>
+                <option value="Glovo">Glovo</option>
+                <option value="Whatsapp">Whatsapp</option>
+                <option value="Telefono">Telefono</option>
                 <option value="Otro">Otro</option>
             </select>
             <x-input-error for="pedidoArray.proveniente" />

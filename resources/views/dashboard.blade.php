@@ -78,7 +78,7 @@
             </div>
         </div>
 
-        <div class="grid grid-cols-5 mt-4 gap-2">
+        <div class="grid grid-cols-1 md:grid-cols-5 mt-4 gap-2">
             <div class="col-span-3 w-full h-auto col-row">
                 <div>
                     <p class="text-xl text-center font-bold text-gray-700 dark:text-gray-200 mb-2">Ventas por mes</p>
@@ -147,42 +147,70 @@
 
 
 </x-app-layout>
-{{-- <script type="module" src="{{ asset('js/grafica.js') }}" defer></script> --}}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-{{-- usar variables php en js --}}
 <script type="text/javascript">
     var labels = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agostos', 'Septiembre', 'Octubre',
         'Noviembre', 'Diciembre'
     ];
+    var arrayProcedencia = @json($arrayProcedencia);
+    // $proveniencia = ['Local', 'Pedidos Ya', 'Pagina Web', 'Uber Eats', 'Rappi', 'Glovo', 'Whatsapp', 'Telefono', 'Otro'];
+
     const data = {
         labels: labels,
         datasets: [{
-            label: 'Restaurantes',
-            data: [12, 19, 3, 5, 2, 3, 12, 19, 3, 5, 2, 3],
-            backgroundColor: '#FF0000',
-            borderColor: '#FF0000',
-        }, {
-            label: 'Pedidos Ya',
-            data: [2, 29, 5, 5, 2, 3, 12, 19, 3, 5, 2, 3],
-            backgroundColor: '#0000FF',
-            borderColor: '#0000FF',
-        }, {
-            label: 'Yango',
-            data: [10, 0, 4, 2, 2, 3, 10, 17, 3, 7, 2, 1],
-            backgroundColor: '#00FF00',
-            borderColor: '#00FF00',
-        }, {
-            label: 'Pagina Web',
-            data: [20, 15, 3, 5, 2, 3, 2, 19, 3, 5, 2, 3],
-            backgroundColor: '#FFFF00',
-            borderColor: '#FFFF00',
-        }, {
-            label: 'Otros',
-            data: [13, 19, 3, 5, 4, 3, 12, 10, 3, 1, 2, 1],
-            backgroundColor: '#FF00FF',
-            borderColor: '#FF00FF',
-        }]
+                label: 'Restaurante',
+                data: arrayProcedencia['Local'],
+                backgroundColor: '#FF0000',
+                borderColor: '#FF0000',
+            }, {
+                label: 'Pedidos Ya',
+                data: arrayProcedencia['Pedidos Ya'],
+                backgroundColor: '#0000FF',
+                borderColor: '#0000FF',
+            }, {
+                label: 'Pagina Web',
+                data: arrayProcedencia['Pagina Web'],
+                backgroundColor: '#FFFF00',
+                borderColor: '#FFFF00',
+            },
+            {
+                label: 'Uber Eats',
+                data: arrayProcedencia['Uber Eats'],
+                backgroundColor: '#00FF00',
+                borderColor: '#00FF00',
+            },
+            {
+                label: 'Rappi',
+                data: arrayProcedencia['Rappi'],
+                backgroundColor: '#FF00FF',
+                borderColor: '#FF00FF',
+            },
+            {
+                label: 'Glovo',
+                data: arrayProcedencia['Glovo'],
+                backgroundColor: '#00FFFF',
+                borderColor: '#00FFFF',
+            },
+            {
+                label: 'Whatsapp',
+                data: arrayProcedencia['Whatsapp'],
+                backgroundColor: '#800080',
+                borderColor: '#800080',
+            },
+            {
+                label: 'Telefono',
+                data: arrayProcedencia['Telefono'],
+                backgroundColor: '#008080',
+                borderColor: '#008080',
+            },
+            {
+                label: 'Otros',
+                data: arrayProcedencia['otros'],
+                backgroundColor: '#FF00FF',
+                borderColor: '#FF00FF',
+            }
+        ]
     };
 
     const config = {
@@ -204,40 +232,22 @@
     );
 </script>
 <script type="text/javascript">
+    var arrayPizzas = @json($arrayPizzas);
+    var namePizzas = @json($pizzaListName);
+    var colores = @json($arrayColores);
     const dataPizza = {
-        labels: ['Enero'],
-        datasets: [{
-                label: 'Margarita',
-                data: [12],
-                backgroundColor: '#FF0000',
-                borderColor: '#FF0000',
-            },
-            {
-                label: 'Hawaiana',
-                data: [2],
-                backgroundColor: '#0000FF',
-                borderColor: '#0000FF',
-            },
-            {
-                label: 'Napolitana',
-                data: [10],
-                backgroundColor: '#00FF00',
-                borderColor: '#00FF00',
-            },
-            {
-                label: 'Pepperoni',
-                data: [20],
-                backgroundColor: '#FFFF00',
-                borderColor: '#FFFF00',
-            },
-            {
-                label: 'Otras',
-                data: [13],
-                backgroundColor: '#FF00FF',
-                borderColor: '#FF00FF',
-            }
-        ]
+        labels: labels,
+        datasets: []
     };
+
+    namePizzas.forEach((pizzaName, index) => {
+        dataPizza.datasets.push({
+            label: pizzaName,
+            data: arrayPizzas[pizzaName],
+            backgroundColor: colores[index],
+            borderColor: colores[index],
+        });
+    });
 
     const configPizza = {
         type: 'bar',
