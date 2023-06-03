@@ -44,10 +44,10 @@
                         Nombre
                     </th>
                     <th scope="col" class="px-6 py-3">
-                        Unidad
+                        Stock
                     </th>
                     <th scope="col" class="px-6 py-3">
-                        Stock
+                        Stock Minimo
                     </th>
                     <th scope="col" class="px-6 py-3">
                         Precio
@@ -66,11 +66,12 @@
                         <td class="px-6 py-4">
                             {{ $ingrediente->nombre }}
                         </td>
+
                         <td class="px-6 py-4">
-                            {{ $ingrediente->unidad }}
+                            {{ $ingrediente->stock }} {{ $ingrediente->unidad }}
                         </td>
                         <td class="px-6 py-4">
-                            {{ $ingrediente->stock }}
+                            {{ $ingrediente->stock_minimo }} {{ $ingrediente->unidad }}
                         </td>
                         <td class="px-6 py-4">
                             {{ $ingrediente->precio_unidad }} Bs
@@ -86,14 +87,16 @@
                                         <x-iconos.edit />
                                     </a>
                                     <a type="button" href="{{ route('ingredientes.show', $ingrediente->id) }}"
-                                        class="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-900 bg-white border-t border-b border-gray-200 hover:bg-gray-100 hover:text-green-700  dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 ">
+                                        class="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 hover:bg-gray-100 hover:text-green-700  dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 ">
                                         <x-iconos.view />
                                     </a>
-                                    <button type="button" wire:click="delete({{ $ingrediente->id }})"
-                                        onclick="confirm('¿Está seguro?') || event.stopImmediatePropagation()"
-                                        class="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-r-md hover:bg-gray-100 hover:text-red-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 ">
-                                        <x-iconos.delete />
-                                    </button>
+                                    @can('eliminar')
+                                        <button type="button" wire:click="delete({{ $ingrediente->id }})"
+                                            onclick="confirm('¿Está seguro?') || event.stopImmediatePropagation()"
+                                            class="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-r-md hover:bg-gray-100 hover:text-red-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 ">
+                                            <x-iconos.delete />
+                                        </button>
+                                    @endcan
                                 </div>
                             </div>
                         </td>

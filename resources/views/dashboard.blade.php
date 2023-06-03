@@ -159,7 +159,7 @@
     const data = {
         labels: labels,
         datasets: [{
-                label: 'Restaurante',
+                label: 'Local',
                 data: arrayProcedencia['Local'],
                 backgroundColor: '#FF0000',
                 borderColor: '#FF0000',

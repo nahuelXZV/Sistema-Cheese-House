@@ -13,6 +13,7 @@ class ListProducto extends Component
     public $message = '';
     public $showMessage = false;
 
+
     public function updatingAttribute()
     {
         $this->resetPage();

@@ -32,7 +32,6 @@ class Producto extends Model
         'productoArray.tamaño' => 'required|min:3|max:100',
         'productoArray.is_active' => 'required',
         'productoArray.categoria' => 'required|min:3|max:100',
-        'productoArray.receta_id' => 'required|numeric|min:1',
     ];
     static public $messagesPizzaPostre = [
         'productoArray.nombre.required' => 'El nombre es requerido',
@@ -51,8 +50,6 @@ class Producto extends Model
         'productoArray.categoria.min' => 'La categoria debe tener al menos 3 caracteres',
         'productoArray.categoria.max' => 'La categoria debe tener maximo 100 caracteres',
         'productoArray.receta_id.required' => 'La receta es requerida',
-        'productoArray.receta_id.numeric' => 'La receta debe ser numerica',
-        'productoArray.receta_id.min' => 'La receta debe ser mayor a 0',
     ];
 
     static public $validateBebidaOtro = [
@@ -150,6 +147,13 @@ class Producto extends Model
             $productos = Producto::where('categoria', $categoria)->where('is_active', true)->orderBy('nombre', 'asc')->get();
         else
             $productos = Producto::where('is_active', true)->orderBy('nombre', 'asc')->get();
+        return $productos;
+    }
+
+    static public function GetPizzasSinMitad()
+    {
+        $productos = Producto::where('categoria', 'Pizza')->where('is_active', true)->where('receta_id', '!=', null)
+            ->orderBy('nombre', 'asc')->get();
         return $productos;
     }
 

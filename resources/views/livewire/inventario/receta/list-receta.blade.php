@@ -73,12 +73,13 @@
                                         class="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-l-lg hover:bg-gray-100 hover:text-blue-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 ">
                                         <x-iconos.edit />
                                     </a>
-
-                                    <button type="button" wire:click="delete({{ $receta->id }})"
-                                        onclick="confirm('¿Está seguro?') || event.stopImmediatePropagation()"
-                                        class="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-r-md hover:bg-gray-100 hover:text-red-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 ">
-                                        <x-iconos.delete />
-                                    </button>
+                                    @can('eliminar')
+                                        <button type="button" wire:click="delete({{ $receta->id }})"
+                                            onclick="confirm('¿Está seguro?') || event.stopImmediatePropagation()"
+                                            class="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-r-md hover:bg-gray-100 hover:text-red-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 ">
+                                            <x-iconos.delete />
+                                        </button>
+                                    @endcan
                                 </div>
                             </div>
                         </td>

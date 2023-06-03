@@ -15,6 +15,7 @@ class NewPedido extends Component
     public $showMessage = false;
 
     public $pizzas = [];
+    public $mitades = [];
     public $bebidas = [];
     public $postres = [];
     public $otros = [];
@@ -22,6 +23,7 @@ class NewPedido extends Component
     public function mount()
     {
         $this->pizzas = Producto::GetProductosAll('Pizza')->toArray();
+        $this->mitades = Producto::GetPizzasSinMitad()->toArray();
         $this->bebidas = Producto::GetProductosAll('Bebida')->toArray();
         $this->postres = Producto::GetProductosAll('Postre')->toArray();
         $this->otros = Producto::GetProductosAll('Otro')->toArray();
@@ -33,7 +35,6 @@ class NewPedido extends Component
             'estado' => 'Pendiente',
             'monto_total' => 0.00,
             'metodo_pago' => '',
-            'descripcion' => '',
             'cliente' => '',
             'codigo_seguimiento' => $numeroSeguimiento,
             'proveniente' => '',
@@ -68,8 +69,16 @@ class NewPedido extends Component
         $producto = Producto::GetProducto($this->productosArray['producto_id']);
         $this->productosArray['nombre'] = $producto->nombre;
         $this->productosArray['cantidad'] = $this->productosArray['cantidad'];
-        $this->productosArray['precio'] = $producto->precio;
-        $this->productosArray['monto_total'] += $this->productosArray['cantidad'] * $producto->precio;
+        if ($this->productosArray['mitad_uno'] != '' && $this->productosArray['mitad_dos'] != '') {
+            $mitad_uno = Producto::GetProducto($this->productosArray['mitad_uno']);
+            $mitad_dos = Producto::GetProducto($this->productosArray['mitad_dos']);
+            $this->productosArray['precio'] = $mitad_uno->precio / 2 + $mitad_dos->precio / 2;
+            $this->productosArray['nombre_uno'] = Producto::GetProducto($this->productosArray['mitad_uno'])->nombre;
+            $this->productosArray['nombre_dos'] = Producto::GetProducto($this->productosArray['mitad_dos'])->nombre;
+        } else {
+            $this->productosArray['precio'] = $producto->precio;
+        }
+        $this->productosArray['monto_total'] += $this->productosArray['cantidad'] * $this->productosArray['precio'];
         $this->pedidoArray['monto_total'] += $this->productosArray['monto_total'];
         array_push($this->pedidoArray['productos'], $this->productosArray);
         $this->resetProductoArray();
@@ -85,6 +94,8 @@ class NewPedido extends Component
             "monto_total" => 0.00,
             'mitad_uno' => '',
             'mitad_dos' => '',
+            'nombre_uno' => '',
+            'nombre_dos' => '',
         ];
     }
 

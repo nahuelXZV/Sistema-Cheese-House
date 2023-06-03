@@ -42,11 +42,10 @@ class EditProducto extends Component
     public function save()
     {
         $this->productoArray['is_active'] = $this->productoArray['is_active'] == 1 ? true : false;
+        $this->validate($this->validateFoto, $this->messagesFoto);
         if ($this->productoArray['categoria'] == 'Pizza' || $this->productoArray['categoria'] == 'Postre') {
-            $this->validate($this->validateFoto, $this->messagesFoto);
             $this->validate(Producto::$validatePizzaPostre, Producto::$messagesPizzaPostre);
         } else {
-            $this->validate($this->validateFoto, $this->messagesFoto);
             $this->validate(Producto::$validateBebidaOtro, Producto::$messagesBebidaOtro);
         }
         if ($this->foto) {

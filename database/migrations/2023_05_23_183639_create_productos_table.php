@@ -21,9 +21,9 @@ return new class extends Migration
             $table->boolean('is_active')->default(false);
             $table->string('categoria');
             $table->string('tipo_botella')->nullable();
-            $table->integer('stock')->default(0);
-            $table->integer('stock_minimo')->default(0);
-            $table->integer('stock_maximo')->default(0);
+            $table->decimal('stock', 10, 2)->default(0);
+            $table->decimal('stock_minimo', 10, 2)->default(0);
+            $table->decimal('stock_maximo', 10, 2)->default(0);
             $table->unsignedBigInteger('receta_id')->nullable();
             $table->foreign('receta_id')->references('id')->on('recetas')->onDelete('cascade');
             $table->timestamps();

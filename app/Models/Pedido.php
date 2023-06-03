@@ -25,12 +25,10 @@ class Pedido extends Model
     static public $validate = [
         'pedidoArray.fecha' => 'required|date',
         'pedidoArray.hora' => 'required|date_format:H:i',
-        'pedidoArray.estado' => 'required',
         'pedidoArray.monto_total' => 'required|numeric|min:0',
         'pedidoArray.metodo_pago' => 'required',
         'pedidoArray.proveniente' => 'required',
         'pedidoArray.cliente' => 'required',
-        'pedidoArray.codigo_seguimiento' => 'required'
     ];
     static public $messages = [
         'pedidoArray.fecha.required' => 'El campo fecha es requerido',
@@ -49,12 +47,16 @@ class Pedido extends Model
     static public $validateProductos = [
         'productosArray.producto_id' => 'required',
         'productosArray.cantidad' => 'required|numeric|min:1',
+        'productosArray.mitad_uno' => 'nullable|required_with:productosArray.mitad_dos',
+        'productosArray.mitad_dos' => 'nullable|required_with:productosArray.mitad_uno',
     ];
     static public $messageProductos = [
         'productosArray.producto_id.required' => 'El campo producto es requerido',
         'productosArray.cantidad.required' => 'Requerido',
         'productosArray.cantidad.numeric' => 'Debe ser un numero',
         'productosArray.cantidad.min' => 'Debe ser mayor a 0',
+        'productosArray.mitad_uno.required_with' => 'Debe seleccionar la otra mitad',
+        'productosArray.mitad_dos.required_with' => 'Debe seleccionar la otra mitad',
     ];
 
 
@@ -111,11 +113,10 @@ class Pedido extends Model
                 'cantidad' => $producto['cantidad'],
                 'precio' => $producto['precio'],
                 'monto_total' => $producto['monto_total'],
-                'descripcion' => $producto['detalles'],
                 'mitad_uno' => intval($producto['mitad_uno']) == 0 ? null : intval($producto['mitad_uno']),
                 'mitad_dos' => intval($producto['mitad_dos']) == 0 ? null : intval($producto['mitad_dos']),
             ];
-            DetalleCompra::CreateDetalleCompra($detallePedido);
+            DetallePedido::CreateDetallePedido($detallePedido);
         }
         return $pedido;
     }

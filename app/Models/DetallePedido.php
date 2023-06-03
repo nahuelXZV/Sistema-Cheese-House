@@ -61,12 +61,14 @@ class DetallePedido extends Model
 
 
         $mitad_uno = Producto::find($detalle_pedido->mitad_uno);
+        $receta_uno = Receta::find($mitad_uno->receta_id);
         $mitad_dos = Producto::find($detalle_pedido->mitad_dos);
-        foreach ($mitad_uno->ingredientes as $ingrediente) {
+        $receta_dos = Receta::find($mitad_dos->receta_id);
+        foreach ($receta_uno->ingredientes as $ingrediente) {
             $ingrediente->stock = $ingrediente->stock + ($detalle_pedido->cantidad * $ingrediente->pivot->cantidad * $multiplo) / 2;
             $ingrediente->save();
         }
-        foreach ($mitad_dos->ingredientes as $ingrediente) {
+        foreach ($receta_dos->ingredientes as $ingrediente) {
             $ingrediente->stock = $ingrediente->stock + ($detalle_pedido->cantidad * $ingrediente->pivot->cantidad * $multiplo) / 2;
             $ingrediente->save();
         }

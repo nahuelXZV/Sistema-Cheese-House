@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
+use App\Models\Producto;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Permission;
@@ -31,6 +32,9 @@ class DatabaseSeeder extends Seeder
         Permission::create(['name' => 'proveedores', 'description' => 'Gestionar Proveedores'])->syncRoles($admin);
         Permission::create(['name' => 'compras', 'description' => 'Gestionar Compras'])->syncRoles($admin);
         Permission::create(['name' => 'pedidos', 'description' => 'Gestionar Pedidos'])->syncRoles($admin);
+        Permission::create(['name' => 'cocina', 'description' => 'Gestionar Estado en la cocina'])->syncRoles($admin);
+        Permission::create(['name' => 'eliminar', 'description' => 'Puede eliminar los datos'])->syncRoles($admin);
+        Permission::create(['name' => 'reportes', 'description' => 'Descargar Reportes'])->syncRoles($admin);
 
         User::create([
             'name' => 'Administrador',
@@ -38,17 +42,14 @@ class DatabaseSeeder extends Seeder
             'password' => bcrypt('12345678'),
         ])->assignRole('Administrador');
 
-        // crear 50 ingredientes con datos random de forma manual sin un factory
-        // for ($i = 0; $i < 50; $i++) {
-        //     $ingrediente = new \App\Models\Ingrediente();
-        //     $ingrediente->nombre = 'Ingrediente ' . $i;
-        //     $ingrediente->unidad = 'Unidad ' . $i;
-        //     $ingrediente->stock = rand(1, 100);
-        //     $ingrediente->precio_unidad = rand(1, 100);
-        //     $ingrediente->stock_minimo = rand(1, 100);
-        //     $ingrediente->stock_maximo = rand(1, 100);
-        //     $ingrediente->descripcion = 'Descripcion ' . $i;
-        //     $ingrediente->save();
-        // }
+        Producto::create([
+            'nombre' => 'Pizza Mitad-Mitad',
+            'precio' => 0.00,
+            'descripcion' => '',
+            'tamaño' => 'Familiar',
+            'url_imagen' => 'https://www.dominospizza.es/imagenes/pizzas/pepperoni.jpg',
+            'is_active' => true,
+            'categoria' => 'Pizza',
+        ]);
     }
 }

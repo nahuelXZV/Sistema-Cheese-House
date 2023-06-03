@@ -16,6 +16,8 @@ class NewProducto extends Component
     public $message = '';
     public $showMessage = false;
     public $foto;
+    private $validateFoto = ['foto' => 'required|image|mimes:jpeg,png,jpg,gif,svg'];
+    private $messagesFoto = ['foto.image' => 'La foto debe ser una imagen', 'foto.mimes' => 'La foto debe ser de tipo jpeg,png,jpg,gif,svg', 'foto.required' => 'La foto es requerida'];
 
     public function mount()
     {
@@ -37,11 +39,10 @@ class NewProducto extends Component
 
     public function save()
     {
+        $this->validate($this->validateFoto, $this->messagesFoto);
         if ($this->productoArray['categoria'] == 'Pizza' || $this->productoArray['categoria'] == 'Postre') {
-            $this->validate(['foto' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048'], ['foto.required' => 'La foto es requerida', 'foto.image' => 'La foto debe ser una imagen', 'foto.mimes' => 'La foto debe ser de tipo jpeg,png,jpg,gif,svg', 'foto.max' => 'La foto debe pesar menos de 2MB']);
             $this->validate(Producto::$validatePizzaPostre, Producto::$messagesPizzaPostre);
         } else {
-            $this->validate(['foto' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048'], ['foto.required' => 'La foto es requerida', 'foto.image' => 'La foto debe ser una imagen', 'foto.mimes' => 'La foto debe ser de tipo jpeg,png,jpg,gif,svg', 'foto.max' => 'La foto debe pesar menos de 2MB']);
             $this->validate(Producto::$validateBebidaOtro, Producto::$messagesBebidaOtro);
         }
         $url = Request::getScheme() . '://' . Request::getHost();

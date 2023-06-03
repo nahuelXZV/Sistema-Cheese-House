@@ -39,19 +39,19 @@ class DetalleCompra extends Model
     }
 
     // TODO FUNCTIONS
-    static private function UpdateStockProductos($ingrediente_id, $producto_id, $cantidad)
+    static private function UpdateStockProductos($ingrediente_id, $producto_id, $cantidad, $precio_unidad)
     {
         if ($ingrediente_id != null)
-            Ingrediente::UpdateStock($ingrediente_id, $cantidad);
+            Ingrediente::UpdateStock($ingrediente_id, $cantidad, $precio_unidad);
         if ($producto_id != null)
-            Producto::UpdateStock($producto_id, $cantidad);
+            Producto::UpdateStock($producto_id, $cantidad, $precio_unidad);
     }
 
     static public function CreateDetalleCompra(array $array)
     {
         $new = new DetalleCompra($array);
         $new->save();
-        self::UpdateStockProductos($array['ingrediente_id'], $array['producto_id'], $array['cantidad']);
+        self::UpdateStockProductos($array['ingrediente_id'], $array['producto_id'], $array['cantidad'], $array['precio_unidad']);
         return $new;
     }
 
@@ -60,7 +60,7 @@ class DetalleCompra extends Model
         $detalle_compra = DetalleCompra::find($id);
         $detalle_compra->fill($array);
         $detalle_compra->save();
-        self::UpdateStockProductos($array['ingrediente_id'], $array['producto_id'], $array['cantidad']);
+        self::UpdateStockProductos($array['ingrediente_id'], $array['producto_id'], $array['cantidad'], $array['precio_unidad']);
         return $detalle_compra;
     }
 
@@ -68,7 +68,7 @@ class DetalleCompra extends Model
     {
         $detalle_compra = DetalleCompra::find($id);
         $detalle_compra->delete();
-        self::UpdateStockProductos($detalle_compra->ingrediente_id, $detalle_compra->producto_id, -$detalle_compra->cantidad);
+        self::UpdateStockProductos($detalle_compra->ingrediente_id, $detalle_compra->producto_id, -$detalle_compra->cantidad, $detalle_compra->precio_unidad);
         return $detalle_compra;
     }
 
@@ -76,7 +76,7 @@ class DetalleCompra extends Model
     {
         $detalle_compras = DetalleCompra::where('nota_compra_id', $id)->get();
         foreach ($detalle_compras as $detalle_compra) {
-            self::UpdateStockProductos($detalle_compra->ingrediente_id, $detalle_compra->producto_id, -$detalle_compra->cantidad);
+            self::UpdateStockProductos($detalle_compra->ingrediente_id, $detalle_compra->producto_id, -$detalle_compra->cantidad, $detalle_compra->precio_unidad);
             $detalle_compra->delete();
         }
         return $detalle_compras;
