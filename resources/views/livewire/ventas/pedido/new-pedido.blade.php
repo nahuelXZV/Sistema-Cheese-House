@@ -1,4 +1,4 @@
-<div>
+<div class="pb-10">
     <nav class="flex px-5 py-3 mb-5 text-gray-700 justify-between border border-gray-200 rounded-lg bg-gray-50 dark:bg-gray-800 dark:border-gray-700"
         aria-label="Breadcrumb">
         <ol class="inline-flex items-center space-x-1 md:space-x-3">
@@ -95,9 +95,10 @@
     </div>
 
 
-    <div>
-        <p class="col-span-4 text-lg font-medium text-gray-900 dark:text-white mb-2">Selecciona los productos</p>
-        <div class="mb-6 col-span-4 grid grid-cols-7 gap-3">
+    <div class="h-max">
+        <p class="col-span-4 text-lg font-bold text-gray-900 dark:text-white mb-2 uppercase">Selecciona los productos
+        </p>
+        <div class="col-span-4 grid grid-cols-7 gap-3">
 
             <div class="col-span-5 grid grid-rows">
                 <div class="grid grid-cols-6">
@@ -162,7 +163,7 @@
                 </div>
             </div>
 
-            <div class="col-span-2 h-32">
+            <div class="col-span-2 h-auto">
                 @if ($productosArray['producto_id'] == 1)
                     <div class="grid grid-cols-2 gap-2 mb-1">
                         <div class="mb-1">
@@ -210,7 +211,7 @@
                     </div>
                 </div>
                 <p class="text-sm text-gray-500 mt-0.5">Separado por un punto (.)</p>
-                <div class="mb-6">
+                <div class="">
                     <table class="w-full text-sm text-gray-900 bg-gray-50 border border-gray-300 rounded-lg">
                         <thead class="bg-gray-200">
                             <tr>
@@ -252,6 +253,5 @@
                 </div>
             </div>
         </div>
-
     </div>
 </div>

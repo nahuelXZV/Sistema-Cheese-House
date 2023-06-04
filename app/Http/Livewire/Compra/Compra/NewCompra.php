@@ -33,7 +33,7 @@ class NewCompra extends Component
             'descripcion' => '',
             'proveedor_id' => '',
             'productos' => [],
-            'estado' => 'finalizado',
+            'estado' => 'Finalizado',
             'proveniente' => ''
         ];
         $this->resetProductoArray();

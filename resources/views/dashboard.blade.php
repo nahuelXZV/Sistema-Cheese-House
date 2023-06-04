@@ -17,7 +17,7 @@
                             </div>
                             <div class="flex flex-col justify-center">
                                 <div class="text-lg">{{ $ventasDinero }} Bs</div>
-                                <div class="text-sm text-gray-400">Ventas</div>
+                                <div class="text-sm text-gray-400">Ventas/mes</div>
                             </div>
                         </div>
                     </div>
@@ -34,7 +34,7 @@
                             </div>
                             <div class="flex flex-col justify-center">
                                 <div class="text-lg">{{ $ventasCantidad }}</div>
-                                <div class="text-sm text-gray-400">Cantidad de ventas</div>
+                                <div class="text-sm text-gray-400">Cantidad de ventas/mes</div>
                             </div>
                         </div>
                     </div>
@@ -52,7 +52,7 @@
                             </div>
                             <div class="flex flex-col justify-center">
                                 <div class="text-lg">{{ $comprasDinero }} Bs</div>
-                                <div class="text-sm text-gray-400">Compras</div>
+                                <div class="text-sm text-gray-400">Compras/mes</div>
                             </div>
                         </div>
                     </div>
@@ -69,7 +69,7 @@
                             </div>
                             <div class="flex flex-col justify-center">
                                 <div class="text-lg">{{ $comprasCantidad }}</div>
-                                <div class="text-sm text-gray-400 ">Cantidad de compras</div>
+                                <div class="text-sm text-gray-400 ">Cantidad de compras/mes</div>
                             </div>
                         </div>
                     </div>

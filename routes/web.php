@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\dashboard as ControllersDashboard;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\ReporteController;
 use App\Http\Livewire\Compra\Compra\EditCompra;
 use App\Http\Livewire\Compra\Compra\ListCompra;
 use App\Http\Livewire\Compra\Compra\NewCompra;
@@ -52,9 +54,17 @@ Route::middleware([
     config('jetstream.auth_session'),
     'verified'
 ])->group(function () {
-    Route::get('/', [ControllersDashboard::class, 'index'])->name('dashboard');
+    Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 
     Route::get('/example', Example::class)->name('example');
+
+    // Modulo Reportes
+    Route::group(['prefix' => 'reportes', 'middleware' => ['can:reportes', 'auth']], function () {
+        Route::get('/reportes/ventas/anuales', [ReporteController::class, 'reportesVentasAnuales'])->name('reportes.ventasAnuales');
+        Route::get('/reportes/ventas/mensual', [ReporteController::class, 'reportesVentasMensuales'])->name('reportes.ventasMensuales');
+        Route::get('/reportes/ingredientes/anual', [ReporteController::class, 'reportesIngredientesAnuales'])->name('reportes.ingredientesAnuales');
+        Route::get('/reportes/ingredientes/mensual', [ReporteController::class, 'reportesIngredientesMensuales'])->name('reportes.ingredientesMensuales');
+    });
 
     // MODULO SISTEMA
     Route::group(['prefix' => 'usuario', 'middleware' => ['can:usuarios', 'auth']], function () {
