@@ -24,10 +24,10 @@
             </li>
         </ol>
         <div>
-            <button wire:click="save"
+            <a href="{{ route('pedidos.edit', $pedido->id) }}"
                 class="inline-flex items-center justify-center h-9 px-4 ml-5 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-500 focus:ring-opacity-50">
-                Guardar
-            </button>
+                Editar
+            </a>
         </div>
     </nav>
     <div class="grid grid-cols-5 gap-3">

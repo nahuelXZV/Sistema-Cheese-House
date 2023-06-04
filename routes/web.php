@@ -30,6 +30,8 @@ use App\Http\Livewire\Sistema\Usuario\NewUsuario;
 use App\Http\Livewire\Ventas\Pedido\EditPedido;
 use App\Http\Livewire\Ventas\Pedido\ListPedido;
 use App\Http\Livewire\Ventas\Pedido\NewPedido;
+use App\Http\Livewire\Ventas\Pedido\ShowCocina;
+use App\Http\Livewire\Ventas\Pedido\ShowPantalla;
 use App\Http\Livewire\Ventas\Pedido\ShowPedido;
 use Illuminate\Support\Facades\Route;
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
@@ -106,6 +108,8 @@ Route::middleware([
     Route::group(['prefix' => 'pedidos', 'middleware' => ['can:pedidos', 'auth']], function () {
         Route::get('/list', ListPedido::class)->name('pedidos.list');
         Route::get('/new', NewPedido::class)->name('pedidos.new');
+        Route::get('/cocina', ShowCocina::class)->name('pedidos.cocina');
+        Route::get('/pantalla', ShowPantalla::class)->name('pedidos.pantalla');
         Route::get('/edit/{pedido}', EditPedido::class)->name('pedidos.edit');
         Route::get('/show/{pedido}', ShowPedido::class)->name('pedidos.show');
     });

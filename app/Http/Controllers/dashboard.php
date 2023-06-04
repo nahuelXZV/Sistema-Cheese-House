@@ -60,25 +60,6 @@ class dashboard extends Controller
             $arrayProcedencia[$procedencia->proveniente][$this->getMesString($procedencia->mes)] = $procedencia->cantidad;
         }
 
-        // $proveniencia = ['Local', 'Pedidos Ya', 'Pagina Web', 'Uber Eats', 'Rappi', 'Glovo', 'Whatsapp', 'Telefono', 'Otro'];
-        // foreach ($proveniencia as $key => $destino) {
-        //     $pedidosPorProcedenciaLocal = $pedidosPorProcedencia->where('proveniente', $destino);
-        //     $arrayData = [];
-        //     $arrayData[0] = $pedidosPorProcedenciaLocal->where('mes', '1')->first()->cantidad ?? 0;
-        //     $arrayData[1] = $pedidosPorProcedenciaLocal->where('mes', '2')->first()->cantidad ?? 0;
-        //     $arrayData[2] = $pedidosPorProcedenciaLocal->where('mes', '3')->first()->cantidad ?? 0;
-        //     $arrayData[3] = $pedidosPorProcedenciaLocal->where('mes', '4')->first()->cantidad ?? 0;
-        //     $arrayData[4] = $pedidosPorProcedenciaLocal->where('mes', '5')->first()->cantidad ?? 0;
-        //     $arrayData[5] = $pedidosPorProcedenciaLocal->where('mes', '6')->first()->cantidad ?? 0;
-        //     $arrayData[6] = $pedidosPorProcedenciaLocal->where('mes', '7')->first()->cantidad ?? 0;
-        //     $arrayData[7] = $pedidosPorProcedenciaLocal->where('mes', '8')->first()->cantidad ?? 0;
-        //     $arrayData[8] = $pedidosPorProcedenciaLocal->where('mes', '9')->first()->cantidad ?? 0;
-        //     $arrayData[9] = $pedidosPorProcedenciaLocal->where('mes', '10')->first()->cantidad ?? 0;
-        //     $arrayData[10] = $pedidosPorProcedenciaLocal->where('mes', '11')->first()->cantidad ?? 0;
-        //     $arrayData[11] = $pedidosPorProcedenciaLocal->where('mes', '12')->first()->cantidad ?? 0;
-        //     $arrayProcedencia[$destino] = $arrayData;
-        // }
-
         $pizzasMasVendidas = DB::table('detalle_pedidos')
             ->select(DB::raw('sum(cantidad) as cantidad, extract(month from detalle_pedidos.created_at) as mes, productos.nombre as nombre'))
             ->join('productos', 'productos.id', '=', 'detalle_pedidos.producto_id')

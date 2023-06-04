@@ -3,9 +3,9 @@
     {{-- diseño de dos tablas o graficas para controlar el inventario --}}
     <div class="grid grid-row">
 
-        <div class="max-w-7xl w-full mx-auto my-2">
+        <div class="max-w-7xl w-full mx-auto ">
             <div class="flex flex-col lg:flex-row w-full lg:space-x-2 space-y-2 lg:space-y-0 mb-2 lg:mb-4">
-                <div class="w-full lg:w-1/4">
+                <div class="w-full lg:w-1/4 shadow-md">
                     <div class="widget w-full p-4 rounded-lg bg-white border-l-4 border-purple-400">
                         <div class="flex items-center">
                             <div class="icon w-14 p-3.5 bg-purple-400 text-white rounded-full mr-3">
@@ -23,7 +23,7 @@
                     </div>
                 </div>
 
-                <div class="w-full lg:w-1/4">
+                <div class="w-full lg:w-1/4 shadow-md">
                     <div class="widget w-full p-4 rounded-lg bg-white border-l-4 border-yellow-400">
                         <div class="flex items-center">
                             <div class="icon w-14 p-3.5 bg-yellow-400 text-white rounded-full mr-3">
@@ -40,7 +40,7 @@
                     </div>
                 </div>
 
-                <div class="w-full lg:w-1/4">
+                <div class="w-full lg:w-1/4 shadow-md">
                     <div class="widget w-full p-4 rounded-lg bg-white border-l-4 border-blue-400">
                         <div class="flex items-center">
                             <div class="icon w-14 p-3.5 bg-blue-400 text-white rounded-full mr-3 items-center">
@@ -58,7 +58,7 @@
                     </div>
                 </div>
 
-                <div class="w-full lg:w-1/4">
+                <div class="w-full lg:w-1/4 shadow-md">
                     <div class="widget w-full p-4 rounded-lg bg-white border-l-4 border-red-400">
                         <div class="flex items-center">
                             <div class="icon w-14 p-3.5 bg-red-400 text-white rounded-full mr-3">
@@ -69,7 +69,7 @@
                             </div>
                             <div class="flex flex-col justify-center">
                                 <div class="text-lg">{{ $comprasCantidad }}</div>
-                                <div class="text-sm text-gray-400">Cantidad de compras</div>
+                                <div class="text-sm text-gray-400 ">Cantidad de compras</div>
                             </div>
                         </div>
                     </div>
@@ -80,18 +80,21 @@
 
         <div class="grid grid-cols-1 md:grid-cols-5 mt-4 gap-2">
             <div class="col-span-3 w-full h-auto col-row">
-                <div>
-                    <p class="text-xl text-center font-bold text-gray-700 dark:text-gray-200 mb-2">Ventas por mes</p>
+                <div class="border rounded-md p-2 shadow-md">
+                    <p class="text-xl text-center font-bold text-gray-700 dark:text-gray-200 mb-2 uppercase">Ventas por
+                        mes</p>
                     <canvas id="acquisitions"></canvas>
                 </div>
-                <div class="mt-4">
-                    <p class="text-xl text-center font-bold text-gray-700 dark:text-gray-200 mb-2">Pizzas mas vendidas
+                <div class="border rounded-md p-2 mt-4 shadow-md">
+                    <p class="text-xl text-center font-bold text-gray-700 dark:text-gray-200 mb-2 uppercase">Pizzas mas
+                        vendidas
                     </p>
                     <canvas id="pizzas"></canvas>
                 </div>
             </div>
-            <div class="col-span-2">
-                <p class="text-xl text-center font-bold text-gray-700 dark:text-gray-200 mb-2">Tabla de ingredientes</p>
+            <div class="col-span-2 border rounded-md p-2 shadow-md">
+                <p class="text-xl text-center font-bold text-gray-700 dark:text-gray-200 mb-2 uppercase">Tabla de
+                    ingredientes</p>
                 {{-- una tabla con los ingredientes que estan por vencer --}}
                 <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                     <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
@@ -117,10 +120,10 @@
                                     {{ $ingrediente->nombre }}
                                 </td>
                                 <td class="px-2 py-2">
-                                    {{ $ingrediente->stock }}
+                                    {{ $ingrediente->stock }} {{ $ingrediente->unidad }}
                                 </td>
                                 <td class="px-2 py-2">
-                                    {{ $ingrediente->stock_minimo }}
+                                    {{ $ingrediente->stock_minimo }} {{ $ingrediente->unidad }}
                                 </td>
                                 <td class="px-2 py-2 text-right">
                                     <div class="inline-flex rounded-md shadow-sm" role="group">

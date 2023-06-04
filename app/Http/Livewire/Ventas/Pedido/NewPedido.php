@@ -59,7 +59,7 @@ class NewPedido extends Component
             $this->message = 'Error al crear el pedido';
             $this->showMessage = true;
         }
-        return redirect()->route('pedidos.show', $new->id);
+        return redirect()->route('pedidos.new');
     }
 
 
