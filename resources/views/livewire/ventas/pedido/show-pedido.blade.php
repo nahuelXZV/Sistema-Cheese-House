@@ -24,8 +24,12 @@
             </li>
         </ol>
         <div>
+            <a href="{{ route('pedidos.ticket', $pedido->id) }}" target="_blank"
+                class="inline-flex items-center justify-center h-9 px-4 ml-5 text-sm font-medium text-white bg-green-600 rounded-lg hover:bg-green-700 focus:outline-none focus:ring-4 focus:ring-green-500 focus:ring-opacity-50">
+                Ticket
+            </a>
             <a href="{{ route('pedidos.edit', $pedido->id) }}"
-                class="inline-flex items-center justify-center h-9 px-4 ml-5 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-500 focus:ring-opacity-50">
+                class="inline-flex items-center justify-center h-9 px-4 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-500 focus:ring-opacity-50">
                 Editar
             </a>
         </div>
@@ -112,6 +116,4 @@
             </div>
         </div>
     </div>
-
-</div>
 </div>

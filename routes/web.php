@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\dashboard as ControllersDashboard;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ReporteController;
 use App\Http\Livewire\Compra\Compra\EditCompra;
@@ -35,9 +34,8 @@ use App\Http\Livewire\Ventas\Pedido\NewPedido;
 use App\Http\Livewire\Ventas\Pedido\ShowCocina;
 use App\Http\Livewire\Ventas\Pedido\ShowPantalla;
 use App\Http\Livewire\Ventas\Pedido\ShowPedido;
+use App\Http\Pdf\Ticket;
 use Illuminate\Support\Facades\Route;
-use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -122,5 +120,9 @@ Route::middleware([
         Route::get('/pantalla', ShowPantalla::class)->name('pedidos.pantalla');
         Route::get('/edit/{pedido}', EditPedido::class)->name('pedidos.edit');
         Route::get('/show/{pedido}', ShowPedido::class)->name('pedidos.show');
+        Route::get('/ticket/{pedido}', function ($pedido) {
+            $ticket = new Ticket();
+            return $ticket->crear($pedido);
+        })->name('pedidos.ticket');
     });
 });

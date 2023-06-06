@@ -16,21 +16,25 @@ class ReporteController extends Controller
 
     public function reportesVentasAnuales()
     {
-        return $this->excel->download(new \App\Exports\PedidoAnualExport, 'ventas-anuales.xlsx');
+        $name = date('d-m-Y') . '-ventas-anuales.xlsx';
+        return $this->excel->download(new \App\Exports\PedidoAnualExport, $name);
     }
 
     public function reportesVentasMensuales()
     {
-        return $this->excel->download(new \App\Exports\PedidoMensualExport, 'ventas-mensuales.xlsx');
+        $name = date('d-m-Y') . '-ventas-mensuales.xlsx';
+        return $this->excel->download(new \App\Exports\PedidoMensualExport, $name);
     }
 
     public function reportesIngredientesAnuales()
     {
-        return $this->excel->download(new \App\Exports\IngredienteAnualExport, 'inventario-anuales.xlsx');
+        $name = date('d-m-Y') . '-inventario-anuales.xlsx';
+        return $this->excel->download(new \App\Exports\IngredienteAnualExport, $name);
     }
 
     public function reportesIngredientesMensuales()
     {
-        return $this->excel->download(new \App\Exports\IngredienteMensualExport, 'inventario-mensuales.xlsx');
+        $name = date('d-m-Y') . '-inventario-mensuales.xlsx';
+        return $this->excel->download(new \App\Exports\IngredienteMensualExport, $name);
     }
 }

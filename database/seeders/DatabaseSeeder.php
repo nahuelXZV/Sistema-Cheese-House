@@ -37,9 +37,9 @@ class DatabaseSeeder extends Seeder
         Permission::create(['name' => 'reportes', 'description' => 'Descargar Reportes'])->syncRoles($admin);
 
         User::create([
-            'name' => 'Administrador',
-            'email' => 'admin@gmail.com',
-            'password' => bcrypt('12345678'),
+            'name' => 'Nahuel Zalazar',
+            'email' => 'zvnahuel63@gmail.com',
+            'password' => bcrypt('N4hu3lZ4l4z4r2023'),
         ])->assignRole('Administrador');
 
         Producto::create([
