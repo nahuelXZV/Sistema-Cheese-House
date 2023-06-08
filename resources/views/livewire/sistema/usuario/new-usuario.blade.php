@@ -36,20 +36,21 @@
             <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nombre Completo</label>
             <input type="text" wire:model.defer="userArray.name""
                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                placeholder="Nahuel Zalazar" required>
+                placeholder="Escriba su nombre" required>
             <x-input-error for="userArray.name" />
         </div>
         <div class="mb-6">
             <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Correo</label>
             <input type="email" id="email" wire:model.defer="userArray.email"
                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                placeholder="name@cheese.com" required>
+                placeholder="Escriba su correo" required>
             <x-input-error for="userArray.email" />
         </div>
         <div class="mb-6">
             <label for="password"
                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Contraseña</label>
-            <input type="password" id="password" placeholder="********" wire:model.defer="userArray.password"
+            <input type="password" id="password" placeholder="Escriba su contraseña"
+                wire:model.defer="userArray.password"
                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 required>
             <x-input-error for="userArray.password" />

@@ -60,20 +60,7 @@ class NewPedido extends Component
             $this->message = 'Error al crear el pedido';
             $this->showMessage = true;
         }
-        $this->pedidoArray = [
-            'fecha' => date('Y-m-d'),
-            'hora' => date('H:i'),
-            'estado' => 'Pendiente',
-            'monto_total' => 0.00,
-            'metodo_pago' => '',
-            'cliente' => '',
-            'codigo_seguimiento' => $this->getNumeroSeguimiento(),
-            'proveniente' => '',
-            'detalles' => '',
-            'productos' => [],
-        ];
-        $this->resetProductoArray();
-        return redirect()->route('pedidos.ticket', $new->id);
+        return redirect()->route('pedidos.show', $new->id);
     }
 
     public function addProductos()
