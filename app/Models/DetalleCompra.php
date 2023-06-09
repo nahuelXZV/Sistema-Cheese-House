@@ -67,8 +67,8 @@ class DetalleCompra extends Model
     static public function DeleteDetalleCompra($id)
     {
         $detalle_compra = DetalleCompra::find($id);
-        $detalle_compra->delete();
         self::UpdateStockProductos($detalle_compra->ingrediente_id, $detalle_compra->producto_id, -$detalle_compra->cantidad, $detalle_compra->precio_unidad);
+        $detalle_compra->delete();
         return $detalle_compra;
     }
 

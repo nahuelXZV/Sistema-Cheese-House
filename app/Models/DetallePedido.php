@@ -96,8 +96,8 @@ class DetallePedido extends Model
     static public function DeleteDetallePedido($id)
     {
         $detalle_pedido = DetallePedido::find($id);
-        $detalle_pedido->delete();
         self::UpdateStock($detalle_pedido->id, 1);
+        $detalle_pedido->delete();
         return $detalle_pedido;
     }
 

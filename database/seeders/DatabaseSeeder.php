@@ -24,17 +24,18 @@ class DatabaseSeeder extends Seeder
         $almacen = Role::create(['name' => 'Almacen']);
 
         //Permisos
-        Permission::create(['name' => 'usuarios', 'description' => 'Gestionar usuarios'])->syncRoles($admin);
-        Permission::create(['name' => 'roles', 'description' => 'Gestionar roles'])->syncRoles($admin);
+        Permission::create(['name' => 'usuarios', 'description' => 'Gestionar Usuarios'])->syncRoles($admin);
+        Permission::create(['name' => 'roles', 'description' => 'Gestionar Roles'])->syncRoles($admin);
         Permission::create(['name' => 'ingredientes', 'description' => 'Gestionar Ingredientes'])->syncRoles($admin);
         Permission::create(['name' => 'productos', 'description' => 'Gestionar Productos'])->syncRoles($admin);
         Permission::create(['name' => 'recetas', 'description' => 'Gestionar Recetas'])->syncRoles($admin);
         Permission::create(['name' => 'proveedores', 'description' => 'Gestionar Proveedores'])->syncRoles($admin);
         Permission::create(['name' => 'compras', 'description' => 'Gestionar Compras'])->syncRoles($admin);
         Permission::create(['name' => 'pedidos', 'description' => 'Gestionar Pedidos'])->syncRoles($admin);
-        Permission::create(['name' => 'cocina', 'description' => 'Gestionar Estado en la cocina'])->syncRoles($admin);
-        Permission::create(['name' => 'eliminar', 'description' => 'Puede eliminar los datos'])->syncRoles($admin);
+        Permission::create(['name' => 'cocina', 'description' => 'Gestionar Estado En La Cocina'])->syncRoles($admin);
+        Permission::create(['name' => 'eliminar', 'description' => 'Puede Eliminar Los Datos'])->syncRoles($admin);
         Permission::create(['name' => 'reportes', 'description' => 'Descargar Reportes'])->syncRoles($admin);
+        Permission::create(['name' => 'pantalla', 'description' => 'Mostrar La Pantalla Del Cliente'])->syncRoles($admin);
 
         User::create([
             'name' => 'Nahuel Zalazar',
