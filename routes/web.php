@@ -117,7 +117,7 @@ Route::middleware([
         Route::get('/list', ListPedido::class)->name('pedidos.list')->can('pedidos');
         Route::get('/new', NewPedido::class)->name('pedidos.new')->can('pedidos');
         Route::get('/cocina', ShowCocina::class)->name('pedidos.cocina')->can('cocina');
-        Route::get('/pantalla', ShowPantalla::class)->name('pedidos.pantalla')->can('pedidos');
+        Route::get('/pantalla', ShowPantalla::class)->name('pedidos.pantalla')->can('pantalla');
         Route::get('/edit/{pedido}', EditPedido::class)->name('pedidos.edit')->can('pedidos');
         Route::get('/show/{pedido}', ShowPedido::class)->name('pedidos.show')->can('pedidos');
         Route::get('/ticket/{pedido}', function ($pedido) {
