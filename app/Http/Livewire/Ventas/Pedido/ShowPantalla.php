@@ -16,7 +16,7 @@ class ShowPantalla extends Component
 
     public function render()
     {
-        $this->pedidos = Pedido::where('estado', 'Finalizado')->whereDay('created_at', date('d'))->orderBy('created_at', 'desc')->limit(2)->get();
+        $this->pedidos = Pedido::where('estado', 'Finalizado')->where('monto_total', '>', 0)->whereDay('created_at', date('d'))->orderBy('created_at', 'desc')->limit(2)->get();
         return view('livewire.ventas.pedido.show-pantalla')->layout('layouts.pantalla');
     }
 }

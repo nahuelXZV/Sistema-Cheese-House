@@ -73,9 +73,9 @@ class DashboardController extends Controller
 
         $arrayPizzas = [];
         foreach ($pizzasMasVendidas as $key => $pizza) {
+            if ($key > 4) return;
             $arrayPizzas[$pizza->nombre][$this->getMesString($pizza->mes)] = $pizza->cantidad;
         }
-
         $pizzaListName = Producto::where('categoria', 'Pizza')->get()->pluck('nombre')->toArray();
 
         $arrayColores = [

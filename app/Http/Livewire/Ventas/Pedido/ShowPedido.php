@@ -34,6 +34,8 @@ class ShowPedido extends Component
         foreach ($pedido->detalle_pedidos as $detalle) {
             $this->productosArray['producto_id'] = $detalle->producto_id;
             $this->productosArray['cantidad'] = $detalle->cantidad;
+            $this->productosArray['precio'] = $detalle->precio;
+            $this->productosArray['monto_total'] = $detalle->monto_total;
             if ($detalle->mitad_uno && $detalle->mitad_dos) {
                 $this->productosArray['mitad_uno'] = $detalle->mitad_uno;
                 $this->productosArray['mitad_dos'] = $detalle->mitad_dos;
@@ -62,20 +64,20 @@ class ShowPedido extends Component
 
     public function addProductos()
     {
-        $this->validate(Pedido::$validateProductos, Pedido::$messageProductos);
+        // $this->validate(Pedido::$validateProductos, Pedido::$messageProductos);
         $producto = Producto::GetProducto($this->productosArray['producto_id']);
         $this->productosArray['nombre'] = $producto->nombre;
-        $this->productosArray['cantidad'] = $this->productosArray['cantidad'];
-        if ($this->productosArray['mitad_uno'] != '' && $this->productosArray['mitad_dos'] != '') {
-            $mitad_uno = Producto::GetProducto($this->productosArray['mitad_uno']);
-            $mitad_dos = Producto::GetProducto($this->productosArray['mitad_dos']);
-            $this->productosArray['precio'] = $mitad_uno->precio / 2 + $mitad_dos->precio / 2;
-            $this->productosArray['nombre_uno'] = Producto::GetProducto($this->productosArray['mitad_uno'])->nombre;
-            $this->productosArray['nombre_dos'] = Producto::GetProducto($this->productosArray['mitad_dos'])->nombre;
-        } else {
-            $this->productosArray['precio'] = $producto->precio;
-        }
-        $this->productosArray['monto_total'] += $this->productosArray['cantidad'] * $this->productosArray['precio'];
+        // $this->productosArray['cantidad'] = $this->productosArray['cantidad'];
+        // if ($this->productosArray['mitad_uno'] != '' && $this->productosArray['mitad_dos'] != '') {
+        //     $mitad_uno = Producto::GetProducto($this->productosArray['mitad_uno']);
+        //     $mitad_dos = Producto::GetProducto($this->productosArray['mitad_dos']);
+        //     $this->productosArray['precio'] = $mitad_uno->precio / 2 + $mitad_dos->precio / 2;
+        //     $this->productosArray['nombre_uno'] = Producto::GetProducto($this->productosArray['mitad_uno'])->nombre;
+        //     $this->productosArray['nombre_dos'] = Producto::GetProducto($this->productosArray['mitad_dos'])->nombre;
+        // } else {
+        //     $this->productosArray['precio'] = $this->productosArray['precio'];
+        // }
+        // $this->productosArray['monto_total'] += $this->productosArray['cantidad'] * $this->productosArray['precio'];
         $this->pedidoArray['monto_total'] += $this->productosArray['monto_total'];
         array_push($this->pedidoArray['productos'], $this->productosArray);
         $this->resetProductoArray();

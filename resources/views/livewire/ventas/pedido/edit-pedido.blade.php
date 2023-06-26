@@ -54,6 +54,7 @@
                 <option selected>Selecciona el tipo de pago</option>
                 <option value="Efectivo">Efectivo</option>
                 <option value="Transferencia Bancaria">Transferencia Bancaria</option>
+                <option value="QR">QR</option>
                 <option value="Otro">Otro</option>
             </select>
             <x-input-error for="pedidoArray.metodo_pago" />
@@ -235,7 +236,7 @@
                                     <td class="px-2 py-2">{{ $ingrediente['monto_total'] }}</td>
                                     <td class="px-2 py-2">
                                         <button
-                                            wire:click="deleteProductos({{ $ingrediente['producto_id'] }}, {{ $ingrediente['monto_total'] }})"
+                                            wire:click="deleteProductos({{ $ingrediente['key'] }}, {{ $ingrediente['monto_total'] }})"
                                             class="inline-flex items-center justify-center h-9 px-2 text-sm font-medium text-white bg-red-600 rounded-lg hover:bg-red-700 focus:outline-none focus:ring-4 focus:ring-red-500 focus:ring-opacity-50">
                                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
                                                 fill="currentColor" class="w-6 h-6">

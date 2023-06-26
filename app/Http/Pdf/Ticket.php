@@ -67,11 +67,13 @@ class Ticket extends Fpdf
 
         $this->fpdf->Ln(3);
         $this->fpdf->SetFont('Arial', '', 9);
-        $this->fpdf->MultiCell($this->width, $this->space, utf8_decode("Fecha: " . $fechaLiteral), 0, 'L', 0);
+        $this->fpdf->MultiCell($this->width, $this->space, utf8_decode("Fecha: " . $fechaLiteral . ", " . $pedido->hora), 0, 'L', 0);
         $this->fpdf->Ln(2);
         $this->fpdf->MultiCell($this->width, $this->space, utf8_decode("No. Pedido: " . $pedido->codigo_seguimiento), 0, 'L', 0);
         $this->fpdf->Ln(2);
         $this->fpdf->MultiCell($this->width, $this->space, utf8_decode("Cliente: " . $pedido->cliente), 0, 'L', 0);
+        $this->fpdf->Ln(2);
+        $this->fpdf->MultiCell($this->width, $this->space, utf8_decode("Metodo de pago: " . $pedido->metodo_pago), 0, 'L', 0);
         $this->fpdf->Ln(2);
         $this->fpdf->SetFont('Arial', 'B', 12);
         $this->fpdf->MultiCell($this->width, $this->space, utf8_decode("* * * * * * * * * * * * * * * * * * * * * * * *"), 0, 'C', 0);
@@ -82,7 +84,9 @@ class Ticket extends Fpdf
         $this->fpdf->SetFont('Arial', '', 9);
         $this->fpdf->Ln(2);
         foreach ($pedido->detalle_pedidos as $detalle_pedido) {
-            $this->fpdf->Cell(50, 5, utf8_decode($detalle_pedido->producto->nombre), 0, 0, 'L');
+            $nombre = $detalle_pedido->producto->nombre;
+            if (strlen($nombre) > 25) $nombre = substr($nombre, 0, 25) . "...";
+            $this->fpdf->Cell(50, 5, utf8_decode($nombre), 0,  0, 'L');
             $this->fpdf->Cell(20, 5, utf8_decode($detalle_pedido->monto_total . " Bs"), 0, 0, 'R');
             $this->fpdf->Ln(5);
         }

@@ -244,12 +244,14 @@
     };
 
     namePizzas.forEach((pizzaName, index) => {
-        dataPizza.datasets.push({
-            label: pizzaName,
-            data: arrayPizzas[pizzaName],
-            backgroundColor: colores[index],
-            borderColor: colores[index],
-        });
+        if (arrayPizzas[pizzaName] != undefined) {
+            dataPizza.datasets.push({
+                label: pizzaName,
+                data: arrayPizzas[pizzaName],
+                backgroundColor: colores[index],
+                borderColor: colores[index],
+            });
+        }
     });
 
     const configPizza = {

@@ -68,7 +68,8 @@ class NewPedido extends Component
         $this->validate(Pedido::$validateProductos, Pedido::$messageProductos);
         $producto = Producto::GetProducto($this->productosArray['producto_id']);
         $this->productosArray['nombre'] = $producto->nombre;
-        $this->productosArray['cantidad'] = $this->productosArray['cantidad'];
+        // poner key unica
+        $this->productosArray['key'] = $producto->id . now()->timestamp;
         if ($this->productosArray['mitad_uno'] != '' && $this->productosArray['mitad_dos'] != '') {
             $mitad_uno = Producto::GetProducto($this->productosArray['mitad_uno']);
             $mitad_dos = Producto::GetProducto($this->productosArray['mitad_dos']);
@@ -87,6 +88,7 @@ class NewPedido extends Component
     private function resetProductoArray()
     {
         $this->productosArray = [
+            "key" => '',
             "producto_id" => '',
             "cantidad" => '',
             'precio' => 0.00,
@@ -99,12 +101,11 @@ class NewPedido extends Component
         ];
     }
 
-    public function deleteProductos($producto_id, $monto_total)
+    public function deleteProductos($key, $monto_total)
     {
-        $producto = Producto::GetProducto($producto_id);
         $this->pedidoArray['monto_total'] -= $monto_total;
-        $this->pedidoArray['productos'] = array_filter($this->pedidoArray['productos'], function ($item) use ($producto_id) {
-            return $item['producto_id'] != $producto_id;
+        $this->pedidoArray['productos'] = array_filter($this->pedidoArray['productos'], function ($item) use ($key) {
+            return $item['key'] != $key;
         });
     }
 

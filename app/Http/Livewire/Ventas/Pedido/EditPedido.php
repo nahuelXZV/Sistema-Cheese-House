@@ -46,6 +46,8 @@ class EditPedido extends Component
         foreach ($pedido->detalle_pedidos as $detalle) {
             $this->productosArray['producto_id'] = $detalle->producto_id;
             $this->productosArray['cantidad'] = $detalle->cantidad;
+            $this->productosArray['precio'] = $detalle->precio;
+            $this->productosArray['monto_total'] = $detalle->monto_total;
             if ($detalle->mitad_uno && $detalle->mitad_dos) {
                 $this->productosArray['mitad_uno'] = $detalle->mitad_uno;
                 $this->productosArray['mitad_dos'] = $detalle->mitad_dos;
@@ -73,7 +75,7 @@ class EditPedido extends Component
         $this->validate(Pedido::$validateProductos, Pedido::$messageProductos);
         $producto = Producto::GetProducto($this->productosArray['producto_id']);
         $this->productosArray['nombre'] = $producto->nombre;
-        $this->productosArray['cantidad'] = $this->productosArray['cantidad'];
+        $this->productosArray['key'] = $producto->id . now()->timestamp;
         if ($this->productosArray['mitad_uno'] != '' && $this->productosArray['mitad_dos'] != '') {
             $mitad_uno = Producto::GetProducto($this->productosArray['mitad_uno']);
             $mitad_dos = Producto::GetProducto($this->productosArray['mitad_dos']);
@@ -83,7 +85,7 @@ class EditPedido extends Component
         } else {
             $this->productosArray['precio'] = $producto->precio;
         }
-        $this->productosArray['monto_total'] += $this->productosArray['cantidad'] * $this->productosArray['precio'];
+        $this->productosArray['monto_total'] = $this->productosArray['precio'] * $this->productosArray['cantidad'];
         $this->pedidoArray['monto_total'] += $this->productosArray['monto_total'];
         array_push($this->pedidoArray['productos'], $this->productosArray);
         $this->resetProductoArray();
@@ -92,6 +94,7 @@ class EditPedido extends Component
     private function resetProductoArray()
     {
         $this->productosArray = [
+            "key" => "",
             "producto_id" => '',
             "cantidad" => '',
             'precio' => 0.00,
@@ -104,12 +107,11 @@ class EditPedido extends Component
         ];
     }
 
-    public function deleteProductos($producto_id, $monto_total)
+    public function deleteProductos($key, $monto_total)
     {
-        $producto = Producto::GetProducto($producto_id);
         $this->pedidoArray['monto_total'] -= $monto_total;
-        $this->pedidoArray['productos'] = array_filter($this->pedidoArray['productos'], function ($item) use ($producto_id) {
-            return $item['producto_id'] != $producto_id;
+        $this->pedidoArray['productos'] = array_filter($this->pedidoArray['productos'], function ($item) use ($key) {
+            return $item['key'] != $key;
         });
     }
 
