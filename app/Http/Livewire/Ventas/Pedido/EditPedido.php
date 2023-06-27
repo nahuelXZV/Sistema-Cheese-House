@@ -54,7 +54,11 @@ class EditPedido extends Component
                 $this->productosArray['nombre_uno'] = Producto::GetProducto($detalle->mitad_uno)->nombre;
                 $this->productosArray['nombre_dos'] = Producto::GetProducto($detalle->mitad_dos)->nombre;
             }
-            $this->addProductos();
+            $producto = Producto::GetProducto($this->productosArray['producto_id']);
+            $this->productosArray['nombre'] = $producto->nombre;
+            $this->pedidoArray['monto_total'] += $this->productosArray['monto_total'];
+            array_push($this->pedidoArray['productos'], $this->productosArray);
+            $this->resetProductoArray();
         }
     }
 
