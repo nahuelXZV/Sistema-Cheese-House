@@ -57,8 +57,9 @@ class Receta extends Model
         unset($array['ingredientes']);
         $receta->fill($array);
         $receta->save();
+        $receta->ingredientes()->detach();
         foreach ($ingredientes as $ingrediente) {
-            $receta->ingredientes()->syncWithoutDetaching([$ingrediente['ingrediente_id'] => [
+            $receta->ingredientes()->attach([$ingrediente['ingrediente_id'] => [
                 'cantidad' => $ingrediente['cantidad'],
                 'costo' => $ingrediente['cantidad'] * $ingrediente['precio_unidad']
             ]]);

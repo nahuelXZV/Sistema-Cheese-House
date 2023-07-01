@@ -54,6 +54,7 @@ class EditReceta extends Component
     public function save()
     {
         $this->validate(Receta::$validate, Receta::$messages);
+        // dd($this->recetaArray['ingredientes']);
         $new = Receta::UpdateReceta($this->receta->id, $this->recetaArray);
         if (!$new) {
             $this->message = 'Error al actualizar la receta';
