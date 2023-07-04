@@ -55,6 +55,8 @@
                 <option value="Efectivo">Efectivo</option>
                 <option value="Transferencia Bancaria">Transferencia Bancaria</option>
                 <option value="QR">QR</option>
+                <option value="Tarjeta">Tarjeta</option>
+                <option value="Cortesia">Cortesia</option>
                 <option value="Otro">Otro</option>
             </select>
             <x-input-error for="pedidoArray.metodo_pago" />
@@ -65,14 +67,13 @@
             <select wire:model.defer="pedidoArray.proveniente" required
                 class="w-full px-2 py-2 text-sm text-gray-900 bg-gray-50 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                 <option selected>Selecciona el lugar</option>
+                <option value="Pick-Up">Pick-Up</option>
                 <option value="Local">Local</option>
                 <option value="Pagina Web">Pagina Web</option>
                 <option value="Pedidos Ya">Pedidos Ya</option>
-                <option value="Uber Eats">Uber Eats</option>
-                <option value="Rappi">Rappi</option>
-                <option value="Glovo">Glovo</option>
                 <option value="Whatsapp">Whatsapp</option>
                 <option value="Telefono">Telefono</option>
+                <option value="Delivery">Delivery</option>
                 <option value="Otro">Otro</option>
             </select>
             <x-input-error for="pedidoArray.proveniente" />
@@ -109,7 +110,7 @@
                                 name="producto_id" wire:model="productosArray.producto_id"
                                 class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded">
                             <label for="{{ $pizza['nombre'] }}"
-                                class="ml-2 text-xs font-medium text-gray-900 dark:text-gray-300 text-center">
+                                class="ml-2 text-xs font-medium text-gray-900 dark:text-gray-300 text-center ">
                                 <img src="{{ $pizza['url_imagen'] }}" class="w-24 h-24">
                                 {{ $pizza['nombre'] }} <br /> {{ $pizza['tamaño'] }} <br /> {{ $pizza['precio'] }} Bs
                             </label>

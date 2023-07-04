@@ -64,24 +64,21 @@ class DashboardController extends Controller
         $pizzasMasVendidas = DB::table('detalle_pedidos')
             ->select(DB::raw('sum(cantidad) as cantidad, extract(month from detalle_pedidos.created_at) as mes, productos.nombre as nombre'))
             ->join('productos', 'productos.id', '=', 'detalle_pedidos.producto_id')
+            ->where('productos.categoria', 'Pizza')
             ->whereYear('detalle_pedidos.created_at', date('Y'))
             ->groupBy('productos.nombre', DB::raw('extract(month from detalle_pedidos.created_at)'))
             ->orderBy('cantidad', 'desc')
-            ->limit(5)
             ->get();
-
-
         $arrayPizzas = [];
         foreach ($pizzasMasVendidas as $key => $pizza) {
-            if ($key > 4) return;
+            if ($key > 3) break;
             $arrayPizzas[$pizza->nombre][$this->getMesString($pizza->mes)] = $pizza->cantidad;
         }
         $pizzaListName = Producto::where('categoria', 'Pizza')->get()->pluck('nombre')->toArray();
-
         $arrayColores = [
-            '#FF6633', '#FFB399', '#FF33FF', '#FFFF99', '#00B3E6',
-            '#E6B333', '#3366E6', '#999966', '#99FF99', '#B34D4D',
             '#80B300', '#809900', '#E6B3B3', '#6680B3', '#66991A',
+            '#E6B333', '#3366E6', '#999966', '#99FF99', '#B34D4D',
+            '#FF6633', '#FFB399', '#FF33FF', '#FFFF99', '#00B3E6',
             '#FF99E6', '#CCFF1A', '#FF1A66', '#E6331A', '#33FFCC',
         ];
 

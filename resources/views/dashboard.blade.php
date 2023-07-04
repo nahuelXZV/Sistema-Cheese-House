@@ -1,6 +1,4 @@
 <x-app-layout>
-
-    {{-- diseño de dos tablas o graficas para controlar el inventario --}}
     <div class="grid grid-row">
 
         <div class="max-w-7xl w-full mx-auto ">
@@ -87,7 +85,7 @@
                 </div>
                 <div class="border rounded-md p-2 mt-4 shadow-md">
                     <p class="text-xl text-center font-bold text-gray-700 dark:text-gray-200 mb-2 uppercase">Pizzas mas
-                        vendidas
+                        vendidas por mes
                     </p>
                     <canvas id="pizzas"></canvas>
                 </div>
@@ -115,7 +113,7 @@
                     <tbody>
                         @foreach ($ingredientes as $ingrediente)
                             <tr
-                                class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                                class="@if ($ingrediente->stock <= 0) bg-red-500 dark:bg-red-700 hover:bg-red-600 text-white  @else bg-white hover:bg-gray-50 text-blak @endif border-b font-semibold">
                                 <td class="px-2 py-2">
                                     {{ $ingrediente->nombre }}
                                 </td>
@@ -157,13 +155,17 @@
         'Noviembre', 'Diciembre'
     ];
     var arrayProcedencia = @json($arrayProcedencia);
-    // $proveniencia = ['Local', 'Pedidos Ya', 'Pagina Web', 'Uber Eats', 'Rappi', 'Glovo', 'Whatsapp', 'Telefono', 'Otro'];
-
     const data = {
         labels: labels,
         datasets: [{
                 label: 'Local',
                 data: arrayProcedencia['Local'],
+                backgroundColor: '#FF0000',
+                borderColor: '#FF0000',
+            },
+            {
+                label: 'Pick-Up',
+                data: arrayProcedencia['Pick-Up'],
                 backgroundColor: '#FF0000',
                 borderColor: '#FF0000',
             }, {
@@ -176,26 +178,7 @@
                 data: arrayProcedencia['Pagina Web'],
                 backgroundColor: '#FFFF00',
                 borderColor: '#FFFF00',
-            },
-            {
-                label: 'Uber Eats',
-                data: arrayProcedencia['Uber Eats'],
-                backgroundColor: '#00FF00',
-                borderColor: '#00FF00',
-            },
-            {
-                label: 'Rappi',
-                data: arrayProcedencia['Rappi'],
-                backgroundColor: '#FF00FF',
-                borderColor: '#FF00FF',
-            },
-            {
-                label: 'Glovo',
-                data: arrayProcedencia['Glovo'],
-                backgroundColor: '#00FFFF',
-                borderColor: '#00FFFF',
-            },
-            {
+            }, {
                 label: 'Whatsapp',
                 data: arrayProcedencia['Whatsapp'],
                 backgroundColor: '#800080',
@@ -204,6 +187,12 @@
             {
                 label: 'Telefono',
                 data: arrayProcedencia['Telefono'],
+                backgroundColor: '#008080',
+                borderColor: '#008080',
+            },
+            {
+                label: 'Delivery',
+                data: arrayProcedencia['Delivery'],
                 backgroundColor: '#008080',
                 borderColor: '#008080',
             },

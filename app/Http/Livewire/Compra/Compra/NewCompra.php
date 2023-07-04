@@ -25,6 +25,11 @@ class NewCompra extends Component
     {
         $this->ingredientes = Ingrediente::GetIngredientesAll()->toArray();
         $this->productos = Producto::GetProductosAll()->toArray();
+        // eliminar los productos que son pizzas
+        $this->productos = array_filter($this->productos, function ($item) {
+            return $item['categoria'] != 'Pizza';
+        });
+
         $this->proveedores = Proveedor::GetProveedorsAll();
         $this->compraArray = [
             'fecha' => date('Y-m-d'),

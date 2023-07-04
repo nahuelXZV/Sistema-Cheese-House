@@ -77,6 +77,7 @@
                 <option selected>Selecciona el tipo de pago</option>
                 <option value="Efectivo">Efectivo</option>
                 <option value="Transferencia Bancaria">Transferencia Bancaria</option>
+                <option value="QR">QR</option>
                 <option value="Otro">Otro</option>
 
             </select>

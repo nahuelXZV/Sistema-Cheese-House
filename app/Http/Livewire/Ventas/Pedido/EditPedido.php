@@ -33,7 +33,7 @@ class EditPedido extends Component
         $this->pedidoArray = [
             'fecha' => $pedido->fecha,
             'hora' => $pedido->hora,
-            'monto_total' => 0,
+            'monto_total' => $pedido->monto_total,
             'metodo_pago' => $pedido->metodo_pago,
             'cliente' => $pedido->cliente,
             'codigo_seguimiento' => $pedido->codigo_seguimiento,
@@ -43,7 +43,9 @@ class EditPedido extends Component
         ];
         $this->pedido = $pedido;
         $this->resetProductoArray();
+        $monto_temporal = 0;
         foreach ($pedido->detalle_pedidos as $detalle) {
+            $this->productosArray['key'] = $detalle->id . now()->timestamp;
             $this->productosArray['producto_id'] = $detalle->producto_id;
             $this->productosArray['cantidad'] = $detalle->cantidad;
             $this->productosArray['precio'] = $detalle->precio;
@@ -56,9 +58,12 @@ class EditPedido extends Component
             }
             $producto = Producto::GetProducto($this->productosArray['producto_id']);
             $this->productosArray['nombre'] = $producto->nombre;
-            $this->pedidoArray['monto_total'] += $this->productosArray['monto_total'];
+            $monto_temporal += $this->productosArray['monto_total'];
             array_push($this->pedidoArray['productos'], $this->productosArray);
             $this->resetProductoArray();
+        }
+        if ($monto_temporal != $this->pedidoArray['monto_total']) {
+            $this->pedidoArray['monto_total'] = $monto_temporal;
         }
     }
 
