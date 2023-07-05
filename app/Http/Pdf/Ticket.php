@@ -52,6 +52,8 @@ class Ticket extends Fpdf
 
     public function crear($pedidoId)
     {
+
+        $this->fpdf->header('Content-type: application/pdf');
         $pedido = Pedido::find($pedidoId);
         $fecha = date('d/m/Y', strtotime($pedido->fecha));
         $fechaLiteral = $this->fechaLiteral($fecha);
@@ -119,5 +121,6 @@ class Ticket extends Fpdf
         $this->fpdf->MultiCell($this->width, $this->space, utf8_decode("Gracias por su compra"), 0, 'C', 0);
         $this->fpdf->MultiCell($this->width, $this->space, utf8_decode("Vuelva pronto"), 0, 'C', 0);
         $this->fpdf->Output("I", "ticket.pdf");
+        exit;
     }
 }
