@@ -39,20 +39,13 @@ class Ticket extends Fpdf
 
     function formatearNumero($numero)
     {
-        // Remover cualquier separador de miles
         $numero = str_replace(',', '', $numero);
-
-        // Si el número contiene un punto decimal
         if (strpos($numero, '.') !== false) {
-            // Remover los ceros finales
             $numero = rtrim($numero, '0');
-
-            // Si después de remover los ceros finales el número termina en punto decimal
             if (substr($numero, -1) === '.') {
                 $numero = rtrim($numero, '.'); // Remover el punto decimal final
             }
         }
-
         return $numero;
     }
 
@@ -65,19 +58,14 @@ class Ticket extends Fpdf
         $this->fpdf->AddPage();
         $this->fpdf->SetMargins(5, 0, 5);
         $this->fpdf->SetAutoPageBreak(true, 10);
-        // diseño del ticket donde se muestre el nombre de la empresa la fecha y el numero de pedido tambien los productos
         $this->fpdf->SetFont('Arial', 'B', 12);
         $this->fpdf->MultiCell($this->width, $this->space, utf8_decode("CHEESE HOUSE         "), 0, 'C', 0);
         $this->fpdf->Ln(3);
 
-        // imagen con el logo
-        // $this->fpdf->Image('logo.png', 30, 8, 20, 20, 'PNG');
-        // DIRECCION Y NUMERO
         $this->fpdf->SetFont('Arial', '', 9);
         $this->fpdf->MultiCell($this->width, $this->space, utf8_decode("Av. Paragua esq Los Socoris entre 2do y 3er anillo."), 0, 'C', 0);
         $this->fpdf->MultiCell($this->width, $this->space, utf8_decode("Tel. 64881234."), 0, 'C', 0);
         $this->fpdf->Ln(3);
-        // UN SEPARADOR
         $this->fpdf->SetFont('Arial', 'B', 12);
         $this->fpdf->MultiCell($this->width, $this->space, utf8_decode("* * * * * * * * * * * * * * * * * * * * * * * *"), 0, 'C', 0);
         $this->fpdf->Ln(3);
@@ -88,8 +76,6 @@ class Ticket extends Fpdf
         $this->fpdf->MultiCell($this->width, $this->space, utf8_decode("* * * * * * * * * * * * * * * * * * * * * * * *"), 0, 'C', 0);
 
         $this->fpdf->Ln(2);
-        // $this->fpdf->SetFont('Arial', '', 10);
-        // $this->fpdf->MultiCell($this->width, $this->space, utf8_decode("Nro. Pedido: " . $pedido->codigo_seguimiento), 0, 'L', 0);
         $this->fpdf->SetFont('Arial', '', 9);
         $this->fpdf->MultiCell($this->width, $this->space, utf8_decode("Cliente: " . $pedido->cliente), 0, 'L', 0);
         $this->fpdf->Ln(2);
@@ -124,13 +110,10 @@ class Ticket extends Fpdf
         $this->fpdf->Ln(3);
         $this->fpdf->SetFont('Arial', '', 12);
         $monto =  $this->formatearNumero($pedido->monto_total);
-        // dd($pedido);
         $this->fpdf->MultiCell($this->width, $this->space, utf8_decode("Total: " . $monto . " Bs"), 0, 'R', 0);
         $this->fpdf->SetFont('Arial', 'B', 12);
         $this->fpdf->Ln(3);
         $this->fpdf->MultiCell($this->width, $this->space, utf8_decode("* * * * * * * * * * * * * * * * * * * * * * * *"), 0, 'C', 0);
-
-        // AGRADECIMIETNO
         $this->fpdf->Ln(5);
         $this->fpdf->SetFont('Arial', '', 9);
         $this->fpdf->MultiCell($this->width, $this->space, utf8_decode("Gracias por su compra"), 0, 'C', 0);
