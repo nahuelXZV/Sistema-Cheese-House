@@ -20,10 +20,10 @@ class ReporteController extends Controller
         return $this->excel->download(new \App\Exports\PedidoAnualExport, $name);
     }
 
-    public function reportesVentasMensuales()
+    public function reportesVentasMensuales($mouth)
     {
-        $name = date('d-m-Y') . '-ventas-mensuales.xlsx';
-        return $this->excel->download(new \App\Exports\PedidoMensualExport, $name);
+        $name = $mouth . '-ventas-mensuales.xlsx';
+        return $this->excel->download(new \App\Exports\PedidoMensualExport($mouth), $name);
     }
 
     public function reportesIngredientesAnuales()

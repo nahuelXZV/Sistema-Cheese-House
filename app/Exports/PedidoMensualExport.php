@@ -9,39 +9,46 @@ use Maatwebsite\Excel\Concerns\WithHeadings;
 class PedidoMensualExport implements FromCollection, WithHeadings
 {
     protected $encabezado;
+    protected $mes;
+    protected $anio;
 
     public function headings(): array
     {
         return $this->encabezado;
     }
 
-    public function __construct()
+    public function __construct($mouth)
     {
+        $this->mes = date('m', strtotime($mouth));
+        $this->anio = date('Y', strtotime($mouth));
         $this->encabezado = [
             'ID',
+            'Vendedor',
             'Cliente',
             'Fecha',
             'Hora',
             'Monto Total',
             'Metodo de Pago',
             'Procedencia',
-            'Fecha de Creación',
-            'Fecha de Actualización',
+            'Detalles',
         ];
     }
 
     public function collection()
     {
-        return Pedido::select(
-            'id',
-            'cliente',
-            'fecha',
-            'hora',
-            'monto_total',
-            'metodo_pago',
-            'proveniente',
-            'created_at',
-            'updated_at'
-        )->whereMonth('created_at', date('m'))->get();
+        return Pedido::join('users', 'users.id', '=', 'pedidos.user_id')
+            ->select(
+                'pedidos.id',
+                'users.name as vendedor',
+                'cliente',
+                'fecha',
+                'hora',
+                'monto_total',
+                'metodo_pago',
+                'proveniente',
+                'detalles',
+            )->whereMonth('pedidos.created_at', $this->mes)->whereYear('pedidos.created_at', $this->anio)
+            ->orderBy('pedidos.created_at', 'DESC')
+            ->get();
     }
 }

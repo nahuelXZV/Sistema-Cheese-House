@@ -18,7 +18,9 @@
         </ol>
         <div>
             @can('reportes')
-                <a href="{{ route('reportes.ventasMensuales') }}"
+                <input type="month" wire:model='mouthReport' value="{{ $mouthReport }}"
+                    class="inline-flex items-center justify-center h-9 px-4 text-sm font-medium text-black bg-white rounded-lg hover:bg-white focus:outline-none focus:ring-4 focus:ring-white focus:ring-opacity-50">
+                <a href="{{ route('reportes.ventasMensuales', $mouthReport) }}"
                     class="inline-flex items-center justify-center h-9 px-4 text-sm font-medium text-white bg-red-600 rounded-lg hover:bg-red-700 focus:outline-none focus:ring-4 focus:ring-red-500 focus:ring-opacity-50">
                     Reporte Mensual
                 </a>

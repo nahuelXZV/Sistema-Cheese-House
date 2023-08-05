@@ -27,8 +27,6 @@ class IngredienteMensualExport implements FromCollection, WithHeadings
             'Stock Mínimo',
             'Stock Máximo',
             'Descripción',
-            'Fecha de Creación',
-            'Fecha de Actualización',
         ];
     }
 
@@ -43,8 +41,6 @@ class IngredienteMensualExport implements FromCollection, WithHeadings
             'stock_minimo',
             'stock_maximo',
             'descripcion',
-            'created_at',
-            'updated_at'
         )->whereMonth('created_at', date('m'))->get();
     }
 }

@@ -20,7 +20,7 @@
             @can('reportes')
                 <a href="{{ route('reportes.ingredientesMensuales') }}"
                     class="inline-flex items-center justify-center h-9 px-4 ml-5 text-sm font-medium text-white bg-red-600 rounded-lg hover:bg-red-700 focus:outline-none focus:ring-4 focus:ring-red-500 focus:ring-opacity-50">
-                    Reporte Mensual
+                    Reporte
                 </a>
             @endcan
             <a href="{{ route('ingredientes.new') }}"

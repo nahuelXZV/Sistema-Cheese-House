@@ -19,29 +19,32 @@ class PedidoAnualExport implements FromCollection, WithHeadings
     {
         $this->encabezado = [
             'ID',
+            'Vendedor',
             'Cliente',
             'Fecha',
             'Hora',
             'Monto Total',
             'Metodo de Pago',
             'Procedencia',
-            'Fecha de Creación',
-            'Fecha de Actualización',
+            'Detalles',
         ];
     }
 
     public function collection()
     {
-        return Pedido::select(
-            'id',
-            'cliente',
-            'fecha',
-            'hora',
-            'monto_total',
-            'metodo_pago',
-            'proveniente',
-            'created_at',
-            'updated_at'
-        )->whereYear('created_at', date('Y'))->get();
+        return Pedido::join('users', 'users.id', '=', 'pedidos.user_id')
+            ->select(
+                'pedidos.id',
+                'users.name as vendedor',
+                'cliente',
+                'fecha',
+                'hora',
+                'monto_total',
+                'metodo_pago',
+                'proveniente',
+                'detalles',
+            )->whereYear('pedidos.created_at', date('Y'))
+            ->orderBy('pedidos.created_at', 'DESC')
+            ->get();
     }
 }
