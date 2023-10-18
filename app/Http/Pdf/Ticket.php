@@ -66,7 +66,7 @@ class Ticket extends Fpdf
 
         $this->fpdf->SetFont('Arial', '', 9);
         $this->fpdf->MultiCell($this->width, $this->space, utf8_decode("Av. Paragua esq Los Socoris entre 2do y 3er anillo."), 0, 'C', 0);
-        $this->fpdf->MultiCell($this->width, $this->space, utf8_decode("Tel. 64881234."), 0, 'C', 0);
+        $this->fpdf->MultiCell($this->width, $this->space, utf8_decode("Tel. 71632050."), 0, 'C', 0);
         $this->fpdf->Ln(3);
         $this->fpdf->SetFont('Arial', 'B', 12);
         $this->fpdf->MultiCell($this->width, $this->space, utf8_decode("* * * * * * * * * * * * * * * * * * * * * * * *"), 0, 'C', 0);
