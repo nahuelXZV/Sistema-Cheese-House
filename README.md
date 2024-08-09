@@ -13,7 +13,7 @@
 
 ## Instalación
 
-1. Clona este repositorio: `git clone https://github.com/tu_usuario/tu_proyecto.git](https://github.com/nahuelXZV/EI-Sistema.git`
+1. Clona este repositorio: `git clone https://github.com/tu_usuario/tu_proyecto.git](https://github.com/nahuelXZV/Sistema-Cheese-House)`
 2. Navega hasta la carpeta del proyecto: `cd tu_proyecto`
 3. Instala las dependencias de PHP: `composer install`
 4. Copia el archivo de configuración `.env.example` y renómbralo a `.env`
