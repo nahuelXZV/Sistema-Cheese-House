@@ -105,10 +105,12 @@
                         <td class="px-6 py-4 text-right">
                             <div class="inline-flex rounded-md shadow-sm" role="group">
                                 <div class="inline-flex rounded-md shadow-sm" role="group">
-                                    <a type="button" href="{{ route('pedidos.edit', $pedido->id) }}"
-                                        class="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-l-lg hover:bg-gray-100 hover:text-blue-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 ">
-                                        <x-iconos.edit />
-                                    </a>
+                                    @can('editar.venta')
+                                        <a type="button" href="{{ route('pedidos.edit', $pedido->id) }}"
+                                            class="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-l-lg hover:bg-gray-100 hover:text-blue-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 ">
+                                            <x-iconos.edit />
+                                        </a>
+                                    @endcan
                                     <a type="button" href="{{ route('pedidos.show', $pedido->id) }}"
                                         class="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 hover:bg-gray-100 hover:text-green-700  dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 ">
                                         <x-iconos.view />
