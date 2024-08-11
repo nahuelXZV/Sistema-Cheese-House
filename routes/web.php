@@ -65,6 +65,7 @@ Route::middleware([
         Route::get('/reportes/ventas/mensual/{mouth}', [ReporteController::class, 'reportesVentasMensuales'])->name('reportes.ventasMensuales');
         Route::get('/reportes/ingredientes/anual', [ReporteController::class, 'reportesIngredientesAnuales'])->name('reportes.ingredientesAnuales');
         Route::get('/reportes/ingredientes/mensual', [ReporteController::class, 'reportesIngredientesMensuales'])->name('reportes.ingredientesMensuales');
+        Route::get('/reportes/ingredientes/diario/{date}', [ReporteController::class, 'reportesIngredientesDiarios'])->name('reportes.ingredientesDiarios');
     });
 
     // MODULO SISTEMA

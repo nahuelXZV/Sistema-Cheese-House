@@ -12,8 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('detalle_pedidos', function (Blueprint $table) {
-            $table->decimal('sub_total', 10, 2)->nullable();
-            $table->decimal('descuento', 10, 2)->nullable();
+            $table->decimal('sub_total', 10, 3)->nullable();
+            $table->decimal('descuento', 10, 3)->nullable();
         });
     }
 

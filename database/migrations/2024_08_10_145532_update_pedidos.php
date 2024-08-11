@@ -10,7 +10,7 @@ return new class extends Migration
     {
         Schema::table('pedidos', function (Blueprint $table) {
             $table->string('tipo_pedido')->nullable();
-            $table->decimal('descuento', 10, 2)->nullable();
+            $table->decimal('descuento', 10, 3)->nullable();
             $table->string('nombre_descuento')->nullable();
         });
     }

@@ -12,6 +12,14 @@ class ListIngrediente extends Component
     public $attribute = '';
     public $message = '';
     public $showMessage = false;
+    public $date;
+    public $diaAnterior;
+
+    public function mount()
+    {
+        $this->date = now()->subDay()->format('Y-m-d');
+        $this->diaAnterior = now()->subDay()->format('Y-m-d');
+    }
 
     //Metodo de reinicio de buscador
     public function updatingAttribute()

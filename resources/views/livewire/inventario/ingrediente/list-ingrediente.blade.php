@@ -18,8 +18,14 @@
         </ol>
         <div>
             @can('reportes')
+                <input type="date" wire:model='date' value="{{ $date }}" max="{{ $diaAnterior }}"
+                    class="inline-flex items-center justify-center h-9 px-4 text-sm font-medium text-black bg-white rounded-lg hover:bg-white focus:outline-none focus:ring-4 focus:ring-white focus:ring-opacity-50">
+                <a href="{{ route('reportes.ingredientesDiarios', $date) }}"
+                    class="inline-flex items-center justify-center h-9 px-4 text-sm font-medium text-white bg-red-600 rounded-lg hover:bg-red-700 focus:outline-none focus:ring-4 focus:ring-red-500 focus:ring-opacity-50">
+                    Reporte Mov.
+                </a>
                 <a href="{{ route('reportes.ingredientesMensuales') }}"
-                    class="inline-flex items-center justify-center h-9 px-4 ml-5 text-sm font-medium text-white bg-red-600 rounded-lg hover:bg-red-700 focus:outline-none focus:ring-4 focus:ring-red-500 focus:ring-opacity-50">
+                    class="inline-flex items-center justify-center h-9 px-4 ml-1 text-sm font-medium text-white bg-red-600 rounded-lg hover:bg-red-700 focus:outline-none focus:ring-4 focus:ring-red-500 focus:ring-opacity-50">
                     Reporte
                 </a>
             @endcan

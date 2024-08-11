@@ -37,4 +37,10 @@ class ReporteController extends Controller
         $name = date('d-m-Y') . '-inventario-mensuales.xlsx';
         return $this->excel->download(new \App\Exports\IngredienteMensualExport, $name);
     }
+
+    public function reportesIngredientesDiarios($date)
+    {
+        $name = date('d-m-Y') . '-inventario-diarios.xlsx';
+        return $this->excel->download(new \App\Exports\ReporteIngredienteDiario($date), $name);
+    }
 }
