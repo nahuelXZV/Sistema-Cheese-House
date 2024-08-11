@@ -2,7 +2,6 @@
 
 namespace App\Http\Livewire\Ventas\Pedido;
 
-use App\Models\DetallePedido;
 use App\Models\Pedido;
 use App\Models\Producto;
 use Livewire\Component;
@@ -37,10 +36,6 @@ class ShowCocina extends Component
             $pedidos[$key] = $pedido->toArray();
             $detalles = $pedido->detalle_pedidos()->get()->toArray();
             foreach ($detalles as $keyDetalle => $detalle) {
-                if ($detalle['producto_id'] == 1) {
-                    $detalles[$keyDetalle]['mitad_uno'] = Producto::find($detalle['mitad_uno'])->nombre;
-                    $detalles[$keyDetalle]['mitad_dos'] = Producto::find($detalle['mitad_dos'])->nombre;
-                }
                 $detalles[$keyDetalle]['producto_id'] = Producto::find($detalle['producto_id'])->nombre;
             }
             $pedidos[$key]['detalles_pedidos'] = $detalles;

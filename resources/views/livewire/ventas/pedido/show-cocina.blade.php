@@ -41,6 +41,7 @@
                     <div class="mb-4">
                         <h2 class="text-xl font-bold">Pedido #{{ $pedido['codigo_seguimiento'] }}</h2>
                         <p class="text-gray-500">Cliente: {{ $pedido['cliente'] }}</p>
+                        <p class="text-gray-500">Para: {{ $pedido['tipo_pedido'] }}</p>
                     </div>
                     <hr class="my-2">
                     <div class="flex justify-between mb-2">
@@ -49,15 +50,7 @@
                     </div>
                     @foreach ($pedido['detalles_pedidos'] as $detalle)
                         <div class="flex justify-between mb-2">
-                            @if ($detalle['mitad_uno'] != null && $detalle['mitad_dos'] != null)
-                                <p class="text-gray-700">
-                                    {{ $detalle['producto_id'] }} <br>
-                                    <span class="text-xs text-gray-500 ml-3">-{{ $detalle['mitad_uno'] }}</span><br>
-                                    <span class="text-xs text-gray-500 ml-3">-{{ $detalle['mitad_dos'] }}</span>
-                                </p>
-                            @else
-                                <p class="text-gray-700">{{ $detalle['producto_id'] }}</p>
-                            @endif
+                            <p class="text-gray-700">{{ $detalle['producto_id'] }}</p>
                             <p class="text-gray-700">{{ $detalle['cantidad'] }}</p>
                         </div>
                     @endforeach

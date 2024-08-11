@@ -2,8 +2,14 @@
 
 namespace App\Http\Livewire\Ventas\Pedido;
 
+use App\Constants\CategoriasProductos;
+use App\Constants\MetodoPagos;
+use App\Constants\ProvenienciaVenta;
+use App\Constants\TipoVenta;
+use App\Models\Descuento;
 use App\Models\Pedido;
 use App\Models\Producto;
+use App\Services\PedidoService;
 use Livewire\Component;
 
 class EditPedido extends Component
@@ -14,22 +20,23 @@ class EditPedido extends Component
     public $mostrarProductos = [];
     public $message = '';
     public $showMessage = false;
+    public $pedido_id;
+    public $filter;
 
-    public $pizzas = [];
-    public $mitades = [];
-    public $bebidas = [];
-    public $postres = [];
-    public $otros = [];
+    public $metodoPagos = [];
+    public $proveniencias = [];
+    public $tipos = [];
+    public $descuentos = [];
+    public $categoriasDescuentos = [];
+    public $productoCheck;
+    public $descuentoCheck;
+    public $descuentoAplicado;
+    public $montoDescuento = 0.00;
 
     public function mount($pedido)
     {
-        $pedido = Pedido::GetPedido($pedido);
-        $this->pizzas = Producto::GetProductosAll('Pizza')->toArray();
-        $this->mitades = Producto::GetPizzasSinMitad()->toArray();
-        $this->bebidas = Producto::GetProductosAll('Bebida')->toArray();
-        $this->postres = Producto::GetProductosAll('Postre')->toArray();
-        $this->otros = Producto::GetProductosAll('Otro')->toArray();
-
+        $this->filter = CategoriasProductos::PIZZA;
+        $pedido = PedidoService::GetPedido($pedido);
         $this->pedidoArray = [
             'fecha' => $pedido->fecha,
             'hora' => $pedido->hora,
@@ -38,10 +45,15 @@ class EditPedido extends Component
             'cliente' => $pedido->cliente,
             'codigo_seguimiento' => $pedido->codigo_seguimiento,
             'proveniente' => $pedido->proveniente,
+            'tipo_pedido' => $pedido->tipo_pedido,
+            'descuento' => $pedido->descuento,
+            'nombre_descuento' => $pedido->nombre_descuento,
             'detalles' => $pedido->detalles,
+            'descuento_id' => $pedido->descuento_id,
             'productos' => [],
         ];
         $this->pedido = $pedido;
+        $this->descuentoCheck = $pedido->descuento_id;
         $this->resetProductoArray();
         $monto_temporal = 0;
         foreach ($pedido->detalle_pedidos as $detalle) {
@@ -50,13 +62,10 @@ class EditPedido extends Component
             $this->productosArray['cantidad'] = $detalle->cantidad;
             $this->productosArray['precio'] = $detalle->precio;
             $this->productosArray['monto_total'] = $detalle->monto_total;
-            if ($detalle->mitad_uno && $detalle->mitad_dos) {
-                $this->productosArray['mitad_uno'] = $detalle->mitad_uno;
-                $this->productosArray['mitad_dos'] = $detalle->mitad_dos;
-                $this->productosArray['nombre_uno'] = Producto::GetProducto($detalle->mitad_uno)->nombre;
-                $this->productosArray['nombre_dos'] = Producto::GetProducto($detalle->mitad_dos)->nombre;
-            }
+            $this->productosArray['subTotal'] = $detalle->sub_total;
+            $this->productosArray['descuento'] = $detalle->descuento;
             $producto = Producto::GetProducto($this->productosArray['producto_id']);
+            $this->productosArray['categoria'] = $producto->categoria;
             $this->productosArray['nombre'] = $producto->nombre;
             $monto_temporal += $this->productosArray['monto_total'];
             array_push($this->pedidoArray['productos'], $this->productosArray);
@@ -65,12 +74,20 @@ class EditPedido extends Component
         if ($monto_temporal != $this->pedidoArray['monto_total']) {
             $this->pedidoArray['monto_total'] = $monto_temporal;
         }
+        $this->metodoPagos = MetodoPagos::getMetodoPagos();
+        $this->proveniencias = ProvenienciaVenta::getProveniencias();
+        $this->tipos = TipoVenta::getTipoVentas();
+        $this->descuentos = Descuento::GetDescuentosAll();
+        $this->categoriasDescuentos = [CategoriasProductos::PIZZA, CategoriasProductos::POSTRE, CategoriasProductos::MITAD];
     }
 
     public function save()
     {
         $this->validate(Pedido::$validate, Pedido::$messages);
-        $new = Pedido::UpdatePedido($this->pedido->id, $this->pedidoArray);
+        $descuento = Descuento::getDescuento($this->descuentoCheck);
+        $this->pedidoArray['descuento'] = $descuento->porcentaje;
+        $this->pedidoArray['nombre_descuento'] = $descuento->nombre;
+        $new = PedidoService::UpdatePedido($this->pedido->id, $this->pedidoArray);
         if (!$new) {
             $this->message = 'Error al actualizar el pedido';
             $this->showMessage = true;
@@ -79,54 +96,101 @@ class EditPedido extends Component
     }
 
 
-    public function addProductos()
+    // NICE
+    public function add()
     {
-        $this->validate(Pedido::$validateProductos, Pedido::$messageProductos);
-        $producto = Producto::GetProducto($this->productosArray['producto_id']);
+        $producto = Producto::GetProducto($this->productoCheck);
+        $this->productosArray['producto_id'] = $producto->id;
+        $this->productosArray['categoria'] = $producto->categoria;
+        $this->productosArray['cantidad'] = 1;
         $this->productosArray['nombre'] = $producto->nombre;
         $this->productosArray['key'] = $producto->id . now()->timestamp;
-        if ($this->productosArray['mitad_uno'] != '' && $this->productosArray['mitad_dos'] != '') {
-            $mitad_uno = Producto::GetProducto($this->productosArray['mitad_uno']);
-            $mitad_dos = Producto::GetProducto($this->productosArray['mitad_dos']);
-            $this->productosArray['precio'] = $mitad_uno->precio / 2 + $mitad_dos->precio / 2;
-            $this->productosArray['nombre_uno'] = Producto::GetProducto($this->productosArray['mitad_uno'])->nombre;
-            $this->productosArray['nombre_dos'] = Producto::GetProducto($this->productosArray['mitad_dos'])->nombre;
-        } else {
-            $this->productosArray['precio'] = $producto->precio;
-        }
-        $this->productosArray['monto_total'] = $this->productosArray['precio'] * $this->productosArray['cantidad'];
+        $this->productosArray['precio'] = $producto->precio;
+        $this->productosArray['subTotal'] += $this->productosArray['cantidad'] * $this->productosArray['precio'];
+        $this->productosArray['monto_total'] += $this->productosArray['cantidad'] * $this->productosArray['precio'];
         $this->pedidoArray['monto_total'] += $this->productosArray['monto_total'];
         array_push($this->pedidoArray['productos'], $this->productosArray);
         $this->resetProductoArray();
     }
-
     private function resetProductoArray()
     {
         $this->productosArray = [
-            "key" => "",
+            "key" => '',
             "producto_id" => '',
-            "cantidad" => '',
+            "categoria" => '',
+            "cantidad" => '1',
             'precio' => 0.00,
             'nombre' => '',
+            "subTotal" => 0.00,
             "monto_total" => 0.00,
-            'mitad_uno' => '',
-            'mitad_dos' => '',
-            'nombre_uno' => '',
-            'nombre_dos' => '',
+            "descuento" => 0.00,
         ];
     }
-
-    public function deleteProductos($key, $monto_total)
+    // NICE
+    public function deleteProductos($key)
     {
-        $this->pedidoArray['monto_total'] -= $monto_total;
         $this->pedidoArray['productos'] = array_filter($this->pedidoArray['productos'], function ($item) use ($key) {
+            if ($item['key'] == $key) $this->pedidoArray['monto_total'] -= $item['monto_total'];
             return $item['key'] != $key;
         });
     }
 
+    // NICE
+    public function checkProducto($producto_id)
+    {
+        $this->productoCheck = $producto_id;
+        $this->resetProductoArray();
+    }
+
+    // NICE
+    public function increment($key)
+    {
+        $this->pedidoArray['productos'] = array_map(function ($item) use ($key) {
+            if ($item['key'] != $key) return $item;
+            $item['cantidad'] += 1;
+            $item['subTotal'] = floatval($item['cantidad']) * floatval($item['precio']);
+            $item['monto_total'] = floatval($item['cantidad']) * floatval($item['precio']);
+            return $item;
+        }, $this->pedidoArray['productos']);
+        $this->pedidoArray['monto_total'] = array_sum(array_column($this->pedidoArray['productos'], 'monto_total'));
+    }
+
+    // NICE
+    public function decrement($key)
+    {
+        $this->pedidoArray['productos'] = array_map(function ($item) use ($key) {
+            if ($item['key'] != $key) return $item;
+            $item['cantidad'] -= 1;
+            $item['subTotal'] = floatval($item['cantidad']) * floatval($item['precio']);
+            $item['monto_total'] = floatval($item['cantidad']) * floatval($item['precio']);
+            return $item;
+        }, $this->pedidoArray['productos']);
+        $this->pedidoArray['monto_total'] = array_sum(array_column($this->pedidoArray['productos'], 'monto_total'));
+    }
+
+    public function aplicarDescuentoLista()
+    {
+        $this->montoDescuento = 0.00;
+        $this->pedidoArray['productos'] = array_map(function ($item) {
+            $aplicaDescuento = in_array($item['categoria'], $this->categoriasDescuentos);
+            if ($this->descuentoAplicado && $this->descuentoAplicado && $aplicaDescuento) {
+                $descuento = $item['subTotal'] * $this->descuentoAplicado / 100;
+                $item['descuento'] =  $descuento;
+                $item['monto_total'] = $item['subTotal'] - $descuento;
+                $this->montoDescuento += $descuento;
+            }
+            return $item;
+        }, $this->pedidoArray['productos']);
+        $this->pedidoArray['monto_total'] = array_sum(array_column($this->pedidoArray['productos'], 'monto_total'));
+    }
 
     public function render()
     {
-        return view('livewire.ventas.pedido.edit-pedido')->layout('layouts.venta');
+        $productos = Producto::GetProductosFilter($this->filter);
+        if ($this->descuentoCheck) {
+            $this->descuentoAplicado = Descuento::getDescuento($this->descuentoCheck)->porcentaje;
+            $this->aplicarDescuentoLista();
+        }
+        return view('livewire.ventas.pedido.edit-pedido', compact('productos'))->layout('layouts.venta');
     }
 }

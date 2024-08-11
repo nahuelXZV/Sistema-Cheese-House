@@ -72,15 +72,17 @@
             <select id="categoria" wire:model="productoArray.categoria"
                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                 <option selected value="">Selecciona una categoria</option>
-                <option value="Pizza">Pizza</option>
-                <option value="Bebida">Bebida</option>
-                <option value="Postre">Postre</option>
-                <option value="Otro">Otro</option>
+                @foreach ($listaCategorias as $categoria)
+                    <option value="{{ $categoria }}">{{ $categoria }}</option>
+                @endforeach
             </select>
             <x-input-error for="productoArray.categoria" />
         </div>
 
-        @if ($productoArray['categoria'] == 'Pizza' || $productoArray['categoria'] == 'Postre')
+        @if (
+            $productoArray['categoria'] == 'Pizza' ||
+                $productoArray['categoria'] == 'Postre' ||
+                $productoArray['categoria'] == 'Mitad')
             <div class="mb-6">
                 <label for="tipo_botella"
                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Receta*</label>

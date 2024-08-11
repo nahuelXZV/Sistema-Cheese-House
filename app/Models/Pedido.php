@@ -8,18 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Pedido extends Model
 {
     use HasFactory;
-    protected $fillable = [
-        'cliente',
-        'codigo_seguimiento',
-        'fecha',
-        'hora',
-        'estado',
-        'monto_total',
-        'metodo_pago',
-        'detalles',
-        'proveniente',
-        'user_id',
-    ];
+    protected $guarded = ['id', 'created_at', 'updated_at'];
 
     // TODO VALIDATIONS
     static public $validate = [
@@ -28,37 +17,35 @@ class Pedido extends Model
         'pedidoArray.monto_total' => 'required|numeric|min:0',
         'pedidoArray.metodo_pago' => 'required',
         'pedidoArray.proveniente' => 'required',
+        'pedidoArray.tipo_pedido' => 'required',
         'pedidoArray.cliente' => 'required',
     ];
     static public $messages = [
-        'pedidoArray.fecha.required' => 'El campo fecha es requerido',
+        'pedidoArray.fecha.required' => 'Campo requerido',
         'pedidoArray.fecha.date' => 'El campo fecha debe ser una fecha',
-        'pedidoArray.hora.required' => 'El campo hora es requerido',
+        'pedidoArray.hora.required' => 'Campo requerido',
         'pedidoArray.hora.date_format' => 'El campo hora debe ser una hora',
-        'pedidoArray.estado.required' => 'El campo estado es requerido',
-        'pedidoArray.monto_total.required' => 'El campo monto total es requerido',
+        'pedidoArray.estado.required' => 'Campo requerido',
+        'pedidoArray.monto_total.required' => 'Campo requerido',
         'pedidoArray.monto_total.numeric' => 'El campo monto total debe ser un numero',
         'pedidoArray.monto_total.min' => 'El campo monto total debe ser mayor a 0',
-        'pedidoArray.metodo_pago.required' => 'El campo metodo de pago es requerido',
-        'pedidoArray.proveniente.required' => 'El campo proveniente es requerido',
-        'pedidoArray.cliente.required' => 'El campo cliente es requerido',
-        'pedidoArray.codigo_seguimiento.required' => 'El campo codigo de seguimiento es requerido'
+        'pedidoArray.metodo_pago.required' => 'Campo requerido',
+        'pedidoArray.proveniente.required' => 'Campo requerido',
+        'pedidoArray.cliente.required' => 'Campo requerido',
+        'pedidoArray.codigo_seguimiento.required' => 'El campo codigo de seguimiento es requerido',
+        'pedidoArray.tipo_pedido.required' => 'Campo requerido',
     ];
+
     static public $validateProductos = [
         'productosArray.producto_id' => 'required',
         'productosArray.cantidad' => 'required|numeric|min:1',
-        'productosArray.mitad_uno' => 'nullable|required_with:productosArray.mitad_dos',
-        'productosArray.mitad_dos' => 'nullable|required_with:productosArray.mitad_uno',
     ];
     static public $messageProductos = [
         'productosArray.producto_id.required' => 'El campo producto es requerido',
         'productosArray.cantidad.required' => 'Requerido',
         'productosArray.cantidad.numeric' => 'Debe ser un numero',
         'productosArray.cantidad.min' => 'Debe ser mayor a 0',
-        'productosArray.mitad_uno.required_with' => 'Debe seleccionar la otra mitad',
-        'productosArray.mitad_dos.required_with' => 'Debe seleccionar la otra mitad',
     ];
-
 
     // TODO RELATIONS
     public function user()
@@ -72,91 +59,5 @@ class Pedido extends Model
     }
 
     // TODO FUNCTIONS
-    static public function CreatePedido(array $array)
-    {
-        $productos = $array['productos'];
-        unset($array['productos']);
-        $array['user_id'] = auth()->user()->id;
-        $new = new Pedido($array);
-        $new->save();
 
-        foreach ($productos as $producto) {
-            $detallePedido = [
-                'pedido_id' => $new->id,
-                'producto_id' => intval($producto['producto_id']),
-                'cantidad' => $producto['cantidad'],
-                'precio' => $producto['precio'],
-                'monto_total' => $producto['monto_total'],
-                'mitad_uno' => intval($producto['mitad_uno']) == 0 ? null : intval($producto['mitad_uno']),
-                'mitad_dos' => intval($producto['mitad_dos']) == 0 ? null : intval($producto['mitad_dos']),
-            ];
-            DetallePedido::CreateDetallePedido($detallePedido);
-        }
-        return $new;
-    }
-
-    static public function UpdatePedido($id, array $array)
-    {
-        $pedido = Pedido::find($id);
-
-        $productos = $array['productos'];
-        unset($array['productos']);
-
-        $pedido->fill($array);
-        $pedido->save();
-
-        DetallePedido::DeleteAllByPedido($pedido->id);
-        foreach ($productos as $producto) {
-            $detallePedido = [
-                'pedido_id' => $pedido->id,
-                'producto_id' => intval($producto['producto_id']),
-                'cantidad' => $producto['cantidad'],
-                'precio' => $producto['precio'],
-                'monto_total' => $producto['monto_total'],
-                'mitad_uno' => intval($producto['mitad_uno']) == 0 ? null : intval($producto['mitad_uno']),
-                'mitad_dos' => intval($producto['mitad_dos']) == 0 ? null : intval($producto['mitad_dos']),
-            ];
-            DetallePedido::CreateDetallePedido($detallePedido);
-        }
-        return $pedido;
-    }
-
-    static public function DeletePedido($id)
-    {
-        $pedido = Pedido::find($id);
-        foreach ($pedido->detalle_pedidos as $detalle) {
-            DetallePedido::DeleteDetallePedido($detalle->id);
-        }
-        $pedido->delete();
-        return $pedido;
-    }
-
-    static public function GetPedidos($attribute, $order, $paginate)
-    {
-        $pedidos = Pedido::join('users', 'users.id', '=', 'pedidos.user_id')
-            ->select('pedidos.*', 'users.name as user_name')
-            ->orWhere('pedidos.fecha', 'ILIKE', '%' . strtolower($attribute) . '%')
-            ->orWhere('pedidos.hora', 'ILIKE', '%' . strtolower($attribute) . '%')
-            ->orWhere('pedidos.estado', 'ILIKE', '%' . strtolower($attribute) . '%')
-            ->orWhere('pedidos.monto_total', 'ILIKE', '%' . strtolower($attribute) . '%')
-            ->orWhere('pedidos.metodo_pago', 'ILIKE', '%' . strtolower($attribute) . '%')
-            ->orWhere('pedidos.detalles', 'ILIKE', '%' . strtolower($attribute) . '%')
-            ->orWhere('pedidos.proveniente', 'ILIKE', '%' . strtolower($attribute) . '%')
-            ->orWhere('users.name', 'ILIKE', '%' . strtolower($attribute) . '%')
-            ->orderBy('pedidos.id', 'DESC')
-            ->paginate($paginate);
-        return $pedidos;
-    }
-
-    static public function GetPedido($id)
-    {
-        $pedido = Pedido::find($id);
-        return $pedido;
-    }
-
-    static public function GetPedidoAll()
-    {
-        $pedidos = Pedido::all();
-        return $pedidos;
-    }
 }

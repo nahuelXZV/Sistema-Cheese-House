@@ -74,7 +74,11 @@ class Ticket extends Fpdf
         $this->fpdf->MultiCell($this->width, $this->space, utf8_decode("RECIBO DE COMPRA"), 0, 'C', 0);
         $this->fpdf->Ln(3);
         $this->fpdf->MultiCell($this->width, $this->space, utf8_decode("Nro Pedido: " . $pedido->codigo_seguimiento), 0, 'C', 0);
-        $this->fpdf->Ln(3);
+        $this->fpdf->Ln(2);
+        $this->fpdf->SetFont('Arial', '', 10);
+        $this->fpdf->MultiCell($this->width, $this->space, utf8_decode($pedido->tipo_pedido), 0, 'C', 0);
+        $this->fpdf->Ln(2);
+        $this->fpdf->SetFont('Arial', 'B', 12);
         $this->fpdf->MultiCell($this->width, $this->space, utf8_decode("* * * * * * * * * * * * * * * * * * * * * * * *"), 0, 'C', 0);
 
         $this->fpdf->Ln(2);
@@ -102,7 +106,7 @@ class Ticket extends Fpdf
             if (strlen($nombre) > 22) $nombre = substr($nombre, 0, 22) . "...";
             $this->fpdf->Cell(40, 5, utf8_decode($nombre), 0,  0, 'L');
             $this->fpdf->Cell(10, 5, utf8_decode($detalle_pedido->cantidad), 0, 0, 'R');
-            $monto = $this->formatearNumero($detalle_pedido->monto_total);
+            $monto = $this->formatearNumero($detalle_pedido->sub_total);
             $this->fpdf->Cell(20, 5, utf8_decode($monto . " Bs"), 0, 0, 'R');
             $this->fpdf->Ln(5);
         }
@@ -110,8 +114,17 @@ class Ticket extends Fpdf
         $this->fpdf->SetFont('Arial', 'B', 12);
         $this->fpdf->MultiCell($this->width, $this->space, utf8_decode("* * * * * * * * * * * * * * * * * * * * * * * *"), 0, 'C', 0);
         $this->fpdf->Ln(3);
-        $this->fpdf->SetFont('Arial', '', 12);
+        $this->fpdf->SetFont('Arial', '', 10);
+        $descuento =  $this->formatearNumero($pedido->descuento);
         $monto =  $this->formatearNumero($pedido->monto_total);
+        $subTotal =  $this->formatearNumero($pedido->monto_total + $pedido->descuento);
+        if ($pedido->descuento) {
+            $this->fpdf->MultiCell($this->width, $this->space, utf8_decode("SubTotal: " . $subTotal . " Bs"), 0, 'R', 0);
+            $this->fpdf->Ln(1);
+            $this->fpdf->MultiCell($this->width, $this->space, utf8_decode("Descuento: - " . $descuento . " Bs"), 0, 'R', 0);
+        }
+        $this->fpdf->Ln(1);
+        $this->fpdf->SetFont('Arial', 'B', 10);
         $this->fpdf->MultiCell($this->width, $this->space, utf8_decode("Total: " . $monto . " Bs"), 0, 'R', 0);
         $this->fpdf->SetFont('Arial', 'B', 12);
         $this->fpdf->Ln(3);

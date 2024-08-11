@@ -8,16 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class DetallePedido extends Model
 {
     use HasFactory;
-    protected $fillable = [
-        'pedido_id',
-        'producto_id',
-        'cantidad',
-        'precio',
-        'monto_total',
-        'detalles',
-        'mitad_uno',
-        'mitad_dos',
-    ];
+    protected $guarded = ['id', 'created_at', 'updated_at'];
 
     // TODO VALIDATIONS
     static public $validate = [];

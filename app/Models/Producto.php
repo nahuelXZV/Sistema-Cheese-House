@@ -134,6 +134,14 @@ class Producto extends Model
         return $productos;
     }
 
+    static public function GetProductosFilter($filter)
+    {
+        return Producto::where('categoria', $filter)
+            ->where('is_active', true)
+            ->orderBy('nombre', 'asc')
+            ->get();
+    }
+
     static public function GetProducto($id)
     {
         $producto = Producto::find($id);

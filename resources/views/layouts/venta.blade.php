@@ -14,10 +14,31 @@
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <!-- Styles -->
+    <style>
+        /* Scrollbar personalizado */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background-color: #6b7280;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background-color: #4b5563;
+        }
+
+        ::-webkit-scrollbar-track {
+            background-color: #f3f4f6;
+            border-radius: 4px;
+        }
+    </style>
     @livewireStyles
 </head>
 
-<body class="font-sans antialiased">
+<body class="font-sans antialiased bg-gray-50">
 
     <nav class="fixed top-0 z-50 w-full bg-white border-b border-gray-200 dark:bg-gray-800 dark:border-gray-700">
         <div class="px-3 py-3 lg:px-5 lg:pl-3">
@@ -95,7 +116,7 @@
     </nav>
 
     <div class="p-4 ">
-        <div class="p-4 rounded-lg dark:border-gray-700 mt-14">
+        <div class="p-4 rounded-lg dark:border-gray-700 mt-12">
             {{ $slot }}
         </div>
     </div>

@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Ventas\Pedido;
 
 use App\Models\Pedido;
+use App\Services\PedidoService;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -38,7 +39,7 @@ class ListPedido extends Component
 
     public function render()
     {
-        $pedidos = Pedido::GetPedidos($this->attribute, 'ASC', 20);
+        $pedidos = PedidoService::GetPedidos($this->attribute, 'ASC', 20);
         return view('livewire.ventas.pedido.list-pedido', compact('pedidos'));
     }
 }

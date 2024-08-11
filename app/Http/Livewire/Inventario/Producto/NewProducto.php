@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Inventario\Producto;
 
+use App\Constants\CategoriasProductos;
 use App\Models\Producto;
 use App\Models\Receta;
 use Livewire\Component;
@@ -19,6 +20,8 @@ class NewProducto extends Component
     private $validateFoto = ['foto' => 'required|image|mimes:jpeg,png,jpg,gif,svg'];
     private $messagesFoto = ['foto.image' => 'La foto debe ser una imagen', 'foto.mimes' => 'La foto debe ser de tipo jpeg,png,jpg,gif,svg', 'foto.required' => 'La foto es requerida'];
 
+    public $listaCategorias = [];
+
     public function mount()
     {
         $this->productoArray = [
@@ -35,12 +38,14 @@ class NewProducto extends Component
             'stock_maximo' => 0,
             'receta_id' => null,
         ];
+        $this->listaCategorias = CategoriasProductos::all();
     }
 
     public function save()
     {
         $this->validate($this->validateFoto, $this->messagesFoto);
-        if ($this->productoArray['categoria'] == 'Pizza' || $this->productoArray['categoria'] == 'Postre') {
+        $validate = $this->productoArray['categoria'] == CategoriasProductos::PIZZA || $this->productoArray['categoria'] == CategoriasProductos::POSTRE || $this->productoArray['categoria'] == CategoriasProductos::MITAD;
+        if ($validate) {
             $this->validate(Producto::$validatePizzaPostre, Producto::$messagesPizzaPostre);
         } else {
             $this->validate(Producto::$validateBebidaOtro, Producto::$messagesBebidaOtro);

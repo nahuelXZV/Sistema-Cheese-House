@@ -48,7 +48,7 @@
         </div>
 
 
-        <div class="mb-6">
+        <div class="">
             <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nombre</label>
             <input type="text" wire:model.defer="productoArray.nombre"
                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
@@ -56,7 +56,7 @@
             <x-input-error for="productoArray.nombre" />
         </div>
 
-        <div class="mb-6">
+        <div class="">
             <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Precio</label>
             <input type="number" wire:model.defer="productoArray.precio" min=" 0" max="1000000" step="0.01"
                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
@@ -64,7 +64,7 @@
             <x-input-error for="productoArray.precio" />
         </div>
 
-        <div class="mb-6">
+        <div class="">
             <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Tamaño</label>
             <input type="text" wire:model.defer="productoArray.tamaño"
                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
@@ -72,7 +72,7 @@
             <x-input-error for="productoArray.tamaño" />
         </div>
 
-        <div class="mb-6">
+        <div class="">
             <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="file_input">Subir
                 Imagen</label>
             <input wire:model="foto"
@@ -81,22 +81,27 @@
             <x-input-error for="foto" />
         </div>
 
+        @if (
+            $productoArray['categoria'] == 'Pizza' ||
+                $productoArray['categoria'] == 'Postre' ||
+                $productoArray['categoria'] == 'Mitad')
+            <div class="">
+                <label for="tipo_botella"
+                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Receta*</label>
+                <select id="tipo_botella" wire:model.defer="productoArray.receta_id"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 mb-6 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                    <option selected>Selecciona una receta</option>
+                    @foreach ($recetas as $receta)
+                        <option value="{{ $receta->id }}">{{ $receta->nombre }}</option>
+                    @endforeach
+                </select>
+                <x-input-error for="productoArray.receta_id" />
+            </div>
+        @else
+            <div class="col-span-2"></div>
+        @endif
 
-        <div class="mb-6">
-            <label for="categoria"
-                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Categoria</label>
-            <select id="categoria" wire:model.defer="productoArray.categoria"
-                class="bg-gray-50 border border-gray-300 text-gray-900 mb-6 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                <option selected>Selecciona una categoria</option>
-                <option value="Pizza">Pizza</option>
-                <option value="Bebida">Bebida</option>
-                <option value="Postre">Postre</option>
-                <option value="Otro">Otro</option>
-            </select>
-            <x-input-error for="productoArray.categoria" />
-        </div>
-
-        <div class="mb-6">
+        <div class="">
             <label for="categoria" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Estado</label>
             <div class="grid grid-cols-2">
                 <div class="flex items-center pl-4 border border-gray-200 rounded dark:border-gray-700">
@@ -117,26 +122,9 @@
             <x-input-error for="productoArray.is_active" />
         </div>
 
-        @if ($productoArray['categoria'] == 'Pizza' || $productoArray['categoria'] == 'Postre')
-            <div class="mb-6">
-                <label for="tipo_botella"
-                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Receta*</label>
-                <select id="tipo_botella" wire:model.defer="productoArray.receta_id"
-                    class="bg-gray-50 border border-gray-300 text-gray-900 mb-6 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                    <option selected>Selecciona una receta</option>
-                    @foreach ($recetas as $receta)
-                        <option value="{{ $receta->id }}">{{ $receta->nombre }}</option>
-                    @endforeach
-                </select>
-                <x-input-error for="productoArray.receta_id" />
-            </div>
-        @else
-            <div class="col-span-2"></div>
-        @endif
-
         @if ($productoArray['categoria'] == 'Bebida' || $productoArray['categoria'] == 'Otro')
             @if ($productoArray['categoria'] == 'Bebida')
-                <div class="mb-6">
+                <div class="">
                     <label for="tipo_botella" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Tipo
                         de botella*</label>
                     <select id="tipo_botella" wire:model.defer="productoArray.tipo_botella"
@@ -151,7 +139,7 @@
                 </div>
             @endif
 
-            <div class="mb-6">
+            <div class="">
                 <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Stock*</label>
                 <input type="number" wire:model.defer="productoArray.stock" min=" 0" max="1000000"
                     step="1"
@@ -160,7 +148,7 @@
                 <x-input-error for="productoArray.stock" />
             </div>
 
-            <div class="mb-6">
+            <div class="">
                 <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Stock Minimo*</label>
                 <input type="number" wire:model.defer="productoArray.stock_minimo" min=" 0" max="1000000"
                     step="1"
@@ -169,7 +157,7 @@
                 <x-input-error for="productoArray.stock_minimo" />
             </div>
 
-            <div class="mb-6">
+            <div class="">
                 <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Stock Maximo*</label>
                 <input type="number" wire:model.defer="productoArray.stock_maximo" min=" 0" max="1000000"
                     step="1"

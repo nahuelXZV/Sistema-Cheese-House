@@ -13,6 +13,27 @@
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <style>
+        /* Scrollbar personalizado */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background-color: #6b7280;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background-color: #4b5563;
+        }
+
+        ::-webkit-scrollbar-track {
+            background-color: #f3f4f6;
+            border-radius: 4px;
+        }
+    </style>
     <!-- Styles -->
     @livewireStyles
 </head>
@@ -183,6 +204,15 @@
                         </a>
                     </li>
                 @endcan
+                @can('pedidos')
+                    <li>
+                        <a href="{{ route('descuento.list') }}"
+                            class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
+                            <x-iconos.descuento />
+                            <span class="flex-1 ml-3 whitespace-nowrap">Descuentos</span>
+                        </a>
+                    </li>
+                @endcan
                 @can('cocina')
                     <li>
                         <a href="{{ route('pedidos.cocina') }}"
@@ -206,7 +236,7 @@
     </aside>
 
     <div class="p-4 sm:ml-64">
-        <div class="p-4 rounded-lg dark:border-gray-700 mt-14">
+        <div class="p-4 rounded-lg  dark:border-gray-700 mt-14">
             {{ $slot }}
         </div>
     </div>
