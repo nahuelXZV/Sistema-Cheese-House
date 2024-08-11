@@ -30,6 +30,7 @@ class PedidoMensualExport implements FromCollection, WithHeadings
             'Monto Total',
             'Metodo de Pago',
             'Procedencia',
+            'Para',
             'Detalles',
         ];
     }
@@ -46,6 +47,7 @@ class PedidoMensualExport implements FromCollection, WithHeadings
                 'monto_total',
                 'metodo_pago',
                 'proveniente',
+                'tipo_pedido',
                 'detalles',
             )->whereMonth('pedidos.created_at', $this->mes)->whereYear('pedidos.created_at', $this->anio)
             ->orderBy('pedidos.created_at', 'DESC')

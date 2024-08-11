@@ -26,6 +26,7 @@ class PedidoAnualExport implements FromCollection, WithHeadings
             'Monto Total',
             'Metodo de Pago',
             'Procedencia',
+            'Para',
             'Detalles',
         ];
     }
@@ -42,6 +43,7 @@ class PedidoAnualExport implements FromCollection, WithHeadings
                 'monto_total',
                 'metodo_pago',
                 'proveniente',
+                'tipo_pedido',
                 'detalles',
             )->whereYear('pedidos.created_at', date('Y'))
             ->orderBy('pedidos.created_at', 'DESC')
