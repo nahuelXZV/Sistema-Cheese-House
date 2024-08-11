@@ -116,7 +116,7 @@ Route::middleware([
         Route::get('/show/{compra}', ShowCompra::class)->name('compras.show');
     });
 
-    Route::group(['prefix' => 'descuentos', 'middleware' => ['can:pedidos', 'auth']], function () {
+    Route::group(['prefix' => 'descuentos', 'middleware' => ['can:descuentos', 'auth']], function () {
         Route::get('/list', ListDescuento::class)->name('descuento.list');
         Route::get('/new', NewDescuento::class)->name('descuento.new');
         Route::get('/edit/{descuento}', EditDescuento::class)->name('descuento.edit');

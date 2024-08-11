@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Sistema\Rol;
 
+use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
@@ -37,9 +38,18 @@ class EditRol extends Component
             'name' => 'required|unique:roles,name,' . $this->rol->id,
             'permisosSeleccionados' => 'required|array|min:1'
         ], $this->messages);
-        $this->rol->name = $this->name;
-        $this->rol->syncPermissions($this->permisosSeleccionados);
-        $this->rol->save();
+        $name = $this->name;
+        $array = $this->permisosSeleccionados;
+        try {
+            return DB::transaction(function () use ($name, $array) {
+                $this->rol->name = $name;
+                $this->rol->syncPermissions($array);
+                $this->rol->save();
+                return true;
+            });
+        } catch (\Throwable $th) {
+            return false;
+        }
         return redirect()->route('roles.list');
     }
 
