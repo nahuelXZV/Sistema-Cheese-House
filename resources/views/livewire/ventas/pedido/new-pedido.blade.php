@@ -64,7 +64,7 @@
             <div class="w-full ">
                 <div class="grid grid-cols-5 gap-1">
                     @foreach ($productos as $producto)
-                        <div class="">
+                        <div class="peer-checked:border-blue-600 peer-checked:text-blue-600">
                             <input type="radio" id="{{ $producto['nombre'] }}" value="{{ $producto['id'] }}"
                                 class="hidden peer" required name="producto_id"
                                 wire:model.live="productosArray.producto_id">
@@ -220,7 +220,7 @@
                         <div>
                             <label class="block mb-2 text-sm font-semibold text-gray-900 dark:text-white">Descuento:
                                 <span class="text-sm font-bold text-gray-900 dark:text-white">
-                                   -{{ $montoDescuento }} Bs.
+                                    -{{ $montoDescuento }} Bs.
                                 </span>
                             </label>
                         </div>
