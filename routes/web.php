@@ -28,6 +28,9 @@ use App\Http\Livewire\Sistema\Rol\NewRol;
 use App\Http\Livewire\Sistema\Usuario\EditUsuario;
 use App\Http\Livewire\Sistema\Usuario\ListUsuario;
 use App\Http\Livewire\Sistema\Usuario\NewUsuario;
+use App\Http\Livewire\Ventas\Descuentos\EditDescuento;
+use App\Http\Livewire\Ventas\Descuentos\ListDescuento;
+use App\Http\Livewire\Ventas\Descuentos\NewDescuento;
 use App\Http\Livewire\Ventas\Pedido\EditPedido;
 use App\Http\Livewire\Ventas\Pedido\ListPedido;
 use App\Http\Livewire\Ventas\Pedido\NewPedido;
@@ -111,6 +114,12 @@ Route::middleware([
         Route::get('/new', NewCompra::class)->name('compras.new');
         Route::get('/edit/{compra}', EditCompra::class)->name('compras.edit');
         Route::get('/show/{compra}', ShowCompra::class)->name('compras.show');
+    });
+
+    Route::group(['prefix' => 'descuentos', 'middleware' => ['can:pedidos', 'auth']], function () {
+        Route::get('/list', ListDescuento::class)->name('descuento.list');
+        Route::get('/new', NewDescuento::class)->name('descuento.new');
+        Route::get('/edit/{descuento}', EditDescuento::class)->name('descuento.edit');
     });
 
     Route::group(['prefix' => 'pedidos'], function () {
