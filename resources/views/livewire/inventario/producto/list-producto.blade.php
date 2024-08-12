@@ -96,6 +96,10 @@
                                     <span
                                         class="bg-green-100 text-green-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-green-300">Pizza</span>
                                 @break
+                                @case('Mitad')
+                                    <span
+                                        class="bg-green-100 text-green-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-green-300">Pizza</span>
+                                @break
 
                                 @case('Bebida')
                                     <span
@@ -109,8 +113,9 @@
 
                                 @default
                                     <span
-                                        class="bg-gray-100 text-gray-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-gray-900 dark:text-gray-300">Sin
-                                        Categoria</span>
+                                        class="bg-gray-100 text-gray-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-gray-900 dark:text-gray-300">
+                                        Otro
+                                        </span>
                                 @break
                             @endswitch
                         </td>
