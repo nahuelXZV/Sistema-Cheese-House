@@ -46,6 +46,7 @@ class PedidoService
                     }
                     if (!in_array($producto->categoria, $listaProductosRecetas)) continue;
                     $receta = Receta::find($producto->receta_id);
+                    if (!$receta) continue;
                     foreach ($receta->ingredientes as $ingrediente) {
                         $ingrediente->stock = floatval($ingrediente->stock) - (floatval($detalle_pedido->cantidad) * floatval($ingrediente->pivot->cantidad));
                         $ingrediente->save();
@@ -54,7 +55,6 @@ class PedidoService
                 return $new;
             });
         } catch (\Throwable $th) {
-            dd($th);
             return false;
         }
     }
@@ -112,6 +112,7 @@ class PedidoService
                     }
                     if (!in_array($producto->categoria, $listaProductosRecetas)) continue;
                     $receta = Receta::find($producto->receta_id);
+                    if (!$receta) continue;
                     foreach ($receta->ingredientes as $ingrediente) {
                         $ingrediente->stock = floatval($ingrediente->stock) - (floatval($detalle_pedido->cantidad) * floatval($ingrediente->pivot->cantidad));
                         $ingrediente->save();
