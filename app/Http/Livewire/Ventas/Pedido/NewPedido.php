@@ -70,10 +70,12 @@ class NewPedido extends Component
     public function save()
     {
         $this->validate(Pedido::$validate, Pedido::$messages);
-        $descuento = Descuento::getDescuento($this->descuentoCheck);
-        $this->pedidoArray['descuento'] = $descuento->porcentaje;
-        $this->pedidoArray['nombre_descuento'] = $descuento->nombre;
-        $this->pedidoArray['descuento_id'] = $descuento->id;
+        if ($this->descuentoCheck) {
+            $descuento = Descuento::getDescuento($this->descuentoCheck);
+            $this->pedidoArray['descuento'] = $descuento->porcentaje;
+            $this->pedidoArray['nombre_descuento'] = $descuento->nombre;
+            $this->pedidoArray['descuento_id'] = $descuento->id;
+        }
         $new = PedidoService::CreatePedido($this->pedidoArray);
         if (!$new) {
             $this->message = 'Error al crear el pedido';
