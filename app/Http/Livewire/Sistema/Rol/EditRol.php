@@ -41,15 +41,13 @@ class EditRol extends Component
         $name = $this->name;
         $array = $this->permisosSeleccionados;
         try {
-            return DB::transaction(function () use ($name, $array) {
+            DB::transaction(function () use ($name, $array) {
                 $this->rol->name = $name;
                 $this->rol->syncPermissions($array);
                 $this->rol->save();
                 return true;
             });
-        } catch (\Throwable $th) {
-            return false;
-        }
+        } catch (\Throwable $th) { }
         return redirect()->route('roles.list');
     }
 
