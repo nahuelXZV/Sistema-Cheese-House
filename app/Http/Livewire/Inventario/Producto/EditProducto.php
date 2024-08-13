@@ -19,8 +19,8 @@ class EditProducto extends Component
     public $listaCategorias = [];
     public $foto;
     public $producto;
-    private $validateFoto = ['foto' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg'];
-    private $messagesFoto = ['foto.image' => 'La foto debe ser una imagen', 'foto.mimes' => 'La foto debe ser de tipo jpeg,png,jpg,gif,svg'];
+    private $validateFoto = ['foto' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp'];
+    private $messagesFoto = ['foto.image' => 'La foto debe ser una imagen', 'foto.mimes' => 'La foto debe ser de tipo jpeg,png,jpg,gif,svg,webp'];
 
     public function mount($producto)
     {
