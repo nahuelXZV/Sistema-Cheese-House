@@ -28,7 +28,7 @@ class ListPedido extends Component
 
     public function delete($id)
     {
-        $pedido = Pedido::DeletePedido($id);
+        $pedido = PedidoService::DeletePedido($id);
         if ($pedido) {
             $this->message = 'Eliminado correctamente';
         } else {

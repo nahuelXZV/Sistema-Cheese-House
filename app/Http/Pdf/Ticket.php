@@ -2,6 +2,7 @@
 
 namespace App\Http\Pdf;
 
+use App\Models\Descuento;
 use Codedge\Fpdf\Fpdf\Fpdf;
 use App\Models\Pedido;
 
@@ -55,6 +56,9 @@ class Ticket extends Fpdf
 
         $this->fpdf->header('Content-type: application/pdf');
         $pedido = Pedido::find($pedidoId);
+        if ($pedido->descuento_id) {
+            $descuentoDB = Descuento::find($pedido->descuento_id);
+        }
         $fecha = date('d/m/Y', strtotime($pedido->fecha));
         $fechaLiteral = $this->fechaLiteral($fecha);
         $this->fpdf->AddPage();
@@ -121,9 +125,9 @@ class Ticket extends Fpdf
         if ($pedido->descuento) {
             $this->fpdf->MultiCell($this->width, $this->space, utf8_decode("SubTotal: " . $subTotal . " Bs"), 0, 'R', 0);
             $this->fpdf->Ln(1);
-            $this->fpdf->MultiCell($this->width, $this->space, utf8_decode("Descuento: - " . $descuento . " Bs"), 0, 'R', 0);
+            $this->fpdf->MultiCell($this->width, $this->space, utf8_decode("Descuento (" . $descuentoDB->porcentaje . "%): - " . $descuento . " Bs"), 0, 'R', 0);
+            $this->fpdf->Ln(1);
         }
-        $this->fpdf->Ln(1);
         $this->fpdf->SetFont('Arial', 'B', 10);
         $this->fpdf->MultiCell($this->width, $this->space, utf8_decode("Total: " . $monto . " Bs"), 0, 'R', 0);
         $this->fpdf->SetFont('Arial', 'B', 12);

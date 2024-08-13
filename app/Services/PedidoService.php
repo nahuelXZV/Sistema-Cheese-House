@@ -84,6 +84,7 @@ class PedidoService
                     }
                     if (in_array($producto->categoria, $listaProductosRecetas)) {
                         $receta = Receta::find($producto->receta_id);
+                        if (!$receta) continue;
                         foreach ($receta->ingredientes as $ingrediente) {
                             $ingrediente->stock = floatval($ingrediente->stock) + (floatval($detalle->cantidad) * floatval($ingrediente->pivot->cantidad));
                             $ingrediente->save();
@@ -128,8 +129,24 @@ class PedidoService
     static public function DeletePedido($id)
     {
         $pedido = Pedido::find($id);
-        foreach ($pedido->detalle_pedidos as $detalle) {
-            DetallePedido::DeleteDetallePedido($detalle->id);
+        $listaProductosRecetas = CategoriasProductos::getConReceta();
+        $listaProductoSinRecetas = CategoriasProductos::getSinReceta();
+        $detalle_pedido = DetallePedido::where('pedido_id', $id)->get();
+        foreach ($detalle_pedido as $detalle) {
+            $producto = Producto::find($detalle->producto_id);
+            if (in_array($producto->categoria, $listaProductoSinRecetas)) {
+                $producto->stock = floatval($producto->stock) + floatval($detalle->cantidad);
+                $producto->save();
+            }
+            if (in_array($producto->categoria, $listaProductosRecetas)) {
+                $receta = Receta::find($producto->receta_id);
+                if (!$receta) continue;
+                foreach ($receta->ingredientes as $ingrediente) {
+                    $ingrediente->stock = floatval($ingrediente->stock) + (floatval($detalle->cantidad) * floatval($ingrediente->pivot->cantidad));
+                    $ingrediente->save();
+                }
+            };
+            $detalle->delete();
         }
         $pedido->delete();
         return $pedido;
