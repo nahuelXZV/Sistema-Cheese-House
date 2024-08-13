@@ -84,9 +84,11 @@ class EditPedido extends Component
     public function save()
     {
         $this->validate(Pedido::$validate, Pedido::$messages);
-        $descuento = Descuento::getDescuento($this->descuentoCheck);
-        $this->pedidoArray['descuento'] = $descuento->porcentaje;
-        $this->pedidoArray['nombre_descuento'] = $descuento->nombre;
+        if ($this->descuentoCheck) {
+            $descuento = Descuento::getDescuento($this->descuentoCheck);
+            $this->pedidoArray['descuento'] = $descuento->porcentaje;
+            $this->pedidoArray['nombre_descuento'] = $descuento->nombre;
+        }
         $new = PedidoService::UpdatePedido($this->pedido->id, $this->pedidoArray);
         if (!$new) {
             $this->message = 'Error al actualizar el pedido';
