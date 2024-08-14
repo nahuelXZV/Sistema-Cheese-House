@@ -165,7 +165,7 @@ class PedidoService
             ->orWhere('pedidos.proveniente', 'ILIKE', '%' . strtolower($attribute) . '%')
             ->orWhere('users.name', 'ILIKE', '%' . strtolower($attribute) . '%')
             ->orderBy('pedidos.fecha', 'DESC')
-            ->orderBy('pedidos.hora', 'ASC')
+            ->orderBy('pedidos.hora', 'DESC')
             ->paginate($paginate);
         return $pedidos;
     }
