@@ -10,7 +10,7 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule): void
     {
         $schedule->command('app:reporte-ingredientes')->dailyAt('23:58')->timezone('America/La_Paz');
-        $schedule->command('app:reporte-ingredientes')->everyMinute();
+        //$schedule->command('app:reporte-ingredientes')->everyMinute();
     }
 
 
