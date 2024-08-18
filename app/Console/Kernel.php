@@ -9,11 +9,11 @@ class Kernel extends ConsoleKernel
 {
     protected function schedule(Schedule $schedule): void
     {
-        $schedule->command('app:reporte-ingredientes')->dailyAt('23:57')->timezone('America/La_Paz');
-        $schedule->command('app:reporte-ingredientes')->dailyAt('23:58')->timezone('America/La_Paz');
-        $schedule->command('app:reporte-ingredientes')->dailyAt('23:59')->timezone('America/La_Paz');
+        $schedule->command('app:reporte-ingredientes')->dailyAt('23:57');
+        $schedule->command('app:reporte-ingredientes')->dailyAt('23:58');
+        $schedule->command('app:reporte-ingredientes')->dailyAt('23:59');
         //$schedule->command('app:reporte-ingredientes')->everyMinute();
-        $schedule->command('app:reporte-ingredientes')->dailyAt('07:50');
+        // $schedule->command('app:reporte-ingredientes')->dailyAt('07:50');
     }
 
     protected function commands(): void
