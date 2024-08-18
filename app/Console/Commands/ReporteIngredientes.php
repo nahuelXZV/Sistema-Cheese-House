@@ -28,7 +28,6 @@ class ReporteIngredientes extends Command
         if ($creado) return;
         Log::info('Generando reporte de ingredientes para la fecha: ' . $fecha);
         try {
-
             // VENTAS
             $detallesPedidos = DetallePedido::whereDate('created_at', $fecha)->get();
             $listaVenta = [
@@ -51,6 +50,7 @@ class ReporteIngredientes extends Command
                 }
                 if (!in_array($producto->categoria, $listaProductosRecetas)) continue;
                 $receta = Receta::find($producto->receta_id);
+                if (!$receta) continue;
                 foreach ($receta->ingredientes as $ingrediente) {
                     $stockDescontar = floatval($detalle->cantidad) * floatval($ingrediente->pivot->cantidad);
                     $listaVenta['ingredientes'][] = [
@@ -68,6 +68,7 @@ class ReporteIngredientes extends Command
             ];
             foreach ($detallesCompras as $detalle) {
                 $producto = Producto::find($detalle->producto_id);
+                if (!$producto) continue;
                 if ($detalle->producto_id) {
                     $stockAumentar = floatval($detalle->cantidad);
                     $listaCompra['productos'][] = [
@@ -176,7 +177,6 @@ class ReporteIngredientes extends Command
                     'stock_final' => $stock_actual,
                 ]);
             }
-
             Log::info('Reporte de ingredientes generado correctamente');
         } catch (\Throwable $th) {
             Log::error('Error al generar el reporte de ingredientes: ' . $th->getMessage());
