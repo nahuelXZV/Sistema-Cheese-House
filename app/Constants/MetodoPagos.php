@@ -15,11 +15,11 @@ class MetodoPagos
     {
         return [
             self::EFECTIVO,
-            self::TRANSFERENCIA_BANCARIA,
+            //self::TRANSFERENCIA_BANCARIA,
             self::QR,
             self::TARJETA,
-            self::CORTESIA,
-            self::OTRO,
+            //self::CORTESIA,
+            //self::OTRO,
         ];
     }
 }
