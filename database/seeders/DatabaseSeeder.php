@@ -38,7 +38,7 @@ class DatabaseSeeder extends Seeder
         Permission::create(['name' => 'pantalla', 'description' => 'Mostrar La Pantalla Del Cliente'])->syncRoles($admin);
         Permission::create(['name' => 'editar.venta', 'description' => 'Permite editar las ventas'])->syncRoles($admin);
         Permission::create(['name' => 'descuentos', 'description' => 'Permite gestionar los descuentos'])->syncRoles($admin);
-        Permission::create(['name' => 'caja.view', 'description' => 'Ver el estado de caja'])->syncRoles($admin);
+        Permission::create(['name' => 'ver.caja', 'description' => 'Ver el estado de caja'])->syncRoles($admin);
         Permission::create(['name' => 'caja.update', 'description' => 'Actualizar el estado de la caja'])->syncRoles($admin);
 
         User::create([
