@@ -97,7 +97,7 @@
                         <tbody>
                             <tr class="justify-center items-center text-center bg-red-200">
                                 <td class="px-2 py-2 font-bold">INICIO DE CAJA</td>
-                                <td class="px-2 py-2 font-bold">{{ $cajaAnterior->caja_dia_siguiente }}</td>
+                                <td class="px-2 py-2 font-bold">{{ $cajaInicial }}</td>
                             </tr>
                             <tr class="justify-center items-center text-center bg-gray-100">
                                 <td class="px-2 py-2 font-bold">EFECTIVO</td>
@@ -106,7 +106,7 @@
                             <tr class="justify-center items-center text-center bg-red-200">
                                 <td class="px-2 py-2 font-bold">FIN DE CAJA</td>
                                 <td class="px-2 py-2 font-bold">
-                                    {{ $cajaAnterior->caja_dia_siguiente + $estadoCaja['efectivo'] }}
+                                    {{ $cajaInicial + $estadoCaja['efectivo'] }}
                                 </td>
                             </tr>
                             <tr class="justify-center items-center text-center bg-gray-100">

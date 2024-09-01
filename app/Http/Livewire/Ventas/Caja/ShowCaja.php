@@ -29,7 +29,7 @@ class ShowCaja extends Component
     public $caja_dia_siguiente;
     public $cortesia;
     public $falto;
-
+    public $cajaInicial;
 
     public $message = '';
     public $showMessage = false;
@@ -45,6 +45,11 @@ class ShowCaja extends Component
         $this->falto = $this->caja->falto;
 
         $this->cajaAnterior = CajaService::GetCaja($caja - 1);
+        if ($this->cajaAnterior) {
+            $this->cajaInicial = $this->cajaAnterior->caja_dia_siguiente;
+        } else {
+            $this->cajaInicial = 0;
+        }
         $this->pedidosSinProcesar = PedidoService::GetPedidosCaja($this->caja->fecha);
         $this->estadoCaja = [
             'efectivo' => 0,
