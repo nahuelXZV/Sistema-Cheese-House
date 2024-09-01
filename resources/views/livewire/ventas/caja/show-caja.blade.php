@@ -50,12 +50,12 @@
     <div>
         <div class="col-span-2 h-full">
             <p>
-                <span class="text-lg font-bold text-gray-900 dark:text-white">LISTADO DE VENTAS</span>
+                <span class="text-lg font-bold text-gray-900 dark:text-white">FLUJO DE CAJA DIARIO</span>
             </p>
             <div class="mb-6">
                 <table class="w-full text-sm text-gray-900 bg-gray-50 border border-gray-300 rounded-lg">
                     <thead class="bg-gray-200">
-                        <tr>
+                        <tr class="justify-start items-start text-start">
                             <th class="px-2 py-2">Nro Pedido</th>
                             <th class="px-2 py-2">Nombre del pedido</th>
                             <th class="px-2 py-2">Total Bs del pedido</th>
@@ -95,39 +95,39 @@
                     </p>
                     <table class="w-full text-sm text-gray-900 bg-gray-50 border border-gray-300 rounded-lg">
                         <tbody>
-                            <tr class="justify-center items-center text-center bg-red-200">
+                            <tr class="justify-start items-start text-start bg-red-200">
                                 <td class="px-2 py-2 font-bold">INICIO DE CAJA</td>
-                                <td class="px-2 py-2 font-bold">{{ $cajaInicial }}</td>
+                                <td class="px-2 py-2 font-bold">{{ $cajaInicial }} Bs.</td>
                             </tr>
-                            <tr class="justify-center items-center text-center bg-gray-100">
+                            <tr class="justify-start items-start text-start bg-gray-100">
                                 <td class="px-2 py-2 font-bold">EFECTIVO</td>
-                                <td class="px-2 py-2 font-bold">{{ $estadoCaja['efectivo'] }}</td>
+                                <td class="px-2 py-2 font-bold">{{ $estadoCaja['efectivo'] }} Bs.</td>
                             </tr>
-                            <tr class="justify-center items-center text-center bg-red-200">
+                            <tr class="justify-start items-start text-start bg-red-200">
                                 <td class="px-2 py-2 font-bold">FIN DE CAJA</td>
                                 <td class="px-2 py-2 font-bold">
-                                    {{ $cajaInicial + $estadoCaja['efectivo'] }}
+                                    {{ $cajaInicial + $estadoCaja['efectivo'] }} Bs.
                                 </td>
                             </tr>
-                            <tr class="justify-center items-center text-center bg-gray-100">
+                            <tr class="justify-start items-start text-start bg-gray-100">
                                 <td class="px-2 py-2 font-bold">TARJETA</td>
-                                <td class="px-2 py-2 font-bold">{{ $estadoCaja['tarjeta'] }}</td>
+                                <td class="px-2 py-2 font-bold">{{ $estadoCaja['tarjeta'] }} Bs.</td>
                             </tr>
-                            <tr class="justify-center items-center text-center bg-gray-100">
+                            <tr class="justify-start items-start text-start bg-gray-100">
                                 <td class="px-2 py-2 font-bold">QR</td>
-                                <td class="px-2 py-2 font-bold">{{ $estadoCaja['qr'] }}</td>
+                                <td class="px-2 py-2 font-bold">{{ $estadoCaja['qr'] }} Bs.</td>
                             </tr>
-                            <tr class="justify-center items-center text-center bg-gray-100">
+                            {{-- <tr class="justify-start items-start text-start bg-gray-100">
                                 <td class="px-2 py-2 font-bold">PAGOS ONLINE</td>
                                 <td class="px-2 py-2 font-bold">0 </td>
-                            </tr>
-                            <tr class="justify-center items-center text-center bg-blue-100">
+                            </tr> --}}
+                            <tr class="justify-start items-start text-start bg-blue-100">
                                 <td class="px-2 py-2 font-bold">TOTAL INGRESOS</td>
-                                <td class="px-2 py-2 font-bold">{{ $ventas }} </td>
+                                <td class="px-2 py-2 font-bold">{{ $ventas }} Bs. </td>
                             </tr>
-                            <tr class="justify-center items-center text-center bg-blue-100">
+                            <tr class="justify-start items-start text-start bg-blue-100">
                                 <td class="px-2 py-2 font-bold">NRO. PIZZAS VENDIDAS</td>
-                                <td class="px-2 py-2 font-bold">{{ $totalPizzasVendidas }} </td>
+                                <td class="px-2 py-2 font-bold">{{ $totalPizzasVendidas }} UND. </td>
                             </tr>
                         </tbody>
                     </table>
@@ -139,7 +139,7 @@
                     </p>
                     <table class="w-full text-sm text-gray-900 bg-gray-50 border border-gray-300 rounded-lg">
                         <tbody>
-                            <tr class="justify-center items-center text-center bg-red-200">
+                            <tr class="justify-start items-start text-start bg-red-200">
                                 <td class="px-2 py-2 font-bold">CANTIDAD A DEPOSITAR EN BS</td>
                                 <td class="px-2 py-2 font-bold">
                                     @can('caja.update')
@@ -152,7 +152,7 @@
                                     @endcan
                                 </td>
                             </tr>
-                            <tr class="justify-center items-center text-center bg-blue-200">
+                            <tr class="justify-start items-start text-start bg-blue-200">
                                 <td class="px-2 py-2 font-bold">TRANSPASO A CAJA CHICA EN BS</td>
                                 <td class="px-2 py-2 font-bold">
                                     @can('caja.update')
@@ -164,7 +164,7 @@
                                     @endcan
                                 </td>
                             </tr>
-                            <tr class="justify-center items-center text-center bg-green-200">
+                            <tr class="justify-start items-start text-start bg-green-200">
                                 <td class="px-2 py-2 font-bold">ADICION DE CAJA CHICA EN BS</td>
                                 <td class="px-2 py-2 font-bold">
                                     @can('caja.update')
@@ -175,7 +175,7 @@
                                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-24 h-8 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                                     @endcan
                             </tr>
-                            <tr class="justify-center items-center text-center bg-gray-200">
+                            <tr class="justify-start items-start text-start bg-gray-200">
                                 <td class="px-2 py-2 font-bold">CAJA PARA DIA SIGUIENTE</td>
                                 <td class="px-2 py-2 font-bold">
                                     @can('caja.update')
@@ -186,7 +186,7 @@
                                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-24 h-8 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                                     @endcan
                             </tr>
-                            <tr class="justify-center items-center text-center bg-gray-200">
+                            <tr class="justify-start items-start text-start bg-gray-200">
                                 <td class="px-2 py-2 font-bold">CORTESIA</td>
                                 <td class="px-2 py-2 font-bold">
                                     @can('caja.update')
@@ -197,7 +197,7 @@
                                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-24 h-8 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                                     @endcan
                             </tr>
-                            <tr class="justify-center items-center text-center bg-gray-200">
+                            <tr class="justify-start items-start text-start bg-gray-200">
                                 <td class="px-2 py-2 font-bold">FALTO</td>
                                 <td class="px-2 py-2 font-bold">
                                     @can('caja.update')
@@ -209,7 +209,7 @@
                                     @endcan
                             </tr>
                             @can('caja.update')
-                                <tr class="justify-center items-center text-center bg-gray-200">
+                                <tr class="justify-start items-start text-start bg-gray-200">
                                     <td class="px-2 py-2 font-bold"></td>
                                     <td class="px-2 py-2 font-bold">
                                         <button wire:click="update"
