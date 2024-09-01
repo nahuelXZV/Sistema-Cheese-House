@@ -28,6 +28,8 @@ use App\Http\Livewire\Sistema\Rol\NewRol;
 use App\Http\Livewire\Sistema\Usuario\EditUsuario;
 use App\Http\Livewire\Sistema\Usuario\ListUsuario;
 use App\Http\Livewire\Sistema\Usuario\NewUsuario;
+use App\Http\Livewire\Ventas\Caja\ListCaja;
+use App\Http\Livewire\Ventas\Caja\ShowCaja;
 use App\Http\Livewire\Ventas\Descuentos\EditDescuento;
 use App\Http\Livewire\Ventas\Descuentos\ListDescuento;
 use App\Http\Livewire\Ventas\Descuentos\NewDescuento;
@@ -121,6 +123,11 @@ Route::middleware([
         Route::get('/list', ListDescuento::class)->name('descuento.list');
         Route::get('/new', NewDescuento::class)->name('descuento.new');
         Route::get('/edit/{descuento}', EditDescuento::class)->name('descuento.edit');
+    });
+
+    Route::group(['prefix' => 'caja', 'middleware' => ['can:ver.caja', 'auth']], function () {
+        Route::get('/list', ListCaja::class)->name('caja.list');
+        Route::get('/show/{caja}', ShowCaja::class)->name('caja.show');
     });
 
     Route::group(['prefix' => 'pedidos'], function () {

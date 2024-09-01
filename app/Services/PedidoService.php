@@ -170,6 +170,15 @@ class PedidoService
         return $pedidos;
     }
 
+    static public function GetPedidosCaja($fecha)
+    {
+        $pedidos = Pedido::join('users', 'users.id', '=', 'pedidos.user_id')
+            ->select('pedidos.*', 'users.name as user_name')
+            ->where('pedidos.fecha', $fecha)
+            ->get();
+        return $pedidos;
+    }
+
     static public function GetPedido($id)
     {
         $pedido = Pedido::find($id);
