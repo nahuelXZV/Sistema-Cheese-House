@@ -10,9 +10,7 @@ class CategoriasProductos
     const MITAD = 'Mitad';
     const OTRO = 'Otro';
 
-
     // Agrega aquí más tipos de programas si es necesario
-
     public static function all(): array
     {
         return [

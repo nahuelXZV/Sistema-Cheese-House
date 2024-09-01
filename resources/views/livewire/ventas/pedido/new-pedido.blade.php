@@ -3,14 +3,13 @@
         <section class="">
             <nav class="flex px-3 py-3 mb-3 text-gray-700 justify-between border border-gray-200 rounded-md bg-white dark:bg-gray-800 dark:border-gray-700"
                 aria-label="Breadcrumb">
-                <ul class="grid w-full h-10 gap-2 md:grid-cols-5">
+                <ul class="grid w-full h-10 gap-2 md:grid-cols-6">
                     <li>
                         <input type="radio" id="Pizza" name="filter" value="Pizza" wire:model.live="filter"
                             class="hidden peer" />
                         <label for="Pizza"
                             class="h-10 inline-flex items-center justify-between w-full p-2 text-gray-500 bg-white border border-gray-200 rounded-md cursor-pointer dark:hover:text-gray-300 dark:border-gray-700 dark:peer-checked:text-blue-500 peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700">
                             <div class="flex justify-center items-center">
-                                <x-iconos.pizzaI />
                                 <div class="w-full text-lg font-semibold ml-2">Pizzas</div>
                             </div>
                         </label>
@@ -21,7 +20,6 @@
                         <label for="Mitad"
                             class="h-10 inline-flex items-center justify-between w-full p-2 text-gray-500 bg-white border border-gray-200 rounded-md cursor-pointer dark:hover:text-gray-300 dark:border-gray-700 dark:peer-checked:text-blue-500 peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700">
                             <div class="flex justify-center items-center">
-                                <x-iconos.pizzaI />
                                 <div class="w-full text-lg font-semibold ml-2">Mitades</div>
                             </div>
                         </label>
@@ -32,7 +30,6 @@
                         <label for="Postre"
                             class="h-10 inline-flex items-center justify-between w-full p-2 text-gray-500 bg-white border border-gray-200 rounded-md cursor-pointer dark:hover:text-gray-300 dark:border-gray-700 dark:peer-checked:text-blue-500 peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700">
                             <div class="flex justify-center items-center">
-                                <x-iconos.postre />
                                 <div class="w-full text-lg font-semibold ml-2">Postres</div>
                             </div>
                         </label>
@@ -43,8 +40,17 @@
                         <label for="Bebida"
                             class="h-10 inline-flex items-center justify-between w-full p-2 text-gray-500 bg-white border border-gray-200 rounded-md cursor-pointer dark:hover:text-gray-300 dark:border-gray-700 dark:peer-checked:text-blue-500 peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700">
                             <div class="flex justify-center items-center">
-                                <x-iconos.bebida />
                                 <div class="w-full text-lg font-semibold ml-2">Bebidas</div>
+                            </div>
+                        </label>
+                    </li>
+                    <li>
+                        <input type="radio" id="PedidosYA" name="filter" value="PedidosYA"
+                            class="hidden peer"wire:model.live="filter" />
+                        <label for="PedidosYA"
+                            class="h-10 inline-flex items-center justify-between w-full p-2 text-gray-500 bg-white border border-gray-200 rounded-md cursor-pointer dark:hover:text-gray-300 dark:border-gray-700 dark:peer-checked:text-blue-500 peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700">
+                            <div class="flex justify-center items-center">
+                                <div class="w-full text-lg font-semibold ml-2">Pedidos YA</div>
                             </div>
                         </label>
                     </li>
@@ -54,7 +60,6 @@
                         <label for="Otro"
                             class="h-10 inline-flex items-center justify-between w-full p-2 text-gray-500 bg-white border border-gray-200 rounded-md cursor-pointer dark:hover:text-gray-300 dark:border-gray-700 dark:peer-checked:text-blue-500 peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700">
                             <div class="flex justify-center items-center">
-                                <x-iconos.otro />
                                 <div class="w-full text-lg font-semibold ml-2">Otros</div>
                             </div>
                         </label>

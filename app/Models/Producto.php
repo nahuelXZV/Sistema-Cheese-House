@@ -9,20 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 class Producto extends Model
 {
     use HasFactory;
-    protected $fillable = [
-        'nombre',
-        'descripcion',
-        'precio',
-        'tamaño',
-        'url_imagen',
-        'is_active',
-        'categoria',
-        'tipo_botella',
-        'stock',
-        'stock_minimo',
-        'stock_maximo',
-        'receta_id',
-    ];
+    protected $guarded = ['id', 'created_at', 'updated_at'];
 
     // TODO VALIDATIONS
     static public $validatePizzaPostre = [
@@ -100,8 +87,6 @@ class Producto extends Model
     }
 
     // TODO FUNCTIONS
-
-
     static public function CreateProducto(array $array)
     {
         $new = new Producto($array);
@@ -129,17 +114,23 @@ class Producto extends Model
         $productos = Producto::where('nombre', 'ILIKE', '%' . strtolower($attribute) . '%')
             ->orWhere('categoria', 'ILIKE', '%' . strtolower($attribute) . '%')
             ->orWhere('precio', 'ILIKE', '%' . strtolower($attribute) . '%')
-            ->orderBy('id', 'desc')
+            ->orderBy('updated_at', 'desc')
             ->paginate($paginate);
         return $productos;
     }
 
     static public function GetProductosFilter($filter)
     {
-        return Producto::where('categoria', $filter)
-            ->where('is_active', true)
-            ->orderBy('nombre', 'asc')
-            ->get();
+        if ($filter == "PedidosYA")
+            return Producto::where('pedidos_ya', true)
+                ->orderBy('nombre', 'asc')
+                ->get();
+        else
+            return Producto::where('categoria', $filter)
+                ->where('is_active', true)
+                ->where('pedidos_ya', false)
+                ->orderBy('nombre', 'asc')
+                ->get();
     }
 
     static public function GetProducto($id)

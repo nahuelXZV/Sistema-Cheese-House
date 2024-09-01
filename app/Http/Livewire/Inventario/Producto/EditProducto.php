@@ -35,6 +35,7 @@ class EditProducto extends Component
             'categoria' => $this->producto->categoria,
             'tipo_botella' => $this->producto->tipo_botella,
             'stock' => $this->producto->stock,
+            'pedidos_ya' => $this->producto->pedidos_ya,
             'stock_minimo' => $this->producto->stock_minimo,
             'stock_maximo' => $this->producto->stock_maximo,
             'receta_id' => $this->producto->receta_id,

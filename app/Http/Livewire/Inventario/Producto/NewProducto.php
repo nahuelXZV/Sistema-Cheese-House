@@ -36,6 +36,7 @@ class NewProducto extends Component
             'stock' => 0,
             'stock_minimo' => 0,
             'stock_maximo' => 0,
+            'pedidos_ya' => false,
             'receta_id' => null,
         ];
         $this->listaCategorias = CategoriasProductos::all();
@@ -54,7 +55,7 @@ class NewProducto extends Component
         $this->productoArray['url_imagen'] =  $url . '/storage/' . $this->foto->store('public/productos', 'public');
         $new = Producto::CreateProducto($this->productoArray);
         if (!$new) {
-            $this->message = 'Error al crear el ingrediente';
+            $this->message = 'Error al crear el producto';
             $this->showMessage = true;
         }
         return redirect()->route('productos.list');
