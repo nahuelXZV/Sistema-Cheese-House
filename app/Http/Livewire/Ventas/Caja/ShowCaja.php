@@ -14,7 +14,7 @@ class ShowCaja extends Component
     public $caja;
     public $cajaAnterior;
     public $pedidosSinProcesar;
-    public $pedidos;
+    public $pedidos = [];
 
     public $totalPizzasVendidas;
     public $cajero;
