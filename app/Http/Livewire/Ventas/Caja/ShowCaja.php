@@ -63,8 +63,9 @@ class ShowCaja extends Component
     {
         $this->totalPizzasVendidas = 0;
         $this->ventas = 0;
-        $this->cajero = $this->pedidosSinProcesar[0]->user_name;
         $this->cantidadPedidos = count($this->pedidosSinProcesar);
+        if (count($this->pedidosSinProcesar) == 0) return;
+        $this->cajero = $this->pedidosSinProcesar[0]->user_name;
         foreach ($this->pedidosSinProcesar as $pedido) {
             $PedidoProcesado = $pedido;
             $this->ventas += $pedido->monto_total;
