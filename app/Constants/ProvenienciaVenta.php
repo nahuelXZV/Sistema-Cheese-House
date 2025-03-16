@@ -21,9 +21,7 @@ class ProvenienciaVenta
             self::PAGINA_WEB,
             self::PEDIDOS_YA,
             self::WHATSAPP,
-            self::TELEFONO,
             self::DELIVERY,
-            self::OTRO,
         ];
     }
 

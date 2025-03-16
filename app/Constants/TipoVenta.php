@@ -15,7 +15,6 @@ class TipoVenta
             self::LOCAL,
             self::LLEVAR,
             self::PICK_UP,
-            self::OTRO,
         ];
     }
 }
