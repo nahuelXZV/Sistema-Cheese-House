@@ -93,7 +93,7 @@
                                     {{ $producto->receta->nombre }}
                                 </a>
                             @elseif ($producto->combo)
-                                <a href="{{ route('combos.show', $producto->combo->id) }}"
+                                <a href="{{ route('combos.edit', $producto->combo->id) }}"
                                     class="text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-500">
                                     {{ $producto->combo->nombre }}
                                 </a>
