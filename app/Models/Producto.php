@@ -114,13 +114,22 @@ class Producto extends Model
         return $producto;
     }
 
-    static public function GetProductos($attribute, $order, $paginate)
+    static public function GetProductos($attribute, $categoria, $order, $paginate)
     {
-        $productos = Producto::where('nombre', 'ILIKE', '%' . strtolower($attribute) . '%')
-            ->orWhere('categoria', 'ILIKE', '%' . strtolower($attribute) . '%')
-            ->orWhere('precio', 'ILIKE', '%' . strtolower($attribute) . '%')
-            ->orderBy('updated_at', 'desc')
-            ->paginate($paginate);
+        if ($categoria != "") {
+            $productos = Producto::where('nombre', 'ILIKE', '%' . strtolower($attribute) . '%')
+                ->where('categoria', $categoria)
+                ->orderBy('updated_at', "desc")
+                ->paginate($paginate);
+        } else {
+            $productos = Producto::where('nombre', 'ILIKE', '%' . strtolower($attribute) . '%')
+                ->orderBy('updated_at', "desc")
+                ->paginate($paginate);
+        }
+        // $productos = Producto::where('nombre', 'ILIKE', '%' . strtolower($attribute) . '%')
+        // ->orderBy('updated_at', 'desc')
+        // ->paginate($paginate);
+
         return $productos;
     }
 

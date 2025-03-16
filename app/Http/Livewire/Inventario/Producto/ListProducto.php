@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Inventario\Producto;
 
+use App\Constants\CategoriasProductos;
 use App\Models\Producto;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -13,6 +14,13 @@ class ListProducto extends Component
     public $message = '';
     public $showMessage = false;
 
+    public $listaCategorias = [];
+    public $categoria = '';
+
+    public function mount()
+    {
+        $this->listaCategorias = CategoriasProductos::all();
+    }
 
     public function updatingAttribute()
     {
@@ -32,7 +40,7 @@ class ListProducto extends Component
 
     public function render()
     {
-        $productos = Producto::GetProductos($this->attribute, 'ASC', 20);
+        $productos = Producto::GetProductos($this->attribute, $this->categoria, 'ASC', 20);
         return view('livewire.inventario.producto.list-producto', compact('productos'));
     }
 }

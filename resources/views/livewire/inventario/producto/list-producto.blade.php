@@ -17,6 +17,15 @@
             </li>
         </ol>
         <div>
+            <label for="categoria"
+                class="text-sm font-medium text-gray-700 dark:text-gray-400 mr-2">Filtrar por categoria: </label>
+            <select id="categoria" wire:model="categoria"
+                class="inline-flex items-center justify-center h-9 px-4 text-sm font-medium text-black bg-white rounded-lg hover:bg-white focus:outline-none focus:ring-4 focus:ring-white focus:ring-opacity-50">
+                <option selected value="">Todos</option>
+                @foreach ($listaCategorias as $categoria)
+                    <option value="{{ $categoria }}">{{ $categoria }}</option>
+                @endforeach
+            </select>
             <a href="{{ route('productos.new') }}"
                 class="inline-flex items-center justify-center h-9 px-4 ml-5 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-500 focus:ring-opacity-50">
                 Nuevo
