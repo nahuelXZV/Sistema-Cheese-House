@@ -11,6 +11,7 @@ class ProvenienciaVenta
     const WHATSAPP = 'Whatsapp';
     const TELEFONO = 'Telefono';
     const DELIVERY = 'Delivery';
+    const YANGO = 'Yango';
     const OTRO = 'Otro';
 
     public static function getProveniencias()
@@ -20,7 +21,7 @@ class ProvenienciaVenta
             self::PAGINA_WEB,
             self::PEDIDOS_YA,
             self::WHATSAPP,
-            self::DELIVERY,
+            self::YANGO,
         ];
     }
 
