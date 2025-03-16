@@ -71,7 +71,7 @@ class NewPedido extends Component
     public function save()
     {
         $this->validate(Pedido::$validate, Pedido::$messages);
-        if ($this->descuentoCheck) {
+        if ($this->montoDescuento > 0) {
             $descuento = Descuento::getDescuento($this->descuentoCheck);
             $this->pedidoArray['descuento'] = $descuento->porcentaje;
             $this->pedidoArray['nombre_descuento'] = $descuento->nombre;
@@ -163,10 +163,10 @@ class NewPedido extends Component
 
     public function aplicarDescuentoLista()
     {
-
         $this->montoDescuento = 0.00;
         $this->pedidoArray['productos'] = array_map(function ($item) {
             $aplicaDescuento = in_array($item['categoria'], $this->categoriasDescuentos);
+
             if ($this->descuentoAplicado && $aplicaDescuento) {
                 $descuento = $item['subTotal'] * $this->descuentoAplicado / 100;
                 $item['descuento'] =  $descuento;

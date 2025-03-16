@@ -105,23 +105,27 @@ class Ticket extends Fpdf
         $this->fpdf->Cell(20, 5, utf8_decode("Impt"), 0, 0, 'R');
         $this->fpdf->SetFont('Arial', '', 8);
         $this->fpdf->Ln(5);
+
+        $subTotal = 0;
+        $descuento = 0;
         foreach ($pedido->detalle_pedidos as $detalle_pedido) {
             $nombre = $detalle_pedido->producto->nombre;
             if (strlen($nombre) > 22) $nombre = substr($nombre, 0, 22) . "...";
             $this->fpdf->Cell(40, 5, utf8_decode($nombre), 0,  0, 'L');
             $this->fpdf->Cell(10, 5, utf8_decode($detalle_pedido->cantidad), 0, 0, 'R');
             $monto = $this->formatearNumero($detalle_pedido->sub_total);
+            $subTotal += $detalle_pedido->sub_total;
+            $descuento += $detalle_pedido->descuento;
             $this->fpdf->Cell(20, 5, utf8_decode($monto . " Bs"), 0, 0, 'R');
             $this->fpdf->Ln(5);
         }
+
         $this->fpdf->Ln(3);
         $this->fpdf->SetFont('Arial', 'B', 12);
         $this->fpdf->MultiCell($this->width, $this->space, utf8_decode("* * * * * * * * * * * * * * * * * * * * * * * *"), 0, 'C', 0);
         $this->fpdf->Ln(3);
         $this->fpdf->SetFont('Arial', '', 10);
-        $descuento =  $this->formatearNumero($pedido->descuento);
         $monto =  $this->formatearNumero($pedido->monto_total + $pedido->costo_delivery);
-        $subTotal =  $this->formatearNumero($pedido->monto_total + $pedido->descuento);
 
         if ($pedido->descuento || $pedido->costo_delivery > 0) {
             $this->fpdf->MultiCell($this->width, $this->space, utf8_decode("SubTotal: " . $subTotal . " Bs"), 0, 'R', 0);

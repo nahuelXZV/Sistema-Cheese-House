@@ -252,7 +252,7 @@
                         </div>
                     </div>
                 @endif
-                @if ($descuentoAplicado > 0)
+                @if ($montoDescuento > 0)
                     <div class="flex justify-end items-end text-end">
                         <div>
                             <label class="block mb-2 text-sm font-semibold text-gray-900 dark:text-white">Descuento:
