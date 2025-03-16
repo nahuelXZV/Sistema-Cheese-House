@@ -33,6 +33,7 @@ class EditCombos extends Component
         $this->comboArray = [
             'nombre' => $this->combo->nombre,
             'costo_total' => 0.00,
+            'activo' => $this->combo->activo,
             'descripcion' => $this->combo->descripcion,
             'productos' => []
         ];
@@ -55,6 +56,7 @@ class EditCombos extends Component
     public function save()
     {
         $this->validate(Combo::$validate, Combo::$messages);
+        $this->comboArray['activo'] = $this->comboArray['activo'] == 1 ? true : false;
         $new = ComboService::UpdateCombo($this->combo->id, $this->comboArray);
         if (!$new) {
             $this->message = 'Error al crear el combo';

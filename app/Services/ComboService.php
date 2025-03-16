@@ -77,6 +77,10 @@ class ComboService
         try {
             return DB::transaction(function () use ($id) {
                 $combo = Combo::find($id);
+                $productos = ComboProducto::where('combo_id', $id)->get();
+                foreach ($productos as $producto) {
+                    $producto->delete();
+                }
                 $combo->delete();
                 return true;
             });
@@ -93,7 +97,7 @@ class ComboService
 
     static public function GetAllCombos()
     {
-        $combos = Combo::all();
+        $combos = Combo::Where('activo', true)->get();
         return $combos;
     }
 

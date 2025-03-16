@@ -20,17 +20,6 @@ class ListCombos extends Component
         $this->resetPage();
     }
 
-    public function delete($id)
-    {
-        $user = ComboService::DeleteCombo($id);
-        if ($user) {
-            $this->message = 'Eliminado correctamente';
-        } else {
-            $this->message = 'Error al eliminar';
-        }
-        $this->showMessage = true;
-    }
-
     public function render()
     {
         $combos = ComboService::GetCombos($this->attribute, 'ASC', 20);

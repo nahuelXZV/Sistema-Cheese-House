@@ -50,6 +50,9 @@
                         Descripcion
                     </th>
                     <th scope="col" class="px-6 py-3">
+                        Estado
+                    </th>
+                    <th scope="col" class="px-6 py-3">
                     </th>
                 </tr>
             </thead>
@@ -66,6 +69,15 @@
                         <td class="px-6 py-4">
                             {{ Str::limit($combo->descripcion, 40, '...') }}
                         </td>
+                        <td class="px-6 py-4">
+                            @if ($combo->activo)
+                                <span
+                                    class="bg-green-100 text-green-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-green-300">Activo</span>
+                            @else
+                                <span
+                                    class="bg-red-100 text-red-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-red-900 dark:text-red-300">Inactivo</span>
+                            @endif
+                        </td>
                         <td class="px-6 py-4 text-right">
                             <div class="inline-flex rounded-md shadow-sm" role="group">
                                 <div class="inline-flex rounded-md shadow-sm" role="group">
@@ -73,13 +85,6 @@
                                         class="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-l-lg hover:bg-gray-100 hover:text-blue-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 ">
                                         <x-iconos.edit />
                                     </a>
-                                    @can('eliminar')
-                                        <button type="button" wire:click="delete({{ $combo->id }})"
-                                            onclick="confirm('¿Está seguro?') || event.stopImmediatePropagation()"
-                                            class="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-r-md hover:bg-gray-100 hover:text-red-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 ">
-                                            <x-iconos.delete />
-                                        </button>
-                                    @endcan
                                 </div>
                             </div>
                         </td>

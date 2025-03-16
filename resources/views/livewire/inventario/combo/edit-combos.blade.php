@@ -31,7 +31,7 @@
         </div>
     </nav>
 
-    <div class="grid grid-cols-2 gap-3">
+    <div class="grid grid-cols-3 gap-3">
         <div class="mb-6">
             <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nombre</label>
             <input type="text" wire:model.defer="comboArray.nombre""
@@ -46,18 +46,38 @@
                 placeholder="0.00">
             <x-input-error for="comboArray.costo_total" />
         </div>
+        <div class="">
+            <label for="categoria" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Estado</label>
+            <div class="grid grid-cols-2">
+                <div class="flex items-center pl-4 border border-gray-200 rounded dark:border-gray-700">
+                    <input id="bordered-radio-1" type="radio" value="{{ true }}" name="bordered-radio"
+                        wire:model="comboArray.activo"
+                        class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                    <label for="bordered-radio-1"
+                        class="w-full py-3 ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Activo</label>
+                </div>
+                <div class="flex items-center pl-4 border border-gray-200 rounded dark:border-gray-700">
+                    <input id="bordered-radio-2" type="radio" value="{{ false }}" name="bordered-radio"
+                        wire:model="comboArray.activo"
+                        class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                    <label for="bordered-radio-2"
+                        class="w-full py-3 ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Inactivo</label>
+                </div>
+            </div>
+            <x-input-error for="comboArray.activo" />
+        </div>
 
         <div class="mb-6 col-span-2">
             <label for="message"
                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Descripcion</label>
-            <textarea id="message" rows="4" wire:model.defer="comboArray.descripcion"
+            <textarea id="message" rows="3" wire:model.defer="comboArray.descripcion"
                 class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 placeholder="......"></textarea>
             <x-input-error for="comboArray.descripcion" />
         </div>
 
 
-        <div class="mb-6 col-span-2 grid grid-cols-2 gap-3">
+        <div class="col-span-3 mb-6 grid grid-cols-2 gap-3">
             <div class="">
                 <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Productos</label>
                 <select wire:model="productosArray.producto_id" required
@@ -89,7 +109,7 @@
             </div>
         </div>
 
-        <div class="mb-6 col-span-2">
+        <div class="mb-6 col-span-3">
             <table class="w-full text-sm text-gray-900 bg-gray-50 border border-gray-300 rounded-lg">
                 <thead class="bg-gray-200">
                     <tr>
