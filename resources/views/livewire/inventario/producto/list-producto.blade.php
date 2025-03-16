@@ -48,7 +48,7 @@
                         Nombre
                     </th>
                     <th scope="col" class="px-6 py-3">
-                        Receta
+                        Receta/Combo
                     </th>
                     <th scope="col" class="px-6 py-3">
                         Precio
@@ -78,7 +78,22 @@
                             {{ $producto->nombre }}
                         </td>
                         <td class="px-6 py-4">
-                            {{ $producto->receta->nombre ?? 'Sin Receta' }}
+                            @if ($producto->receta)
+                                <a href="{{ route('recetas.show', $producto->receta->id) }}"
+                                    class="text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-500">
+                                    {{ $producto->receta->nombre }}
+                                </a>
+                            @elseif ($producto->combo)
+                                <a href="{{ route('combos.show', $producto->combo->id) }}"
+                                    class="text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-500">
+                                    {{ $producto->combo->nombre }}
+                                </a>
+                            @else
+                                <span
+                                    class="bg-gray-100 text-gray-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-gray-900 dark:text-gray-300">
+                                    Sin Receta
+                                </span>
+                            @endif
                         </td>
                         <td class="px-6 py-4">
                             {{ $producto->precio }} Bs
@@ -96,6 +111,7 @@
                                     <span
                                         class="bg-green-100 text-green-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-green-300">Pizza</span>
                                 @break
+
                                 @case('Mitad')
                                     <span
                                         class="bg-green-100 text-green-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-green-300">Mitad</span>
@@ -111,11 +127,16 @@
                                         class="bg-yellow-100 text-yellow-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-yellow-900 dark:text-yellow-300">Postre</span>
                                 @break
 
+                                @case('Combo')
+                                    <span
+                                        class="bg-orange-100 text-yellow-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-orange-900 dark:text-orange-300">Combo</span>
+                                @break
+
                                 @default
                                     <span
                                         class="bg-gray-100 text-gray-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-gray-900 dark:text-gray-300">
                                         Otro
-                                        </span>
+                                    </span>
                                 @break
                             @endswitch
                         </td>

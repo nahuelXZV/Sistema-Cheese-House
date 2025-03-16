@@ -158,6 +158,13 @@
                     </select>
                     <x-input-error for="pedidoArray.proveniente" />
                 </div>
+                <div class="mb-1">
+                    <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Costo Delivery </label>
+                    <input type="numeric" wire:model="pedidoArray.costo_delivery" style="padding: 8px;"
+                        class="bg-gray-50 border  border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                        placeholder="00.00">
+                    <x-input-error for="pedidoArray.costo_delivery" />
+                </div>
 
                 <div class="col-span-3 ">
                     <label for="message"
@@ -228,11 +235,23 @@
                         </div>
                     </div>
                 @endif
+                @if ($pedidoArray['costo_delivery'] > 0)
+                    <div class="flex justify-end items-end text-end">
+                        <div>
+                            <label class="block mb-2 text-sm font-semibold text-gray-900 dark:text-white">Costo
+                                Delivery:
+                                <span class="text-sm font-bold text-gray-900 dark:text-white">
+                                    {{ $pedidoArray['costo_delivery'] }} Bs.
+                                </span>
+                            </label>
+                        </div>
+                    </div>
+                @endif
                 <div class="flex justify-end items-end text-end">
                     <div>
                         <label class="block mb-2 text-sm font-semibold text-gray-900 dark:text-white">Total:
                             <span class="text-sm font-bold text-gray-900 dark:text-white">
-                                {{ $pedidoArray['monto_total'] }} Bs.
+                                {{ $pedidoArray['monto_total'] + $pedidoArray['costo_delivery'] }} Bs.
                             </span>
                         </label>
                     </div>

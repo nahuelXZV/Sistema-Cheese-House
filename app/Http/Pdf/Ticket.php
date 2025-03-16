@@ -120,14 +120,22 @@ class Ticket extends Fpdf
         $this->fpdf->Ln(3);
         $this->fpdf->SetFont('Arial', '', 10);
         $descuento =  $this->formatearNumero($pedido->descuento);
-        $monto =  $this->formatearNumero($pedido->monto_total);
+        $monto =  $this->formatearNumero($pedido->monto_total + $pedido->costo_delivery);
         $subTotal =  $this->formatearNumero($pedido->monto_total + $pedido->descuento);
-        if ($pedido->descuento) {
+
+        if ($pedido->descuento || $pedido->costo_delivery > 0) {
             $this->fpdf->MultiCell($this->width, $this->space, utf8_decode("SubTotal: " . $subTotal . " Bs"), 0, 'R', 0);
             $this->fpdf->Ln(1);
+        }
+        if ($pedido->costo_delivery > 0) {
+            $this->fpdf->MultiCell($this->width, $this->space, utf8_decode("Delivery: " . $pedido->costo_delivery . " Bs"), 0, 'R', 0);
+            $this->fpdf->Ln(1);
+        }
+        if ($pedido->descuento) {
             $this->fpdf->MultiCell($this->width, $this->space, utf8_decode("Descuento (" . $descuentoDB->porcentaje . "%): - " . $descuento . " Bs"), 0, 'R', 0);
             $this->fpdf->Ln(1);
         }
+
         $this->fpdf->SetFont('Arial', 'B', 10);
         $this->fpdf->MultiCell($this->width, $this->space, utf8_decode("Total: " . $monto . " Bs"), 0, 'R', 0);
         $this->fpdf->SetFont('Arial', 'B', 12);

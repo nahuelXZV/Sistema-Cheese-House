@@ -47,6 +47,7 @@ class EditPedido extends Component
             'proveniente' => $pedido->proveniente,
             'tipo_pedido' => $pedido->tipo_pedido,
             'descuento' => $pedido->descuento,
+            'costo_delivery' => $pedido->costo_delivery,
             'nombre_descuento' => $pedido->nombre_descuento,
             'detalles' => $pedido->detalles,
             'descuento_id' => $pedido->descuento_id,

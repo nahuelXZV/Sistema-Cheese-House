@@ -22,6 +22,7 @@ class PedidoService
                 $array['user_id'] = auth()->user()->id;
                 $new = new Pedido($array);
                 $new->save();
+
                 // Guardar Detalles del Pedido
                 foreach ($productos as $producto) {
                     $detallePedido = [
@@ -34,25 +35,72 @@ class PedidoService
                         'descuento' => $producto['descuento'],
                     ];
                     $detalle_pedido = DetallePedido::create($detallePedido);
-                    // CATEGORIAS
-                    $listaProductosRecetas = CategoriasProductos::getConReceta();
-                    $listaProductoSinRecetas = CategoriasProductos::getSinReceta();
+                    $productoDB = Producto::find($detalle_pedido->producto_id);
                     // STOCK
-                    $producto = Producto::find($detalle_pedido->producto_id);
-                    if (in_array($producto->categoria, $listaProductoSinRecetas)) {
-                        $producto->stock = floatval($producto->stock) - floatval($detalle_pedido->cantidad);
-                        $producto->save();
-                        continue;
+                    if ($productoDB->combo_id != 0) {
+                        $combo = ComboService::GetCombo($productoDB->combo_id);
+                        if (!$combo) continue;
+                        $listaProductos = $combo->productos;
+                        foreach ($listaProductos as $productoCombo) {
+                            self::ModificarStock($productoCombo->id, -$detalle_pedido->cantidad);
+                        }
+                    } else {
+                        self::ModificarStock(intval($producto['producto_id']), -$detalle_pedido->cantidad);
                     }
-                    if (!in_array($producto->categoria, $listaProductosRecetas)) continue;
-                    $receta = Receta::find($producto->receta_id);
-                    if (!$receta) continue;
-                    foreach ($receta->ingredientes as $ingrediente) {
-                        $ingrediente->stock = floatval($ingrediente->stock) - (floatval($detalle_pedido->cantidad) * floatval($ingrediente->pivot->cantidad));
-                        $ingrediente->save();
-                    }
+                    // CATEGORIAS
+                    // $listaProductosRecetas = CategoriasProductos::getConReceta();
+                    // $listaProductoSinRecetas = CategoriasProductos::getSinReceta();
+
+                    // // STOCK
+                    // $producto = Producto::find($detalle_pedido->producto_id);
+                    // if (in_array($producto->categoria, $listaProductoSinRecetas)) {
+                    //     $producto->stock = floatval($producto->stock) - floatval($detalle_pedido->cantidad);
+                    //     $producto->save();
+                    //     continue;
+                    // }
+
+                    // if (!in_array($producto->categoria, $listaProductosRecetas)) continue;
+                    // $receta = Receta::find($producto->receta_id);
+                    // if (!$receta) continue;
+                    // foreach ($receta->ingredientes as $ingrediente) {
+                    //     $ingrediente->stock = floatval($ingrediente->stock) - (floatval($detalle_pedido->cantidad) * floatval($ingrediente->pivot->cantidad));
+                    //     $ingrediente->save();
+                    // }
                 }
                 return $new;
+            });
+        } catch (\Throwable $th) {
+            return false;
+        }
+    }
+
+    static public function ModificarStock($productoId, $cantidad) // - resta + aumenta
+    {
+        try {
+            return DB::transaction(function () use ($productoId, $cantidad) {
+                // CATEGORIAS
+                $listaProductosRecetas = CategoriasProductos::getConReceta();
+                $listaProductoSinRecetas = CategoriasProductos::getSinReceta();
+
+                // STOCK
+                $producto = Producto::find($productoId);
+                if (!$producto) return true;
+
+                if (in_array($producto->categoria, $listaProductoSinRecetas)) {
+                    $producto->stock = floatval($producto->stock) + floatval($cantidad);
+                    $producto->save();
+                    return true;
+                }
+
+                if (!in_array($producto->categoria, $listaProductosRecetas)) return true;
+                $receta = Receta::find($producto->receta_id);
+                if (!$receta) return true;
+                foreach ($receta->ingredientes as $ingrediente) {
+                    $ingrediente->stock = floatval($ingrediente->stock) + (floatval($cantidad) * floatval($ingrediente->pivot->cantidad));
+                    $ingrediente->save();
+                }
+
+                return true;
             });
         } catch (\Throwable $th) {
             return false;

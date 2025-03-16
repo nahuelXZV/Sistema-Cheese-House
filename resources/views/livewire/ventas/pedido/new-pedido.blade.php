@@ -3,14 +3,14 @@
         <section class="">
             <nav class="flex px-3 py-3 mb-3 text-gray-700 justify-between border border-gray-200 rounded-md bg-white dark:bg-gray-800 dark:border-gray-700"
                 aria-label="Breadcrumb">
-                <ul class="grid w-full h-10 gap-2 md:grid-cols-6">
+                <ul class="grid w-full h-20 lg:h-10 gap-2 sm:grid-cols-4 md:grid-cols-4 lg:grid-cols-7">
                     <li>
                         <input type="radio" id="Pizza" name="filter" value="Pizza" wire:model.live="filter"
                             class="hidden peer" />
                         <label for="Pizza"
                             class="h-10 inline-flex items-center justify-between w-full p-2 text-gray-500 bg-white border border-gray-200 rounded-md cursor-pointer dark:hover:text-gray-300 dark:border-gray-700 dark:peer-checked:text-blue-500 peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700">
                             <div class="flex justify-center items-center">
-                                <div class="w-full text-lg font-semibold ml-2">Pizzas</div>
+                                <div class="w-full text-sm font-semibold ml-2">Pizzas</div>
                             </div>
                         </label>
                     </li>
@@ -20,7 +20,17 @@
                         <label for="Mitad"
                             class="h-10 inline-flex items-center justify-between w-full p-2 text-gray-500 bg-white border border-gray-200 rounded-md cursor-pointer dark:hover:text-gray-300 dark:border-gray-700 dark:peer-checked:text-blue-500 peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700">
                             <div class="flex justify-center items-center">
-                                <div class="w-full text-lg font-semibold ml-2">Mitades</div>
+                                <div class="w-full text-sm font-semibold ml-2">Mitades</div>
+                            </div>
+                        </label>
+                    </li>
+                    <li>
+                        <input type="radio" id="Combo" name="filter" value="Combo" class="hidden peer"
+                            wire:model.live="filter" />
+                        <label for="Combo"
+                            class="h-10 inline-flex items-center justify-between w-full p-2 text-gray-500 bg-white border border-gray-200 rounded-md cursor-pointer dark:hover:text-gray-300 dark:border-gray-700 dark:peer-checked:text-blue-500 peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700">
+                            <div class="flex justify-center items-center">
+                                <div class="w-full text-sm font-semibold ml-2">Combos</div>
                             </div>
                         </label>
                     </li>
@@ -30,7 +40,7 @@
                         <label for="Postre"
                             class="h-10 inline-flex items-center justify-between w-full p-2 text-gray-500 bg-white border border-gray-200 rounded-md cursor-pointer dark:hover:text-gray-300 dark:border-gray-700 dark:peer-checked:text-blue-500 peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700">
                             <div class="flex justify-center items-center">
-                                <div class="w-full text-lg font-semibold ml-2">Postres</div>
+                                <div class="w-full text-sm font-semibold ml-2">Postres</div>
                             </div>
                         </label>
                     </li>
@@ -40,34 +50,35 @@
                         <label for="Bebida"
                             class="h-10 inline-flex items-center justify-between w-full p-2 text-gray-500 bg-white border border-gray-200 rounded-md cursor-pointer dark:hover:text-gray-300 dark:border-gray-700 dark:peer-checked:text-blue-500 peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700">
                             <div class="flex justify-center items-center">
-                                <div class="w-full text-lg font-semibold ml-2">Bebidas</div>
+                                <div class="w-full text-sm font-semibold ml-2">Bebidas</div>
                             </div>
                         </label>
                     </li>
                     <li>
-                        <input type="radio" id="PedidosYA" name="filter" value="PedidosYA"
-                            class="hidden peer"wire:model.live="filter" />
+                        <input type="radio" id="PedidosYA" name="filter" value="PedidosYA" class="hidden peer"
+                            wire:model.live="filter" />
                         <label for="PedidosYA"
                             class="h-10 inline-flex items-center justify-between w-full p-2 text-gray-500 bg-white border border-gray-200 rounded-md cursor-pointer dark:hover:text-gray-300 dark:border-gray-700 dark:peer-checked:text-blue-500 peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700">
                             <div class="flex justify-center items-center">
-                                <div class="w-full text-lg font-semibold ml-2">Pedidos YA</div>
+                                <div class="w-full text-sm font-semibold ml-2">Delivery</div>
                             </div>
                         </label>
                     </li>
                     <li>
-                        <input type="radio" id="Otro" name="filter" value="Otro"
-                            class="hidden peer"wire:model.live="filter" />
+                        <input type="radio" id="Otro" name="filter" value="Otro" class="hidden peer"
+                            wire:model.live="filter" />
                         <label for="Otro"
                             class="h-10 inline-flex items-center justify-between w-full p-2 text-gray-500 bg-white border border-gray-200 rounded-md cursor-pointer dark:hover:text-gray-300 dark:border-gray-700 dark:peer-checked:text-blue-500 peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700">
                             <div class="flex justify-center items-center">
-                                <div class="w-full text-lg font-semibold ml-2">Otros</div>
+                                <div class="w-full text-sm font-semibold ml-2">Otros</div>
                             </div>
                         </label>
                     </li>
                 </ul>
+
             </nav>
             <div class="w-full ">
-                <div class="grid grid-cols-5 gap-1">
+                <div class="grid md:grid-cols-3 lg:grid-cols-5 gap-1">
                     @foreach ($productos as $producto)
                         <div class="peer-checked:border-blue-600 peer-checked:text-blue-600">
                             <input type="radio" id="{{ $producto['nombre'] }}" value="{{ $producto['id'] }}"
@@ -95,6 +106,7 @@
             </div>
         </section>
     </div>
+    <x-shared.notificacion :message='$message' :showMessage='$showMessage' />
     <aside id="default-sidebar"
         class="fixed top-0 right-0 z-40 w-100 h-screen transition-transform -translate-x-full sm:translate-x-0"
         aria-label="Sidebar">
@@ -117,7 +129,7 @@
                     <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Descuento</label>
                     <select wire:model="descuentoCheck"
                         class="w-full px-2 py-2 text-sm text-gray-900 bg-gray-50 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                        <option selected>Selecciona</option>
+                        <option selected value="0">Selecciona</option>
                         @foreach ($descuentos as $descuento)
                             <option value="{{ $descuento->id }}">
                                 {{ $descuento->nombre . ' | ' . $descuento->porcentaje . '%' }}
@@ -160,6 +172,14 @@
                         @endforeach
                     </select>
                     <x-input-error for="pedidoArray.proveniente" />
+                </div>
+
+                <div class="mb-1">
+                    <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Costo Delivery </label>
+                    <input type="numeric" wire:model="pedidoArray.costo_delivery" style="padding: 8px;"
+                        class="bg-gray-50 border  border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                        placeholder="00.00">
+                    <x-input-error for="pedidoArray.costo_delivery" />
                 </div>
 
                 <div class="col-span-3 ">
@@ -220,7 +240,19 @@
                         </label>
                     </div>
                 </div>
-                @if ($descuentoAplicado)
+                @if ($pedidoArray['costo_delivery'] > 0)
+                    <div class="flex justify-end items-end text-end">
+                        <div>
+                            <label class="block mb-2 text-sm font-semibold text-gray-900 dark:text-white">Costo
+                                Delivery:
+                                <span class="text-sm font-bold text-gray-900 dark:text-white">
+                                    {{ $pedidoArray['costo_delivery'] }} Bs.
+                                </span>
+                            </label>
+                        </div>
+                    </div>
+                @endif
+                @if ($descuentoAplicado > 0)
                     <div class="flex justify-end items-end text-end">
                         <div>
                             <label class="block mb-2 text-sm font-semibold text-gray-900 dark:text-white">Descuento:
@@ -235,7 +267,7 @@
                     <div>
                         <label class="block mb-2 text-sm font-semibold text-gray-900 dark:text-white">Total:
                             <span class="text-sm font-bold text-gray-900 dark:text-white">
-                                {{ $pedidoArray['monto_total'] }} Bs.
+                                {{ $pedidoArray['monto_total'] + intval($pedidoArray['costo_delivery']) }} Bs.
                             </span>
                         </label>
                     </div>

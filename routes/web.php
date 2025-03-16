@@ -11,6 +11,10 @@ use App\Http\Livewire\Compra\Proveedor\ListProveedor;
 use App\Http\Livewire\Compra\Proveedor\NewProveedor;
 use App\Http\Livewire\Compra\Proveedor\ShowProveedor;
 use App\Http\Livewire\Example;
+use App\Http\Livewire\Inventario\Combo\EditCombos;
+use App\Http\Livewire\Inventario\Combo\ListCombos;
+use App\Http\Livewire\Inventario\Combo\NewCombos;
+use App\Http\Livewire\Inventario\Combo\ShowCombos;
 use App\Http\Livewire\Inventario\Ingrediente\EditIngrediente;
 use App\Http\Livewire\Inventario\Ingrediente\ListIngrediente;
 use App\Http\Livewire\Inventario\Ingrediente\NewIngrediente;
@@ -96,6 +100,13 @@ Route::middleware([
         Route::get('/new', NewReceta::class)->name('recetas.new');
         Route::get('/edit/{receta}', EditReceta::class)->name('recetas.edit');
         Route::get('/show/{receta}', ShowReceta::class)->name('recetas.show');
+    });
+
+    Route::group(['prefix' => 'combos', 'middleware' => ['can:combos', 'auth']], function () {
+        Route::get('/list', ListCombos::class)->name('combos.list');
+        Route::get('/new', NewCombos::class)->name('combos.new');
+        Route::get('/edit/{combo}', EditCombos::class)->name('combos.edit');
+        Route::get('/show/{combo}', ShowCombos::class)->name('combos.show');
     });
 
     Route::group(['prefix' => 'productos', 'middleware' => ['can:productos', 'auth']], function () {

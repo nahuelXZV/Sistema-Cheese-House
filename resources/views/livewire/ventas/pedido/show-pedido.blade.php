@@ -102,7 +102,7 @@
                                 <th class="px-2 py-2">SubTotal</th>
                                 <th class="px-2 py-2">Descuento</th>
                             @endif
-                            <th class="px-2 py-2">Total</th>
+                            <th class="px-10 py-2 text-end">Total</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -116,9 +116,22 @@
                                     <td class="px-2 py-2">{{ $ingrediente['sub_total'] }} Bs.</td>
                                     <td class="px-2 py-2">-{{ $ingrediente['descuento'] }} Bs.</td>
                                 @endif
-                                <td class="px-2 py-2">{{ $ingrediente['monto_total'] }} Bs.</td>
+                                <td class="px-10 py-2 text-end">{{ $ingrediente['monto_total'] }} Bs.</td>
                             </tr>
                         @endforeach
+                        @if ($pedidoArray['costo_delivery'] > 0)
+                            <tr class="justify-center items-center text-center">
+                                <td class="px-2 py-2"></td>
+                                <td class="px-2 py-2"></td>
+                                @if ($pedidoArray['descuento'] > 0)
+                                    <td class="px-2 py-2"></td>
+                                    <td class="px-2 py-2"></td>
+                                @endif
+                                <td class="px-10 py-2 font-bold text-end">
+                                    DELIVERY: {{ $pedidoArray['costo_delivery'] }} Bs.
+                                </td>
+                            </tr>
+                        @endif
                         <tr class="justify-center items-center text-center">
                             <td class="px-2 py-2"></td>
                             <td class="px-2 py-2"></td>
@@ -126,9 +139,10 @@
                                 <td class="px-2 py-2"></td>
                                 <td class="px-2 py-2"></td>
                             @endif
-                            <td class="px-2 py-2 font-bold">
-                                TOTAL: {{ $pedidoArray['monto_total'] }} Bs.
+                            <td class="px-10 py-2 font-bold text-end">
+                                TOTAL: {{ $pedidoArray['monto_total'] + $pedidoArray['costo_delivery'] }} Bs.
                             </td>
+                        </tr>
                     </tbody>
                 </table>
             </div>

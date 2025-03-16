@@ -8,6 +8,7 @@ class CategoriasProductos
     const POSTRE = 'Postre';
     const BEBIDA = 'Bebida';
     const MITAD = 'Mitad';
+    const COMBO = 'Combo';
     const OTRO = 'Otro';
 
     // Agrega aquí más tipos de programas si es necesario
@@ -18,6 +19,7 @@ class CategoriasProductos
             self::POSTRE,
             self::MITAD,
             self::BEBIDA,
+            self::COMBO,
             self::OTRO,
             // Agrega aquí más tipos de programas si es necesario
         ];

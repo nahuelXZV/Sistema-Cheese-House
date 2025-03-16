@@ -168,6 +168,15 @@
                         </a>
                     </li>
                 @endcan
+                @can('combos')
+                    <li>
+                        <a href="{{ route('combos.list') }}"
+                            class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
+                            <x-iconos.receta />
+                            <span class="flex-1 ml-3 whitespace-nowrap">Combos</span>
+                        </a>
+                    </li>
+                @endcan
                 @can('productos')
                     <li>
                         <a href="{{ route('productos.list') }}"

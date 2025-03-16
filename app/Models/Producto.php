@@ -86,6 +86,11 @@ class Producto extends Model
         return $this->belongsTo(Receta::class);
     }
 
+    public function combo()
+    {
+        return $this->belongsTo(Combo::class);
+    }
+
     // TODO FUNCTIONS
     static public function CreateProducto(array $array)
     {
@@ -131,6 +136,12 @@ class Producto extends Model
                 ->where('pedidos_ya', false)
                 ->orderBy('nombre', 'asc')
                 ->get();
+    }
+
+    static public function GetAll()
+    {
+        return Producto::Where('is_active', true)
+            ->orderBy('nombre', 'asc')->get();
     }
 
     static public function GetProducto($id)

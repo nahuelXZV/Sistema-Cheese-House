@@ -3,8 +3,10 @@
 namespace App\Http\Livewire\Inventario\Producto;
 
 use App\Constants\CategoriasProductos;
+use App\Models\Combo;
 use App\Models\Producto;
 use App\Models\Receta;
+use App\Services\ComboService;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 use Illuminate\Support\Facades\Request;
@@ -21,6 +23,9 @@ class NewProducto extends Component
     private $messagesFoto = ['foto.image' => 'La foto debe ser una imagen', 'foto.mimes' => 'La foto debe ser de tipo jpeg,png,jpg,gif,svg', 'foto.required' => 'La foto es requerida'];
 
     public $listaCategorias = [];
+    public $listaCombos = [];
+    public $recetas = [];
+    public $comboSeleccionado = null;
 
     public function mount()
     {
@@ -38,8 +43,11 @@ class NewProducto extends Component
             'stock_maximo' => 0,
             'pedidos_ya' => false,
             'receta_id' => null,
+            'combo_id' => null,
         ];
         $this->listaCategorias = CategoriasProductos::all();
+        $this->listaCombos = ComboService::GetAllCombos();
+        $this->recetas = Receta::all();
     }
 
     public function save()
@@ -63,7 +71,11 @@ class NewProducto extends Component
 
     public function render()
     {
-        $recetas = Receta::GetRecetasAll();
-        return view('livewire.inventario.producto.new-producto', compact('recetas'));
+        if ($this->productoArray['combo_id'] > 0) {
+            $this->comboSeleccionado = Combo::find($this->productoArray['combo_id']);
+            $this->productoArray['precio'] = $this->comboSeleccionado->costo_total;
+            $this->productoArray['descripcion'] = $this->comboSeleccionado->descripcion;
+        }
+        return view('livewire.inventario.producto.new-producto');
     }
 }

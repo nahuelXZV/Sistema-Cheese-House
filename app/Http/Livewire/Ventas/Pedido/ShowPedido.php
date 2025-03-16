@@ -26,6 +26,7 @@ class ShowPedido extends Component
             'cliente' => $pedido->cliente,
             'codigo_seguimiento' => $pedido->codigo_seguimiento,
             'proveniente' => $pedido->proveniente,
+            'costo_delivery' => $pedido->costo_delivery,
             'detalles' => $pedido->detalles,
             'tipo_pedido' => $pedido->tipo_pedido,
             'descuento' => $pedido->descuento,

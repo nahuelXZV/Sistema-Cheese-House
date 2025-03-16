@@ -5,6 +5,7 @@ namespace App\Http\Livewire\Inventario\Producto;
 use App\Constants\CategoriasProductos;
 use App\Models\Producto;
 use App\Models\Receta;
+use App\Services\ComboService;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 use Illuminate\Support\Facades\Request;
@@ -16,9 +17,13 @@ class EditProducto extends Component
     public $productoArray = [];
     public $message = '';
     public $showMessage = false;
-    public $listaCategorias = [];
     public $foto;
     public $producto;
+
+    public $listaCategorias = [];
+    public $listaCombos = [];
+    public $recetas = [];
+
     private $validateFoto = ['foto' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp'];
     private $messagesFoto = ['foto.image' => 'La foto debe ser una imagen', 'foto.mimes' => 'La foto debe ser de tipo jpeg,png,jpg,gif,svg,webp'];
 
@@ -39,8 +44,11 @@ class EditProducto extends Component
             'stock_minimo' => $this->producto->stock_minimo,
             'stock_maximo' => $this->producto->stock_maximo,
             'receta_id' => $this->producto->receta_id,
+            'combo_id' => $this->producto->combo_id,
         ];
         $this->listaCategorias = CategoriasProductos::all();
+        $this->recetas = Receta::all();
+        $this->listaCombos = ComboService::GetAllCombos();
     }
 
     public function save()
@@ -67,7 +75,6 @@ class EditProducto extends Component
 
     public function render()
     {
-        $recetas = Receta::GetRecetasAll();
-        return view('livewire.inventario.producto.edit-producto', compact('recetas'));
+        return view('livewire.inventario.producto.edit-producto');
     }
 }

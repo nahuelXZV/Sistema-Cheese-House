@@ -109,6 +109,23 @@
         @else
             <div class="col-span-2"></div>
         @endif
+        @if ($productoArray['categoria'] == 'Combo')
+            <div class="mb-4">
+                <label for="combo"
+                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Combo*</label>
+                <select id="combo" wire:model.defer="productoArray.combo_id"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 mb-6 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                    <option selected>Selecciona un combo</option>
+                    @foreach ($listaCombos as $combo)
+                        <option value="{{ $combo->id }}">{{ $combo->nombre }} - {{ $combo->costo_total }}Bs.
+                        </option>
+                    @endforeach
+                </select>
+                <x-input-error for="productoArray.combo_id" />
+            </div>
+        @else
+            <div class="col-span-2"></div>
+        @endif
 
         <div class="">
             <label for="categoria" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Estado</label>
@@ -134,7 +151,8 @@
         @if ($productoArray['categoria'] == 'Bebida' || $productoArray['categoria'] == 'Otro')
             @if ($productoArray['categoria'] == 'Bebida')
                 <div class="">
-                    <label for="tipo_botella" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Tipo
+                    <label for="tipo_botella"
+                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Tipo
                         de botella*</label>
                     <select id="tipo_botella" wire:model.defer="productoArray.tipo_botella"
                         class="bg-gray-50 border border-gray-300 text-gray-900 mb-6 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">

@@ -45,6 +45,7 @@ class NewPedido extends Component
             'cliente' => '',
             'codigo_seguimiento' => $numeroSeguimiento,
             'proveniente' => '',
+            'costo_delivery' => 0.00,
             'detalles' => '',
             'tipo_pedido' => '',
             'productos' => [],
@@ -80,6 +81,7 @@ class NewPedido extends Component
         if (!$new) {
             $this->message = 'Error al crear el pedido';
             $this->showMessage = true;
+            return;
         }
         return redirect()->route('pedidos.show', $new->id);
     }
@@ -161,17 +163,25 @@ class NewPedido extends Component
 
     public function aplicarDescuentoLista()
     {
+
         $this->montoDescuento = 0.00;
         $this->pedidoArray['productos'] = array_map(function ($item) {
             $aplicaDescuento = in_array($item['categoria'], $this->categoriasDescuentos);
-            if ($this->descuentoAplicado && $this->descuentoAplicado && $aplicaDescuento) {
+            if ($this->descuentoAplicado && $aplicaDescuento) {
                 $descuento = $item['subTotal'] * $this->descuentoAplicado / 100;
                 $item['descuento'] =  $descuento;
-                $item['monto_total'] = $item['subTotal'] - $descuento;
-                $this->montoDescuento += $descuento;
+                if ($this->descuentoCheck == 0) {
+                    $item['monto_total'] = $item['subTotal'];
+                } else {
+                    $item['monto_total'] = $item['subTotal'] - $descuento;
+                    $this->montoDescuento += $descuento;
+                }
             }
             return $item;
         }, $this->pedidoArray['productos']);
+        if ($this->descuentoCheck == 0) {
+            $this->descuentoAplicado = 0.00;
+        }
         $this->pedidoArray['monto_total'] = array_sum(array_column($this->pedidoArray['productos'], 'monto_total'));
     }
 
@@ -179,10 +189,10 @@ class NewPedido extends Component
     {
         $this->pedidoArray['codigo_seguimiento'] = $this->getNumeroSeguimiento();
         $productos = Producto::GetProductosFilter($this->filter);
-        if ($this->descuentoCheck) {
+        if ($this->descuentoCheck != 0) {
             $this->descuentoAplicado = Descuento::getDescuento($this->descuentoCheck)->porcentaje;
-            $this->aplicarDescuentoLista();
         }
+        $this->aplicarDescuentoLista();
         return view('livewire.ventas.pedido.new-pedido', compact('productos'))->layout('layouts.venta');
     }
 }
