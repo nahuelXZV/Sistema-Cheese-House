@@ -16,7 +16,6 @@ class ProvenienciaVenta
     public static function getProveniencias()
     {
         return [
-            self::PICK_UP,
             self::LOCAL,
             self::PAGINA_WEB,
             self::PEDIDOS_YA,
