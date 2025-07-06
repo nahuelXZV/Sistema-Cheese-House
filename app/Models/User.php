@@ -58,6 +58,13 @@ class User extends Authenticatable
         'userArray.rol.required' => 'El rol es requerido',
         'userArray.email.unique' => 'El correo ya existe'
     ];
+
+    static public $validateUpdate = [
+        'userArray.name' => 'required',
+        'userArray.email' => 'required|email|unique:users,email',
+        'userArray.rol' => 'required'
+    ];
+
     // TODO RELATIONS
 
 

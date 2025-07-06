@@ -28,9 +28,18 @@ class NewUsuario extends Component
 
     public function save()
     {
-        $this->validate(User::$validate, User::$messages);
+        $this->validate([
+            'userArray.name' => 'required',
+            'userArray.email' => 'required|email|unique:users,email,' . $this->userArray['email'],
+            'userArray.rol' => 'required'
+        ], User::$messages);
+
         $this->userArray['password'] = Hash::make($this->userArray['password']);
-        $new = User::create($this->userArray);
+        $new = User::updated($this->userArray);
+        if (!$new) {
+            $this->message = 'Error al crear el usuario';
+            $this->showMessage = true;
+        }
         $new->assignRole($this->userArray['rol']);
         if (!$new) {
             $this->message = 'Error al crear el usuario';

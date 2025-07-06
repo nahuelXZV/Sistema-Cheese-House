@@ -69,6 +69,10 @@
                         <td class="px-6 py-4 text-right">
 
                             <div class="inline-flex rounded-md shadow-sm" role="group">
+                                <a type="button" href="{{ route('usuario.edit', $user->id) }}"
+                                    class="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-l-lg hover:bg-gray-100 hover:text-blue-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 ">
+                                    <x-iconos.edit />
+                                </a>
                                 <button type="button" wire:click="delete({{ $user->id }})"
                                     onclick="confirm('¿Está seguro?') || event.stopImmediatePropagation()"
                                     class="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-r hover:bg-gray-100 hover:text-red-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 ">
