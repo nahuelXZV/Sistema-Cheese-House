@@ -18,14 +18,12 @@
         </ol>
         <div>
             @can('reportes')
-                {{-- <input type="month" wire:model='mouthReport' value="{{ $mouthReport }}"
-                    class="inline-flex items-center justify-center h-9 px-4 text-sm font-medium text-black bg-white rounded-lg hover:bg-white focus:outline-none focus:ring-4 focus:ring-white focus:ring-opacity-50"> --}}
-                <input type="month" wire:change="$set('mouthReport', $event.target.value)" value="{{ $mouthReport }}"
+                <input type="month" value="{{ $mouthReport }}" id="monthPicker"
                     class="inline-flex items-center justify-center h-9 px-4 text-sm font-medium text-black bg-white rounded-lg hover:bg-white focus:outline-none focus:ring-4 focus:ring-white focus:ring-opacity-50">
-                <a href="{{ route('reportes.ventasMensuales', $mouthReport) }}"
+                <button id="btnGenerarReporteMensual"
                     class="inline-flex items-center justify-center h-9 px-4 text-sm font-medium text-white bg-red-600 rounded-lg hover:bg-red-700 focus:outline-none focus:ring-4 focus:ring-red-500 focus:ring-opacity-50">
                     Reporte Mensual
-                </a>
+                </button>
                 <a href="{{ route('reportes.ventasAnuales') }}"
                     class="inline-flex items-center justify-center h-9 px-4 text-sm font-medium text-white bg-red-600 rounded-lg hover:bg-red-700 focus:outline-none focus:ring-4 focus:ring-red-500 focus:ring-opacity-50">
                     Reporte Anual
@@ -134,3 +132,18 @@
         <x-shared.pagination :modelo='$pedidos' />
     </div>
 </div>
+<script>
+    document.getElementById('btnGenerarReporteMensual').addEventListener('click', function() {
+        const monthValue = document.getElementById('monthPicker').value;
+
+        if (!monthValue) {
+            alert('Por favor selecciona un mes.');
+            return;
+        }
+
+        const baseUrl = "{{ route('reportes.ventasMensuales', '__month__') }}";
+        const finalUrl = baseUrl.replace('__month__', monthValue);
+
+        window.open(finalUrl, '_blank');
+    });
+</script>
