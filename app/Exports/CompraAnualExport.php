@@ -2,11 +2,11 @@
 
 namespace App\Exports;
 
-use App\Models\Pedido;
+use App\Models\NotaCompra;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 
-class PedidoAnualExport implements FromCollection, WithHeadings
+class CompraAnualExport implements FromCollection, WithHeadings
 {
     protected $encabezado;
     protected $anio;
@@ -22,33 +22,32 @@ class PedidoAnualExport implements FromCollection, WithHeadings
         $this->encabezado = [
             'ID',
             'Vendedor',
-            'Cliente',
+            'Proveedor',
             'Fecha',
             'Hora',
             'Monto Total',
-            'Metodo de Pago',
-            'Procedencia',
-            'Para',
-            'Detalles',
+            'Estado',
+            'Descripción',
+            'Tipo de Pago',
         ];
     }
 
     public function collection()
     {
-        return Pedido::join('users', 'users.id', '=', 'pedidos.user_id')
+        return NotaCompra::join('users', 'users.id', '=', 'nota_compras.user_id')
+            ->join('proveedors', 'proveedors.id', '=', 'nota_compras.proveedor_id')
             ->select(
-                'pedidos.id',
+                'nota_compras.id',
                 'users.name as vendedor',
-                'cliente',
+                'proveedors.nombre_empresa as cliente',
                 'fecha',
                 'hora',
                 'monto_total',
-                'metodo_pago',
-                'proveniente',
-                'tipo_pedido',
-                'detalles',
-            )->whereYear('pedidos.created_at', $this->anio)
-            ->orderBy('pedidos.created_at', 'DESC')
+                'estado',
+                'nota_compras.descripcion',
+                'tipo_pago',
+            )->whereYear('nota_compras.created_at', $this->anio)
+            ->orderBy('nota_compras.created_at', 'DESC')
             ->get();
     }
 }

@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use Maatwebsite\Excel\Excel;
 
 class ReporteController extends Controller
@@ -14,16 +13,28 @@ class ReporteController extends Controller
         $this->excel = $excel;
     }
 
-    public function reportesVentasAnuales()
+    public function reportesVentasAnuales($year)
     {
-        $name = date('d-m-Y') . '-ventas-anuales.xlsx';
-        return $this->excel->download(new \App\Exports\PedidoAnualExport, $name);
+        $name = date('Y', strtotime($year)) . '-ventas-anuales.xlsx';
+        return $this->excel->download(new \App\Exports\PedidoAnualExport($year), $name);
     }
 
     public function reportesVentasMensuales($mouth)
     {
         $name = $mouth . '-ventas-mensuales.xlsx';
         return $this->excel->download(new \App\Exports\PedidoMensualExport($mouth), $name);
+    }
+
+    public function reportesComprasAnuales($year)
+    {
+        $name = date('Y', strtotime($year)) . '-compras-anuales.xlsx';
+        return $this->excel->download(new \App\Exports\CompraAnualExport($year), $name);
+    }
+
+    public function reportesComprasMensuales($mouth)
+    {
+        $name = $mouth . '-compras-mensuales.xlsx';
+        return $this->excel->download(new \App\Exports\CompraMensualExport($mouth), $name);
     }
 
     public function reportesIngredientesAnuales()

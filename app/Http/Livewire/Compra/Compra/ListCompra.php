@@ -12,6 +12,12 @@ class ListCompra extends Component
     public $attribute = '';
     public $message = '';
     public $showMessage = false;
+    public $mouthReport = "";
+
+    public function mount()
+    {
+        $this->mouthReport = now()->format('Y-m');
+    }
 
     //Metodo de reinicio de buscador
     public function updatingAttribute()

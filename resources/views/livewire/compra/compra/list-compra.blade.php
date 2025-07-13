@@ -17,6 +17,18 @@
             </li>
         </ol>
         <div>
+            @can('reportes')
+                <input type="month" value="{{ $mouthReport }}" id="monthPicker"
+                    class="inline-flex items-center justify-center h-9 px-4 text-sm font-medium text-black bg-white rounded-lg hover:bg-white focus:outline-none focus:ring-4 focus:ring-white focus:ring-opacity-50">
+                <button id="btnGenerarReporteMensual"
+                    class="inline-flex items-center justify-center h-9 px-4 text-sm font-medium text-white bg-red-600 rounded-lg hover:bg-red-700 focus:outline-none focus:ring-4 focus:ring-red-500 focus:ring-opacity-50">
+                    Reporte Mensual
+                </button>
+                <button id="btnGenerarReporteAnual"
+                    class="inline-flex items-center justify-center h-9 px-4 text-sm font-medium text-white bg-red-600 rounded-lg hover:bg-red-700 focus:outline-none focus:ring-4 focus:ring-red-500 focus:ring-opacity-50">
+                    Reporte Anual
+                </button>
+            @endcan
             <a href="{{ route('compras.new') }}"
                 class="inline-flex items-center justify-center h-9 px-4 ml-5 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-500 focus:ring-opacity-50">
                 Nuevo
@@ -118,3 +130,31 @@
         <x-shared.pagination :modelo='$compras' />
     </div>
 </div>
+<script>
+    document.getElementById('btnGenerarReporteMensual').addEventListener('click', function() {
+        const monthValue = document.getElementById('monthPicker').value;
+
+        if (!monthValue) {
+            alert('Por favor selecciona un mes.');
+            return;
+        }
+
+        const baseUrl = "{{ route('reportes.comprasMensuales', '__month__') }}";
+        const finalUrl = baseUrl.replace('__month__', monthValue);
+
+        window.open(finalUrl, '_blank');
+    });
+    document.getElementById('btnGenerarReporteAnual').addEventListener('click', function() {
+        const monthValue = document.getElementById('monthPicker').value;
+
+        if (!monthValue) {
+            alert('Por favor selecciona un mes.');
+            return;
+        }
+
+        const baseUrl = "{{ route('reportes.comprasAnuales', '__month__') }}";
+        const finalUrl = baseUrl.replace('__month__', monthValue);
+
+        window.open(finalUrl, '_blank');
+    });
+</script>

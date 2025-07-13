@@ -24,10 +24,10 @@
                     class="inline-flex items-center justify-center h-9 px-4 text-sm font-medium text-white bg-red-600 rounded-lg hover:bg-red-700 focus:outline-none focus:ring-4 focus:ring-red-500 focus:ring-opacity-50">
                     Reporte Mensual
                 </button>
-                <a href="{{ route('reportes.ventasAnuales') }}"
+                <button id="btnGenerarReporteAnual"
                     class="inline-flex items-center justify-center h-9 px-4 text-sm font-medium text-white bg-red-600 rounded-lg hover:bg-red-700 focus:outline-none focus:ring-4 focus:ring-red-500 focus:ring-opacity-50">
                     Reporte Anual
-                </a>
+                </button>
             @endcan
             <a href="{{ route('pedidos.new') }}"
                 class="inline-flex items-center justify-center h-9 px-4 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-500 focus:ring-opacity-50">
@@ -142,6 +142,19 @@
         }
 
         const baseUrl = "{{ route('reportes.ventasMensuales', '__month__') }}";
+        const finalUrl = baseUrl.replace('__month__', monthValue);
+
+        window.open(finalUrl, '_blank');
+    });
+    document.getElementById('btnGenerarReporteAnual').addEventListener('click', function() {
+        const monthValue = document.getElementById('monthPicker').value;
+
+        if (!monthValue) {
+            alert('Por favor selecciona un mes.');
+            return;
+        }
+
+        const baseUrl = "{{ route('reportes.ventasAnuales', '__month__') }}";
         const finalUrl = baseUrl.replace('__month__', monthValue);
 
         window.open(finalUrl, '_blank');

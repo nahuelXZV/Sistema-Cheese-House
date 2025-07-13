@@ -67,8 +67,10 @@ Route::middleware([
 
     // Modulo Reportes
     Route::group(['prefix' => 'reportes', 'middleware' => ['can:reportes', 'auth']], function () {
-        Route::get('/reportes/ventas/anuales', [ReporteController::class, 'reportesVentasAnuales'])->name('reportes.ventasAnuales');
+        Route::get('/reportes/ventas/anuales/{year}', [ReporteController::class, 'reportesVentasAnuales'])->name('reportes.ventasAnuales');
         Route::get('/reportes/ventas/mensual/{mouth}', [ReporteController::class, 'reportesVentasMensuales'])->name('reportes.ventasMensuales');
+        Route::get('/reportes/compras/anuales/{year}', [ReporteController::class, 'reportesComprasAnuales'])->name('reportes.comprasAnuales');
+        Route::get('/reportes/compras/mensual/{mouth}', [ReporteController::class, 'reportesComprasMensuales'])->name('reportes.comprasMensuales');
         Route::get('/reportes/ingredientes/anual', [ReporteController::class, 'reportesIngredientesAnuales'])->name('reportes.ingredientesAnuales');
         Route::get('/reportes/ingredientes/mensual', [ReporteController::class, 'reportesIngredientesMensuales'])->name('reportes.ingredientesMensuales');
         Route::get('/reportes/ingredientes/diario/{date}', [ReporteController::class, 'reportesIngredientesDiarios'])->name('reportes.ingredientesDiarios');
