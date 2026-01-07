@@ -30,7 +30,7 @@ class NewUsuario extends Component
     {
         $this->validate([
             'userArray.name' => 'required',
-            'userArray.email' => 'required|email|unique:users,email,' . $this->userArray['id'],
+            'userArray.email' => 'required|email|unique:users,email',
             'userArray.rol' => 'required'
         ], User::$messages);
 
