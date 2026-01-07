@@ -35,7 +35,7 @@ class NewUsuario extends Component
         ], User::$messages);
 
         $this->userArray['password'] = Hash::make($this->userArray['password']);
-        $new = User::updated($this->userArray);
+        $new = User::create($this->userArray);
         if (!$new) {
             $this->message = 'Error al crear el usuario';
             $this->showMessage = true;
